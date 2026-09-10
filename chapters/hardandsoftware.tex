@@ -1,0 +1,136 @@
+
+\mychapter{Detailed Hardware \& Software Implementation}{Detailed Hardware \& Software Implementation}{}
+\label{chap:Detailed-Hardware-and-Software-Implementation}
+
+% Proposed Page Budget: 9 Pages (Pages 19 - 27)
+% Core Objective: Detail the physical construction, component integration, register configurations, and code architectures.
+
+This chapter details the transition from theoretical modeling to physical realization. It justifies the silicon selection, outlines the two-layer printed circuit board (PCB) design and routing strategies, and breaks down the embedded C++ architecture required to drive the analog front-end (AFE) and serve the real-time web interface.
+
+% Focus: Evaluate and justify the selection of the ESP32-S3 and AD5941 based on math constraints from Chapter 3.
+
+% TODO: Detail how the ESP32-S3 meets the RAM budget for on-board DSP arrays and WebSocket streaming.
+% TODO: Detail why the AD5941 was selected (e.g., dedicated potentiostat topology, high precision).
+% Discuss GPIO availability, SPI bus speeds, and hardware interrupt capabilities linking the two ICs.
+
+
+\mysection{Choosing a microcontroller}{Choosing a Microcontroller}
+\label{sec:choosing_mcu}
+
+In the previous section the requirements of the features that need to be available on the microcontroller were explored. The AD5941 interface requires a fast, dedicated hardware SPI bus and a few GPIO pins for interrupts/resets. The web server requires an integrated Wi-Fi radio, a robust TCP/IP stack, and significant RAM/flash to store and serve HTML/JavaScript files. The onboard display requires either I2C (for simple OLEDs) or a high-speed SPI/parallel interface for colour TFT screens. The edge-\ac{ML} engine requires relatively high clock speeds, hardware floating-point support, and enough memory to store model weights (likely using TensorFlow Lite for Microcontrollers).
+
+\mysubsection{Choosing the microcontroller family}{Choosing the Microcontroller Family}
+\label{sec:mcu_family}
+
+The range of microcontroller options is vast; there are three main architecture options available: STM32, Nordic (nRF52), and ESP, which are compared in Table~\ref{tab:mcu_family}.
+
+\begin{table}[H]
+    \caption{Comparison of candidate microcontroller families.}
+    \footnotesize
+    \centering
+    \begin{tabular}{p{3cm}p{5.5cm}p{5.5cm}}
+    \toprule
+        \textbf{Platform} & \textbf{Advantage} & \textbf{Disadvantage} \\
+    \midrule
+        STM32 & Golden standard for microcontrollers & Additional hardware needed for Wi-Fi \\
+        Nordic (nRF52) & Dominates the BLE space & Additional hardware needed for Wi-Fi \\
+        ESP & Native Wi-Fi, Bluetooth & --- \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:mcu_family}
+\end{table}
+
+Since ESP is the only family of microprocessors with native Wi-Fi, Bluetooth, and sufficient processing power, a decision needs to be made regarding which variant of these chips to select. Table~\ref{tab:esp_variants} compares the relevant ESP32 variants.
+
+\begin{table}[H]
+    \caption{Comparison of candidate ESP32 variants.}
+    \footnotesize
+    \centering
+    \begin{tabular}{p{3cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+    \toprule
+        \textbf{Variant} & \textbf{Core Architecture} & \textbf{AI/ML Hardware Acceleration} & \textbf{Best Fit For} \\
+    \midrule
+        ESP32 (Classic) & Dual-core Xtensa LX6 & No & General purpose, older designs \\
+        ESP32-C3 & Single-core RISC-V & No & Ultra-low power, but too weak for ML and Web \\
+        ESP32-S3 & Dual-core Xtensa LX7 & Yes (Vector Instructions) & Heavy compute, displays, ML \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:esp_variants}
+\end{table}
+
+
+
+
+\section{Physical Circuitry \& Electrode Interface Design}
+% Focus: Schematic design, PCB routing, and physical connections.
+
+% TODO: Present schematic connections between the ESP32-S3 and AD5941.
+% TODO: Discuss KiCad routing decisions, specifically ground plane stitching, analog/digital plane splitting, and decoupling capacitor placement to minimize noise.
+% TODO: Detail the physical connection to the screen-printed electrodes and active shielding for the high-impedance Reference Electrode line.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.9\textwidth]{figures/pcb_layout_2layer.png}
+    \caption{Custom two-layer PCB layout highlighting ground plane stitching and analog/digital signal separation.}
+    \label{fig:pcb_layout}
+\end{figure}
+
+\section{Analog Front-End (AFE) Register Configuration}
+% Focus: High-resolution configuration of the AD5941 SoC.
+
+% TODO: Detail the low-level register programming.
+% Explain configuration of the High-Speed and Low-Power DACs, the AFE sequencer, and the programmable gain amplifier (PGA).
+% Explain adjusting the internal hardware filters (Sinc3 and Sinc2) to match the voltammetric sweep rates.
+
+\begin{lstlisting}[caption={Example AD5941 AFE sequencer initialization for a voltammetric sweep.}, label={lst:ad5941_init}]
+// TODO: Insert your actual AD5941 sequencer or register initialization code here
+void AD5941_Init(void) {
+    // 1. Wake up AFE
+    AD5941_WakeUp();
+    // 2. Configure High-Speed DAC
+    // 3. Set PGA gain and Sinc filters
+}
+\end{lstlisting}
+
+\section{ESP32-S3 Firmware Architecture \& Real-Time Loop}
+% Focus: Multi-threaded embedded C++ software using FreeRTOS.
+
+% TODO: Explain task division in FreeRTOS.
+% Core 0: High-speed SPI interrupts, DMA buffer management, DSP filtering (Moving Average / Savitzky-Golay).
+% Core 1: WebSocket server, Wi-Fi stack management, user inputs.
+
+\begin{lstlisting}[caption={FreeRTOS task pinning to separate cores on the ESP32-S3.}, label={lst:freertos_tasks}]
+// TODO: Insert your FreeRTOS xTaskCreatePinnedToCore logic here
+xTaskCreatePinnedToCore(
+    DSP_SPI_Task,       // Task function
+    "DSP_Task",         // Task name
+    8192,               // Stack size
+    NULL,               // Parameters
+    configMAX_PRIORITIES - 1, // High priority
+    &Task1,             // Task handle
+    0                   // Pinned to Core 0
+);
+
+xTaskCreatePinnedToCore(
+    WebSocket_UI_Task,
+    "UI_Task",
+    8192,
+    NULL,
+    1,                  // Lower priority
+    &Task2,
+    1                   // Pinned to Core 1
+);
+\end{lstlisting}
+
+\section{Wireless Web GUI \& Interface Realization}
+% Focus: The user-facing software interface served from the ESP32-S3.
+
+% TODO: Detail how the HTML5/CSS3/JS web interface is stored and served locally via SPIFFS flash memory.
+% TODO: Explain the JavaScript WebSocket link implementation used to receive, parse, and plot the voltammetric sweeps in real-time.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.9\textwidth]{figures/gui_dashboard.png}
+    \caption{Real-time web interface served from SPIFFS, plotting DPV scans via WebSockets.}
+    \label{fig:web_gui}
+\end{figure}

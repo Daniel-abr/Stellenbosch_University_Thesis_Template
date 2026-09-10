@@ -1,0 +1,19 @@
+\acswitchoff 
+\babel@toc {afrikaans}{}\relax 
+\babel@toc {afrikaans}{}\relax 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The three-electrode electrochemical cell configuration (working, reference and counter electrodes).}}{4}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The \ac {DPV} excitation waveform, showing the staircase ramp, superimposed pulses, and the two current-sampling instants ($I_{\text {before}}$ and $I_{\text {end}}$) per step. }}{6}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces The classic 3-operational-amplifier potentiostat topology, showing the control amplifier, RE buffer, and TIA connected to the three electrodes.}}{8}{figure.caption.13}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System Architecture Diagram}}{15}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Randles equivalent circuit modeling the electrochemical cell interface.}}{16}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Finite state machine diagram for managing asynchronous tasks and WebSocket communication.}}{22}{figure.caption.19}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Custom two-layer PCB layout highlighting ground plane stitching and analog/digital signal separation.}}{24}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Real-time web interface served from SPIFFS, plotting DPV scans via WebSockets.}}{25}{figure.caption.23}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 

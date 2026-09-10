@@ -1,0 +1,24 @@
+\mychapter{Introduction}{Introduction}{}
+\label{chap:introduction}
+
+\section{Background and Motivation}
+The global landscape of analytical chemistry is currently experiencing a significant shift towards point-of-care medical diagnostics and on-site environmental testing. In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiretroviral medication, in local water systems. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity. DPV superimposes small pulses of potential onto a linear potential ramp or staircase. By measuring the current difference before and near the end of each pulse, the technique reduces background charging current and achieves high sensitivity. This makes DPV a foundational technique for isolating the minute faradaic currents required to detect trace pharmaceuticals outside of a laboratory environment.
+
+
+\section{Problem Statement}
+The primary barrier when testing water in South Africa is challening because of the tools required to perform accurate voltammetric analysis are costly, complex and lack in portability. The current commerically available potentiostat, such as the Palmsens4, systems serve as the gold standard for electrochemical analysis. However, these instruments are cost-prohibitive, physically bulky, and operate as closed-source devices. Consequently, it is impossible to integrate them deeply into custom, low-cost microfluidic or Internet of Things (IoT) architectures. While various open-source alternatives have been developed over the years, many remain tethered to external computers for power and data processing, or rely on proprietary applications that can become obsolete. This presents a distinct need for a smart, autonomous, wireless, and low-cost potentiostat alternative capable of conducting highly sensitive DPV measurements independently in the field.
+
+\section{Project Objectives and Scope}
+The primary objective of this project is to design and develop an open-source, wireless potentiostat tailored specifically for the DPV detection of antiretroviral medications in water. The scope of this project encompasses the following hardware and software implementations:
+\begin{itemize}
+    \item \textbf{Hardware Architecture:} The design will utilise the AD5941 SoC AFE, which offers a compact physical footprint and ultra-low power consumption for portable electrochemical and impedance-based sensing systems.
+    \item \textbf{Microcontroller Integration:} The system will be driven by an ESP32-S3 microcontroller, chosen for its dual-core Xtensa LX7 architecture and native Wi-Fi capabilities.
+    \item \textbf{Physical User Interface:} To solve the headless limitation of existing embedded designs, the hardware will include a standalone physical user interface consisting of an onboard display, two push buttons, and a rotary encoder.
+    \item \textbf{Electrochemical Interface:} The system will interface with a standard three-electrode setup consisting of a working, reference, and counter electrode. This three electrode setup can be used with a SPE or a traditional dupont connector.
+    \item \textbf{Software and Firmware:} Firmware will be developed in C. It will enable the system to execute DPV measurements, control the local GUI, and host an embedded web server for seamless data extraction via Wi-Fi.
+
+\end{itemize}
+
+\section{Report Layout}
+
+This section discuesses the reports layout and the contents of each chapter. The report is structured into ....
