@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.13)  10 SEP 2026 21:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.13)  19 OCT 2026 13:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1151,7 +1151,19 @@ File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@layerboxsaved@background=\box140
 ) (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-) (c:/texlive/2026/texmf-dist/tex/latex/algorithms/algorithm.sty
+) (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen362
+\pgfarrowlength=\dimen363
+\pgfarrowwidth=\dimen364
+\pgfarrowlinewidth=\dimen365
+) (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (c:/texlive/2026/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
  (c:/texlive/2026/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
@@ -1180,7 +1192,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 ) (c:/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen362
+\@linkdim=\dimen366
 \Hy@linkcounter=\count467
 \Hy@pagecounter=\count468
  (c:/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
@@ -1210,15 +1222,15 @@ Package hyperref Info: Bookmarks ON on input line 4466.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4805.
-\XeTeXLinkMargin=\dimen363
+\XeTeXLinkMargin=\dimen367
  (c:/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (c:/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count471
-\Field@Width=\dimen364
-\Fld@charsize=\dimen365
+\Field@Width=\dimen368
+\Fld@charsize=\dimen369
 Package hyperref Info: Hyper figures OFF on input line 6091.
 Package hyperref Info: Link nesting OFF on input line 6096.
 Package hyperref Info: Hyper index ON on input line 6099.
@@ -1245,7 +1257,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip173
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 368.
+Package hyperref Info: Option `colorlinks' set `true' on input line 369.
  (c:/texlive/2026/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
  (c:/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
@@ -1319,9 +1331,6 @@ Package: extramarks 2025/02/07 v5.2 Extra marks for LaTeX
 ) (c:/texlive/2026/texmf-dist/tex/latex/todonotes/todonotes.sty
 Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
 Package: todonotes 2024/01/05
- (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
 \c@@todonotes@numberoftodonotes=\count504
 ) (c:/texlive/2026/texmf-dist/tex/latex/psnfss/pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
@@ -1365,15 +1374,9 @@ Package cleveref Info: `listings' support loaded on input line 3131.
 Package cleveref Info: `subfig' support loaded on input line 3164.
 )
 ==> First Aid for cleveref.sty applied!
-) (c:/texlive/2026/texmf-dist/tex/latex/circuitikz/circuitikz.sty
+(c:/texlive/2026/texmf-dist/tex/latex/circuitikz/circuitikz.sty
 Package: circuitikz 2026/05/24{} The CircuiTikz circuit drawing package version 1.8.6
- (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
-File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowinset=\dimen366
-\pgfarrowlength=\dimen367
-\pgfarrowwidth=\dimen368
-\pgfarrowlinewidth=\dimen369
-) (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybending.code.tex
+ (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybending.code.tex
 File: tikzlibrarybending.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (c:/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmodulebending.code.tex
 File: pgfmodulebending.code.tex 2025-08-29 v3.1.11a (3.1.11a)
@@ -1412,63 +1415,106 @@ File: pgflibrarycurvilinear.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@circ@res@count=\count509
 ) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcircmultipoles.tex) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex
 \pgfcirc@labelshift=\dimen388
-) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex)) (./frontmatter/defined_acronyms.tex
-\c@g@acro@MFT@int=\count510
-\c@g@acro@DPV@int=\count511
-\c@g@acro@CV@int=\count512
-\c@g@acro@LSV@int=\count513
-\c@g@acro@SWV@int=\count514
-\c@g@acro@EIS@int=\count515
-\c@g@acro@TIA@int=\count516
-\c@g@acro@DAC@int=\count517
-\c@g@acro@ADC@int=\count518
-\c@g@acro@AFE@int=\count519
-\c@g@acro@SoC@int=\count520
-\c@g@acro@BOM@int=\count521
-\c@g@acro@LOD@int=\count522
-\c@g@acro@SNR@int=\count523
-\c@g@acro@GUI@int=\count524
-\c@g@acro@MCU@int=\count525
-\c@g@acro@BLE@int=\count526
-\c@g@acro@IoT@int=\count527
-\c@g@acro@ML@int=\count528
-\c@g@acro@RE@int=\count529
-\c@g@acro@CE@int=\count530
-\c@g@acro@WE@int=\count531
-\c@g@acro@SPE@int=\count532
-\c@g@acro@FreeRTOS@int=\count533
-\c@g@acro@CA@int=\count534
+) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (c:/texlive/2026/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex)) (c:/texlive/2026/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2026-05-15 v3.5.5 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count510
+\l__siunitx_number_exponent_fixed_int=\count511
+\l__siunitx_number_min_decimal_int=\count512
+\l__siunitx_number_min_integer_int=\count513
+\l__siunitx_number_round_precision_int=\count514
+\l__siunitx_number_lower_threshold_int=\count515
+\l__siunitx_number_upper_threshold_int=\count516
+\l__siunitx_number_group_first_int=\count517
+\l__siunitx_number_group_size_int=\count518
+\l__siunitx_number_group_min_int=\count519
+\l__siunitx_number_group_minimum_int=\count520
+\l__siunitx_compound_count_int=\count521
+\l__siunitx_table_tmp_box=\box144
+\l__siunitx_table_tmp_dim=\dimen389
+\l__siunitx_table_column_width_dim=\dimen390
+\l__siunitx_table_integer_box=\box145
+\l__siunitx_table_decimal_box=\box146
+\l__siunitx_table_uncert_box=\box147
+\l__siunitx_table_before_box=\box148
+\l__siunitx_table_after_box=\box149
+\l__siunitx_table_before_dim=\dimen391
+\l__siunitx_table_carry_dim=\dimen392
+\l__siunitx_unit_tmp_int=\count522
+\l__siunitx_unit_position_int=\count523
+\l__siunitx_unit_total_int=\count524
+\l__siunitx_sexagesimal_tmp_dim=\dimen393
+\l__siunitx_sexagesimal_marker_box=\box150
+\l__siunitx_sexagesimal_unit_box=\box151
+) (c:/texlive/2026/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+
+Couldn't patch \@starttoc
+)) (c:/texlive/2026/texmf-dist/tex/latex/hyphenat/hyphenat.sty
+Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
+\langwohyphens=\language92
+LaTeX Info: Redefining \_ on input line 43.
+) (./frontmatter/defined_acronyms.tex
+\c@g@acro@MFT@int=\count525
+\c@g@acro@DPV@int=\count526
+\c@g@acro@CV@int=\count527
+\c@g@acro@LSV@int=\count528
+\c@g@acro@SWV@int=\count529
+\c@g@acro@EIS@int=\count530
+\c@g@acro@TIA@int=\count531
+\c@g@acro@DAC@int=\count532
+\c@g@acro@ADC@int=\count533
+\c@g@acro@AFE@int=\count534
+\c@g@acro@SoC@int=\count535
+\c@g@acro@BOM@int=\count536
+\c@g@acro@LOD@int=\count537
+\c@g@acro@SNR@int=\count538
+\c@g@acro@GUI@int=\count539
+\c@g@acro@MCU@int=\count540
+\c@g@acro@BLE@int=\count541
+\c@g@acro@IoT@int=\count542
+\c@g@acro@RE@int=\count543
+\c@g@acro@CE@int=\count544
+\c@g@acro@WE@int=\count545
+\c@g@acro@SPE@int=\count546
+\c@g@acro@CA@int=\count547
+\c@g@acro@LDO@int=\count548
+\c@g@acro@LSB@int=\count549
+\c@g@acro@PSRR@int=\count550
+\c@g@acro@DMM@int=\count551
+\c@g@acro@PS4@int=\count552
+\c@g@acro@LCMS@int=\count553
+\c@g@acro@UWED@int=\count554
 ) (./frontmatter/definitions.tex) (./thesis.aux
 Package babel Info: 'afrikaans' activates 'dutch' shorthands.
 (babel)             Reported on input line 16.
-\g__glossaries_gls_ref_main_int=\count535
+\g__glossaries_gls_ref_main_int=\count555
 )
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 35.
-LaTeX Font Info:    Trying to load font information for T3+cmr on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 37.
+LaTeX Font Info:    Trying to load font information for T3+cmr on input line 37.
  (c:/texlive/2026/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1478,14 +1524,14 @@ LaTeX Font Info:    ... okay on input line 35.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(85.35826pt, 455.24411pt, 56.9055pt)
+* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
 * v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=455.24411pt
+* \textwidth=483.69687pt
 * \textheight=702.78308pt
-* \oddsidemargin=13.08827pt
-* \evensidemargin=13.08827pt
+* \oddsidemargin=-15.36449pt
+* \evensidemargin=-15.36449pt
 * \topmargin=-33.0119pt
 * \headheight=14.5pt
 * \headsep=19.8738pt
@@ -1514,20 +1560,26 @@ Package caption Info: supertabular package is loaded.
 Package caption Info: End \AtBeginDocument code.
 (c:/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count536
-\scratchdimen=\dimen389
-\scratchbox=\box144
-\nofMPsegments=\count537
-\nofMParguments=\count538
+\scratchcounter=\count556
+\scratchdimen=\dimen394
+\scratchbox=\box152
+\nofMPsegments=\count557
+\nofMParguments=\count558
 \everyMPshowfont=\toks66
-\MPscratchCnt=\count539
-\MPscratchDim=\dimen390
-\MPnumerator=\count540
-\makeMPintoPDFobject=\count541
+\MPscratchCnt=\count559
+\MPscratchDim=\dimen395
+\MPnumerator=\count560
+\makeMPintoPDFobject=\count561
 \everyMPtoPDFconversion=\toks67
 ) (c:/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+ (c:/texlive/2026/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
  (c:/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) (c:/texlive/2026/texmf-dist/tex/latex/pdflscape/pdflscape.sty
@@ -1539,13 +1591,13 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-LaTeX Info: Redefining \microtypecontext on input line 35.
-Package microtype Info: Applying patch `item' on input line 35.
-Package microtype Info: Applying patch `toc' on input line 35.
-Package microtype Info: Applying patch `eqnum' on input line 35.
-Package microtype Info: Applying patch `footnote' on input line 35.
-Package microtype Info: Applying patch `verbatim' on input line 35.
-LaTeX Info: Redefining \microtypesetup on input line 35.
+LaTeX Info: Redefining \microtypecontext on input line 37.
+Package microtype Info: Applying patch `item' on input line 37.
+Package microtype Info: Applying patch `toc' on input line 37.
+Package microtype Info: Applying patch `eqnum' on input line 37.
+Package microtype Info: Applying patch `footnote' on input line 37.
+Package microtype Info: Applying patch `verbatim' on input line 37.
+LaTeX Info: Redefining \microtypesetup on input line 37.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1559,14 +1611,14 @@ Package microtype Info: No adjustment of character kerning.
  (c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-\c@lstlisting=\count542
-Package tocbasic Info: setting babel extension for `lol' on input line 35.
-Package translations Info: no dictionary file `translations-basic-dictionary-afrikaans.trsl' found. on input line 35.
+\c@lstlisting=\count562
+Package tocbasic Info: setting babel extension for `lol' on input line 37.
+Package translations Info: no dictionary file `translations-basic-dictionary-afrikaans.trsl' found. on input line 37.
  (c:/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 35.
-Package hyperref Info: Link coloring ON on input line 35.
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 37.
+Package hyperref Info: Link coloring ON on input line 37.
  (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
@@ -1607,7 +1659,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<stb-thesis-frntp.pdf, id=251, 597.50786pt x 845.04686pt>
+<stb-thesis-frntp.pdf, id=399, 597.50786pt x 845.04686pt>
 File: stb-thesis-frntp.pdf Graphic file (type pdf)
 <use stb-thesis-frntp.pdf>
 Package pdftex.def Info: stb-thesis-frntp.pdf  used on input line 3.
@@ -1629,30 +1681,22 @@ Package microtype Info: Character `029' is missing
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/24.88'.
 (microtype)             Ignoring protrusion settings for this character.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 6.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 6.
-) (./frontmatter/declaration.tex) [1
-
-
-]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 42.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (./frontmatter/abstract.tex [2
+)) (./frontmatter/declaration.tex) [1
 
-{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [3
+
+{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] (./frontmatter/abstract.tex [2
+
+] [3
 
 ]) [4
 
 ] (./thesis.toc [5
 
 
-])
-\tf@toc=\write6
-\openout6 = `thesis.toc'.
-
+]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/12'.
 (microtype)             Ignoring protrusion settings for this character.
@@ -1664,21 +1708,57 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[6] (./thesis.lof)
+[6{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[7]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[8])
+\tf@toc=\write6
+\openout6 = `thesis.toc'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[9] (./thesis.lof [10
+
+{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}])
 \tf@lof=\write7
 \openout7 = `thesis.lof'.
 
- [7
 
-{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] (./thesis.lot)
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[11] (./thesis.lot)
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
- [8
+ [12
 
 ] (./frontmatter/nomenclature.tex
 No file thesis.nls.
-(./frontmatter/variables_and_functions.tex) [9
+(./frontmatter/variables_and_functions.tex) [13
 
 
 ]
@@ -1691,16 +1771,28 @@ Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 13.
 
 
+Overfull \vbox (31.23495pt too high) has occurred while \output is active []
+
+
+
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
 (fancyhdr)                \setlength{\headheight}{27.11653pt}.
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[10]
+[14]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[15]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 1)
+(glossaries)             referenced entries: 5)
 
 LaTeX Font Info:    Font shape `T1/lmr/bx/sc' in size <12> not available
 (Font)              Font shape `T1/cmr/bx/sc' tried instead on input line 20.
@@ -1711,16 +1803,16 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61652pt}.
 
-[11{c:/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]) (./chapters/introduction.tex
+[16{c:/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]) (./chapters/introduction.tex
 Chapter 1.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.11 \section{Project Objectives and Scope}
-                                            [1
+l.11 \section{Project Aim, Objectives and Scope}
+                                                 [1
 
-]) (./chapters/literature.tex
+]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1728,56 +1820,51 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[2]
+[2]) (./chapters/literature.tex
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[3]
 Chapter 2.
+<figures/3opamp.jpeg, id=845, 1284.8pt x 600.2425pt>
+File: figures/3opamp.jpeg Graphic file (type jpg)
+<use figures/3opamp.jpeg>
+Package pdftex.def Info: figures/3opamp.jpeg  used on input line 21.
+(pdftex.def)             Requested size: 338.58632pt x 158.18423pt.
+[4
+
+ <./figures/3opamp.jpeg>]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/14.4'.
 (microtype)             Ignoring protrusion settings for this character.
-[3
-
-]
-<figures/electrode.png, id=517, 247.67531pt x 225.09094pt>
-File: figures/electrode.png Graphic file (type png)
-<use figures/electrode.png>
-Package pdftex.def Info: figures/electrode.png  used on input line 21.
-(pdftex.def)             Requested size: 273.14923pt x 248.26022pt.
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                Make it at least 28.01804pt, for example:
+(fancyhdr)                \setlength{\headheight}{28.01804pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.51804pt}.
 
-[4 <./figures/electrode.png>]
-<figures/pulse.png, id=533, 236.1915pt x 183.6315pt>
-File: figures/pulse.png Graphic file (type png)
-<use figures/pulse.png>
-Package pdftex.def Info: figures/pulse.png  used on input line 63.
-(pdftex.def)             Requested size: 318.66948pt x 247.75732pt.
+[5]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 64.
+(Font)              <10.95> on input line 127.
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                Make it at least 28.01804pt, for example:
+(fancyhdr)                \setlength{\headheight}{28.01804pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.51804pt}.
 
-[5{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
-
-[6 <./figures/pulse.png>]
-Underfull \hbox (badness 1033) in paragraph at lines 90--90
-|[]\T1/lmr/m/sc/14.4 (+20) The Clas-sic 3-Operational Am-pli-fier Po-ten-tio-stat
- []
-
+[6]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1786,11 +1873,41 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [7]
-<figures/3opamp.jpeg, id=559, 1284.8pt x 600.2425pt>
-File: figures/3opamp.jpeg Graphic file (type jpg)
-<use figures/3opamp.jpeg>
-Package pdftex.def Info: figures/3opamp.jpeg  used on input line 104.
-(pdftex.def)             Requested size: 318.66948pt x 148.87874pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 180.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 180.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 180.
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+\T1/lmr/m/n/10 (+20) component-level tun-ing for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
+[]|\T1/lmr/m/n/10 (+20) Millimeter-scale phys-i-cal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
+\T1/lmr/m/n/10 (+20) foot-print, very low power
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+[]|\T1/lmr/m/n/10 (+20) Hard-capped com-pli-ance
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+\T1/lmr/m/n/10 (+20) cur-rent mea-sure-ment ranges,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+\T1/lmr/m/n/10 (+20) lim-ited deep cus-tomi-sa-tion,
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
@@ -1799,19 +1916,24 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[8 <./figures/3opamp.jpeg>]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 135.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 135.
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
-[]|\T1/lmr/bx/n/10 (+20) Implementation Ap-
+[8]
+Overfull \hbox (13.18903pt too wide) in paragraph at lines 222--223
+\T1/lmr/m/n/6 (-20) (PCB/Firmware/GUI)|  
  []
 
 
-Underfull \hbox (badness 2617) in paragraph at lines 144--144
-[]|\T1/lmr/m/n/10 (+20) Millimeter-scale phys-i-cal foot-
+Overfull \hbox (7.30869pt too wide) in paragraph at lines 223--223
+[]|\T1/lmr/m/n/6 (-20) Smartphone-Integrated 
+ []
+
+
+Overfull \hbox (11.48137pt too wide) in paragraph at lines 224--225
+\T1/lmr/m/n/6 (-20) (Hard-ware/Firmware)|  
+ []
+
+
+Overfull \hbox (12.86847pt too wide) in paragraph at lines 208--228
+ [][] 
  []
 
 
@@ -1821,7 +1943,11 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[9]
+[9]) (./chapters/modeling.tex (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
+File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
+File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1830,24 +1956,14 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [10]
+Chapter 3.
+[11
 
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
-
-[11]
-Overfull \hbox (13.18903pt too wide) in paragraph at lines 213--214
-\T1/lmr/m/n/6 (-20) (PCB/Firmware/GUI)|  
+]
+Underfull \hbox (badness 2781) in paragraph at lines 146--146
+|[]\T1/lmr/m/sc/17.28 (+20) Electrochemical Cell & Equiv-a-lent Cir-cuit
  []
 
-
-Overfull \hbox (41.32123pt too wide) in paragraph at lines 199--221
- [][] 
- []
-
-) (./chapters/systemdesign.tex
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1864,31 +1980,38 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [13]
-Chapter 3.
-<figures/SystemArchitecture.pdf, id=625, 1052.97382pt x 1164.26962pt>
-File: figures/SystemArchitecture.pdf Graphic file (type pdf)
-<use figures/SystemArchitecture.pdf>
-Package pdftex.def Info: figures/SystemArchitecture.pdf  used on input line 12.
-(pdftex.def)             Requested size: 409.71692pt x 453.01518pt.
-[14
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[14{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]) (./chapters/hardware_design.tex
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[15]
+Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--19
+[]\T1/lmr/bx/n/12 (+20) [TODO: Ref-er-ence for com-par-ing mi-cro-con-trollers fam-ily.] \T1/lmr/m/n/12 (+20) The
+ []
+
+[16
 
 ]
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/8'.
+(microtype)             Ignoring protrusion settings for this character.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/6'.
+(microtype)             Ignoring protrusion settings for this character.
 
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
-
-[15 <./figures/SystemArchitecture.pdf>]
-
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
-
-[16]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1897,6 +2020,15 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [17]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 139.
+ (c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1905,19 +2037,6 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [18]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 177.
-Package microtype Info: Character `029' is missing
-(microtype)             in font `T1/lmr/m/sc/10'.
-(microtype)             Ignoring protrusion settings for this character.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@textsubscript' on input line 177.
-
-
-Package natbib Warning: Citation `graeme1996' on page 19 undefined on input line 179.
-
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1927,20 +2046,13 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [19]
 
-Package natbib Warning: Citation `ying2021' on page 20 undefined on input line 252.
-
-
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
 (fancyhdr)                \setlength{\headheight}{27.11653pt}.
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[20{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
-
-Package natbib Warning: Citation `graeme1996' on page 21 undefined on input line 256.
-
-) (./chapters/hardandsoftware.tex
+[20]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1956,30 +2068,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[22]
-Chapter 4.
-[23
-
-]
-Underfull \hbox (badness 7522) in paragraph at lines 51--51
-[]|\T1/lmr/bx/n/10 (+20) AI/ML Hard-ware
- []
-
-
-Underfull \hbox (badness 3954) in paragraph at lines 55--55
-[]|\T1/lmr/m/n/10 (+20) Yes (Vec-tor In-struc-
- []
-
-
-Underfull \hbox (badness 1946) in paragraph at lines 55--56
-[]|\T1/lmr/m/n/10 (+20) Heavy com-pute, dis-
- []
-
-
-Overfull \hbox (115.80243pt too wide) in paragraph at lines 86--87
-[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
+[22]) (./chapters/software_design.tex
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1987,7 +2076,11 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[24]) (./chapters/conclusion.tex
+[23]
+Chapter 5.
+[24
+
+]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -1996,20 +2089,55 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [25]
-Chapter 5.
-) [26
 
-] (./thesis.bbl [27
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[26]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[27]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[28]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[29]) (./chapters/testing.tex
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[30]
+Chapter 6.
+[31
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
-[]\T1/lmr/m/n/12 (+20) Automation World, ``Blue-tooth for in-dus-trial de-vice com-mu-ni-ca-tions,''
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
-[][]$\T1/lmr/m/n/12 (+20) https : / / www . automationworld . com / communication / article / 55277940 /
- []
+<figures/Testing/waveform.pdf, id=1244, 462.62733pt x 327.39064pt>
+File: figures/Testing/waveform.pdf Graphic file (type pdf)
+<use figures/Testing/waveform.pdf>
+Package pdftex.def Info: figures/Testing/waveform.pdf  used on input line 89.
+(pdftex.def)             Requested size: 377.28296pt x 266.99335pt.
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
@@ -2018,47 +2146,307 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[28]) (./appendices/appendices.tex (./appendices/an_appendix.tex
+[32 <./figures/Testing/waveform.pdf>]
 
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 27.11653pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.11653pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+Package siunitx Info: Option "separate-uncertainty" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "uncertainty-mode = separate" as a replacement.
 
-[29]
-Appendix A.
-))
 
-Package caption Warning: Unused \captionsetup[algorithm] on input line 376.
+
+Package caption Warning: \label without proper reference on input line 179.
 See the caption package documentation for explanation.
 
 
-Package natbib Warning: There were undefined citations.
+LaTeX Warning: Reference `tab:rtia_cal_tbl' on page 33 undefined on input line 172.
 
-[30
 
-] (./thesis.aux)
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[33]
+<figures/Testing/randles_wec_top.png, id=1272, 578.16pt x 259.2084pt>
+File: figures/Testing/randles_wec_top.png Graphic file (type png)
+<use figures/Testing/randles_wec_top.png>
+Package pdftex.def Info: figures/Testing/randles_wec_top.png  used on input line 261.
+(pdftex.def)             Requested size: 237.01411pt x 106.2603pt.
+<figures/Testing/randles_cell3_top.png, id=1273, 578.16pt x 259.2084pt>
+File: figures/Testing/randles_cell3_top.png Graphic file (type png)
+<use figures/Testing/randles_cell3_top.png>
+Package pdftex.def Info: figures/Testing/randles_cell3_top.png  used on input line 265.
+(pdftex.def)             Requested size: 237.01411pt x 106.2603pt.
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[34]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[35 <./figures/Testing/randles_wec_top.png (PNG copy)> <./figures/Testing/randles_cell3_top.png (PNG copy)>]
+<figures/Testing/salt_pairs.pdf, id=1286, 450.04323pt x 262.33571pt>
+File: figures/Testing/salt_pairs.pdf Graphic file (type pdf)
+<use figures/Testing/salt_pairs.pdf>
+Package pdftex.def Info: figures/Testing/salt_pairs.pdf  used on input line 302.
+(pdftex.def)             Requested size: 338.58632pt x 197.36774pt.
+<figures/Testing/salt_line_fit.pdf, id=1290, 233.21504pt x 175.70721pt>
+File: figures/Testing/salt_line_fit.pdf Graphic file (type pdf)
+<use figures/Testing/salt_line_fit.pdf>
+Package pdftex.def Info: figures/Testing/salt_line_fit.pdf  used on input line 346.
+(pdftex.def)             Requested size: 241.84843pt x 182.21909pt.
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[36 <./figures/Testing/salt_pairs.pdf>]
+<figures/Testing/fc_pairs.pdf, id=1321, 463.45871pt x 175.6161pt>
+File: figures/Testing/fc_pairs.pdf Graphic file (type pdf)
+<use figures/Testing/fc_pairs.pdf>
+Package pdftex.def Info: figures/Testing/fc_pairs.pdf  used on input line 368.
+(pdftex.def)             Requested size: 386.95897pt x 146.63222pt.
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[37 <./figures/Testing/salt_line_fit.pdf> <./figures/Testing/fc_pairs.pdf>]
+<figures/Testing/fc_compare.pdf, id=1391, 439.61095pt x 189.87312pt>
+File: figures/Testing/fc_compare.pdf Graphic file (type pdf)
+<use figures/Testing/fc_compare.pdf>
+Package pdftex.def Info: figures/Testing/fc_compare.pdf  used on input line 386.
+(pdftex.def)             Requested size: 411.14528pt x 177.58261pt.
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[38 <./figures/Testing/fc_compare.pdf>]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[39]) (./chapters/conclusion.tex
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[40]
+Chapter 7.
+) [41
+
+] (./thesis.bbl [42
+
+]
+Underfull \hbox (badness 3861) in paragraph at lines 70--71
+\T1/lmr/m/n/12 (+20) re-search^^Vthe three elec-trode sys-tem,'' July 2026, [][]$https : / / iestbattery . com / case /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+\T1/lmr/m/n/12 (+20) an-a-lyzer,'' [][]$https : / / www . palmsens . com / product / multi-[]emstat4/$[][], 2026, ac-cessed:
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[43]
+Overfull \hbox (0.56113pt too wide) in paragraph at lines 121--122
+[]\T1/lmr/m/n/12 (-20) F. Lisdat and D. Schäfer, ``The use of electrochemical impedance spectroscopy for biosensing,''
+ []
+
+
+Underfull \hbox (badness 2302) in paragraph at lines 127--128
+[]\T1/lmr/m/n/12 (+20) PalmSens. (2026) Ca-pac-i-tive cur-rent. Palm-Sens BV. [][]$https : / / www . palmsens . com /
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[44]
+Underfull \hbox (badness 2401) in paragraph at lines 151--152
+[]\T1/lmr/m/n/12 (+20) ------, \T1/lmr/m/it/12 (+20) AD5940/AD5941: High Pre-ci-sion, Impedance, and Elec-tro-chem-i-cal Front
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[45]
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+\T1/lmr/m/n/12 (+20) allpcb . com / allelectrohub / the-[]engineers-[]guide-[]to-[]switch-[]contact-[]debounce-[]techniques$[][].
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[46]) (./appendices/appendices.tex
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[47]
+Appendix A.
+[48
+
+]
+Appendix B.
+[49
+
+]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[50]
+
+LaTeX Warning: Reference `fig:tia' on page 51 undefined on input line 191.
+
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[51]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[52]
+Appendix C.
+[53
+
+]
+Appendix D.
+[54
+
+]
+Appendix E.
+[55
+
+]
+Appendix F.
+[56
+
+]
+Appendix G.
+<figures/dashboard.png, id=1657, 1444.64719pt x 679.03688pt>
+File: figures/dashboard.png Graphic file (type png)
+<use figures/dashboard.png>
+Package pdftex.def Info: figures/dashboard.png  used on input line 401.
+(pdftex.def)             Requested size: 338.58632pt x 159.14886pt.
+[57
+
+ <./figures/dashboard.png>]
+Appendix H.
+<figures/KicadExport.pdf, id=1664, 845.07724pt x 597.55246pt>
+File: figures/KicadExport.pdf Graphic file (type pdf)
+<use figures/KicadExport.pdf>
+Package pdftex.def Info: figures/KicadExport.pdf  used on input line 411.
+(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
+[58
+
+ <./figures/KicadExport.pdf>]
+Appendix I.
+<figures/pcbexport.pdf, id=1670, 845.07724pt x 597.55246pt>
+File: figures/pcbexport.pdf Graphic file (type pdf)
+<use figures/pcbexport.pdf>
+Package pdftex.def Info: figures/pcbexport.pdf  used on input line 420.
+(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
+[59
+
+ <./figures/pcbexport.pdf>]
+Appendix J.
+<figures/case model.png, id=1676, 1806.75pt x 1405.25pt>
+File: figures/case model.png Graphic file (type png)
+<use figures/case model.png>
+Package pdftex.def Info: figures/case model.png  used on input line 431.
+(pdftex.def)             Requested size: 338.58632pt x 263.33363pt.
+)
+
+Package caption Warning: Unused \captionsetup[algorithm] on input line 377.
+See the caption package documentation for explanation.
+
+[60
+
+ <./figures/case model.png>] (./thesis.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 7C08F68301C8E5A715DA9D4313DC5159;13004.
+(rerunfilecheck)             Checksum: D8C2EA06704A90D18B59F1AFBDFEBFAF;16954.
  ) 
 Here is how much of TeX's memory you used:
- 73760 strings out of 467168
- 1716587 string characters out of 5413705
- 2697130 words of memory out of 5000000
- 101610 multiletter control sequences out of 15000+600000
- 757168 words of font info for 278 fonts, out of 8000000 for 9000
+ 79319 strings out of 467168
+ 1879010 string characters out of 5413705
+ 2816709 words of memory out of 5000000
+ 106859 multiletter control sequences out of 15000+600000
+ 777492 words of font info for 352 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 200i,15n,302p,2647b,2066s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb>
-Output written on thesis.pdf (43 pages, 672143 bytes).
+ 201i,15n,302p,2647b,1384s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb>
+Output written on thesis.pdf (78 pages, 2006211 bytes).
 PDF statistics:
- 949 PDF objects out of 1000 (max. 8388607)
- 838 compressed objects within 9 object streams
- 196 named destinations out of 1000 (max. 500000)
- 64526 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 1891 PDF objects out of 2073 (max. 8388607)
+ 1623 compressed objects within 17 object streams
+ 334 named destinations out of 1000 (max. 500000)
+ 88418 words of extra memory for PDF output out of 89155 (max. 10000000)
 

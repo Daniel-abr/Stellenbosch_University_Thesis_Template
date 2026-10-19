@@ -4,16 +4,40 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The three-electrode electrochemical cell configuration (working, reference and counter electrodes).}}{4}{figure.caption.11}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The \ac {DPV} excitation waveform, showing the staircase ramp, superimposed pulses, and the two current-sampling instants ($I_{\text {before}}$ and $I_{\text {end}}$) per step. }}{6}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces The classic 3-operational-amplifier potentiostat topology, showing the control amplifier, RE buffer, and TIA connected to the three electrodes.}}{8}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The classic 3-operational-amplifier potentiostat topology, showing the control amplifier, RE buffer, and TIA connected to the three electrodes.}}{4}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Waveform profile for DPV. Grey blocks represent the current sampling windows. Where frequency is $f = 1/T_{\text {pulse}}$. Adapted from \cite {palmsens2026dpv}.}}{6}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces System Architecture Diagram}}{15}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Randles equivalent circuit modeling the electrochemical cell interface.}}{16}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Finite state machine diagram for managing asynchronous tasks and WebSocket communication.}}{22}{figure.caption.19}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Custom two-layer PCB layout highlighting ground plane stitching and analog/digital signal separation.}}{24}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Real-time web interface served from SPIFFS, plotting DPV scans via WebSockets.}}{25}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Software architecture. Arrows show the direction of calls or data.}}{11}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Randles equivalent circuit modeling the electrochemical cell interface.}}{12}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Electrochemical cell equivalent circuit interfaced with the reference electrode buffer.}}{14}{figure.caption.18}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Top-level program flow: start-up sequence (left) and the cooperative main loop (right).}}{25}{figure.caption.20}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces One DPV step with the default timing. Shaded bands show the two averaging windows.}}{28}{figure.caption.22}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Automatic selection of the TIA range before a scan.}}{30}{figure.caption.23}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Excitation waveform measured with the oscilloscope. (a) The complete staircase. (b) One cycle with the measured quantities. (c) Height of every step against 9 and 10 LSB of the AD5941 12-bit DAC.}}{32}{figure.caption.25}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces DPV scans of the dummy cell WE~C (left) and Cell~3 (right) from \SIrange {0.8}{1.3}{\volt }.}}{35}{figure.caption.29}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$ used for the calibration line of Section~\ref {sec:salt_line}.}}{36}{figure.caption.30}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Calibration line through the five salt points at $E^* = \SI {0.10}{\volt }$, with the points at all other potentials.}}{37}{figure.caption.32}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Ferricyanide DPV scans on the same drop, OpenStat{} run against PalmSens4 run.}}{37}{figure.caption.33}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces The three ferricyanide pairs. (a) Peak height of the OpenStat{} against the PalmSens4. (b) Potential offset of the OpenStat{} curve against the peak current.}}{38}{figure.caption.34}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Control loop block diagram for the analog front-end.}}{50}{figure.caption.38}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {E.1}{\ignorespaces Flow of one DPV scan.}}{55}{figure.caption.41}%
+\contentsline {figure}{\numberline {E.2}{\ignorespaces Step routine. $t_\text {b} = T - t_\text {p}$ is the base dwell.}}{55}{figure.caption.41}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {G.1}{\ignorespaces The webserver dashboard for the potentiostat.}}{57}{figure.caption.43}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {H.1}{\ignorespaces The KiCad schematic for the potentiostat.}}{58}{figure.caption.44}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {I.1}{\ignorespaces The KiCad PCB for the potentiostat.}}{59}{figure.caption.45}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {J.1}{\ignorespaces The case render for the potentiostat.}}{60}{figure.caption.46}%
 \contentsfinish 

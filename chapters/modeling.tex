@@ -1,0 +1,405 @@
+\providecommand{\swtodo}[1]{\textbf{[TODO: #1]}}
+
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, fit, patterns}
+
+\tikzset{
+  swbase/.style={draw, align=center, font=\footnotesize, inner sep=3pt,
+                 line width=0.5pt,
+                 execute at begin node={\hyphenpenalty=10000\relax\exhyphenpenalty=10000\relax}},
+  swproc/.style={swbase, rectangle, minimum height=7mm, text width=#1},
+  swproc/.default=34mm,
+  swterm/.style={swbase, rectangle, rounded corners=3.4mm,
+                 minimum height=7mm, text width=#1},
+  swterm/.default=30mm,
+  swdec/.style={swbase, diamond, aspect=2.4, inner sep=0.5pt, text width=#1},
+  swdec/.default=24mm,
+  % predefined process (detailed in another figure): box with side bars
+  swsub/.style={swproc=#1, inner xsep=4.5mm,
+    path picture={
+      \draw[line width=0.5pt]
+        ([xshift=1.6mm]path picture bounding box.north west) --
+        ([xshift=1.6mm]path picture bounding box.south west)
+        ([xshift=-1.6mm]path picture bounding box.north east) --
+        ([xshift=-1.6mm]path picture bounding box.south east);}},
+  swsub/.default=30mm,
+  swarr/.style={-{Latex[length=2mm]}, line width=0.5pt},
+  swdbl/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, line width=0.5pt},
+  swlbl/.style={font=\scriptsize, inner sep=1.5pt},
+  swhw/.style={swbase, rectangle, minimum height=8mm, text width=#1,
+               fill=black!10},
+  swhw/.default=26mm,
+}
+
+
+% =====================================================================
+%  Chapter 3 -- System Modeling & Theoretical Design  (shortened)
+%
+%
+%  Before compiling, check these against your own source:
+%
+%  1. FIGURES. The figure environments are empty: paste in your existing
+%     drawing for each one (Figures 3.1, 3.2, 3.4 and 3.5 of the old
+%     chapter). Figure 3.3 (block diagram) now lives in the appendix.
+%
+%  2. LABELS IN CHAPTER 2. I guessed these -- change them to yours:
+%       sec:dpv_waveform   -> Section 2.2.4 (waveform and sampling windows)
+%       eq:dpv_delta_i     -> Equation 2.1 (Delta I = I_end - I_before)
+%       sec:three_opamp    -> Section 2.3.2 (classic 3-op-amp topology)
+%
+%  3. CITATION KEYS (from mybib.bib). I couldn't see which key your old
+%     chapter used for each number, so I matched them by content:
+%       [15] Bard & Faulkner      -> bard2001
+%       [30] Randles              -> c5
+%       [31] Randles / EIS use    -> Lisdat2008      % CHECK
+%       [32] compliance voltage   -> pineresearch_compliance
+%       [33] capacitive current   -> palmsens_capacitive_current
+%       [35] feedback theory      -> c2 (Nise)
+%       [36-38] potentiostat instrumentation -> bard2001, c7, c8
+%       [39] voltage follower     -> c3 (Sedra & Smith)
+%       [40] photodiode TIA       -> graeme1996photodiode
+%       [41] input-capacitance compensation -> adi_mt059
+%       [42] TIA ringing          -> franco2014design
+%       AD5941 datasheet          -> ad5941_ds (from hardware_design_refs.bib)
+% =====================================================================
+
+\chapter{System Modeling \& Theoretical Design}
+\label{chap:modeling}
+
+This chapter breaks down the chosen system architecture into its constituent parts, and models each part to determine the requirements for the hardware and firmware. 
+
+% ---------------------------------------------------------------------
+\section{System Architecture}
+\label{sec:architecture}
+
+The architecture of the potentiostat that will be implemented is shown in
+Figure~\ref{fig:architecture}. 
+
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=\textwidth]{figures/SystemArchitecture}
+%   \caption{System architecture diagram.}
+%   \label{fig:architecture}
+% \end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    % --- external, top
+    \node[swhw=30mm] (browser) at (7.6, 6.9) {Browser dashboard};
+    \node[swhw=26mm] (pc)      at (12.8, 6.9) {Serial terminal};
+    % --- row A
+    \node[swproc=36mm] (screens) at (2.3, 5.0) {Screens and screen\\state machine};
+    \node[swproc=34mm] (web)     at (7.6, 5.0) {Web server\\(HTTP, WebSocket)};
+    \node[swproc=26mm] (serial)  at (12.8, 5.0) {Serial bench\\commands};
+    % --- row B
+    \node[swproc=16mm] (input)  at (0.5, 3.0) {Input\\manager};
+    \node[swproc=46mm, minimum height=10mm] (engine) at (7.6, 3.0)
+      {\textbf{Sweep engine}\\result buffer and storage};
+    \node[swproc=26mm] (params) at (12.8, 3.0) {Scan parameters\\(saved in NVS)};
+    % --- row C
+    \node[swproc=22mm] (render) at (3.1, 1.0) {Renderer};
+    \node[swproc=26mm] (driver) at (12.0, 1.0) {AD5941 driver};
+    % --- firmware boundary
+    \node[draw, dashed, line width=0.5pt, inner sep=3mm,
+          fit=(screens)(serial)(input)(render)(driver)(params)] (fw) {};
+    \node[swlbl, anchor=south west, font=\footnotesize\itshape]
+      at ([yshift=0.3mm]fw.north west) {ESP32-S3 firmware};
+    % --- hardware, bottom
+    \node[swhw=16mm] (enc)  at (0.5, -1.9) {Encoder,\\buttons};
+    \node[swhw=22mm] (tft)  at (3.1, -1.9) {TFT display};
+    \node[swhw=24mm] (sd)   at (7.6, -1.9) {microSD card};
+    \node[swhw=26mm] (afe)  at (12.0, -1.9) {AD5941 AFE};
+    % --- connections
+    \draw[swdbl] (browser) -- node[swlbl, right] {Wi-Fi} (web);
+    \draw[swdbl] (pc) -- node[swlbl, right] {USB} (serial);
+    \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.2] {GPIO,\\interrupts} (input);
+    \draw[swarr] (input.north) -- node[swlbl, left] {events}
+      (input.north |- screens.south);
+    \draw[swarr] ([xshift=-4mm]render.north |- screens.south) --
+      node[swlbl, left, pos=0.3] {draw} ([xshift=-4mm]render.north);
+    \draw[swdbl] ([xshift=16mm]screens.south) |-
+      node[swlbl, right, pos=0.22] {callbacks} (engine.west);
+    \draw[swarr] ([xshift=-17mm]engine.south) |-
+      node[swlbl, above, pos=0.75] {live trace} (render.east);
+    \draw[swdbl] (web) -- node[swlbl, left] {commands, points} (engine);
+    \draw[swarr] (serial.south) -- ++(0,-0.5) -| ([xshift=17mm]engine.north);
+    \draw[swdbl] (params) -- (engine);
+    \draw[swarr] ([xshift=17mm]engine.south) |- (driver.west);
+    \draw[swarr] (render) -- node[swlbl, right, pos=0.72] {SPI (HSPI)} (tft);
+    \draw[swdbl] (engine) -- node[swlbl, right, pos=0.86] {SPI (HSPI)} (sd);
+    \draw[swdbl] (driver) --
+      node[swlbl, right, align=left, pos=0.72] {SPI (FSPI),\\\SI{4}{\mega\hertz}} (afe);
+  \end{tikzpicture}
+  \caption{Software architecture.
+    Arrows show the direction of calls or data.}
+  \label{fig:architecture}
+\end{figure}
+
+The AD5941 analog front-end forms the analog
+core of the system. It applies the potential to the three-electrode cell and measures the resulting current. The ESP32-S3 controls the AD5941 over SPI, generates the
+DPV waveform timing, computes the differential current and stores the
+results. The main while loop manages these tasks alongside an embedded web server, which
+serves the results over Wi-Fi, and a local display driver, which allows the
+device to be operated through its buttons and screen without an external
+device.
+
+\section{Electrochemical Cell \& Equivalent Circuit Modeling}
+\label{sec:cell_model}
+
+\begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american, thick]
+        % Input from Working Electrode (WE)
+        \draw (0,0) node[anchor=east] {WE} to[short, o-] (0.5,0)
+        % Solution Resistance (Rs)
+        to[R, l=$R_s$] (2.5,0);
+        
+        % Split into parallel branches
+        % Top branch: Double Layer Capacitance (Cdl)
+        \draw (2.5,0) -- (2.5,1.5) 
+        to[C, l=$C_{dl}$] (6.5,1.5) -- (6.5,0);
+        
+        % Bottom branch: Charge Transfer Resistance (Rct) and Warburg (Zw)
+        \draw (2.5,0) -- (2.5,-1.5) 
+        to[R, l=$R_{ct}$] (4.5,-1.5)
+        to[generic, l=$Z_W$] (6.5,-1.5) -- (6.5,0);
+        
+        % Output to Counter/Reference Electrode (CE/RE)
+        \draw (6.5,0) to[short, -o] (7,0) node[anchor=west] {CE/RE};
+    \end{circuitikz}
+    \caption{Randles equivalent circuit modeling the electrochemical cell interface.}
+    \label{fig:randles_circuit}
+\end{figure}
+
+
+To design the loops that drive and measure the cell, the cell is reduced to
+an electrical model. The widely used Randles equivalent circuit
+\cite{c5}, shown in Figure~\ref{fig:randles_circuit}, models the
+electrode--electrolyte interface as the solution resistance $R_s$ in series
+with the double-layer capacitance $C_{dl}$, which is in parallel with the
+charge-transfer resistance $R_{ct}$ and the Warburg impedance $Z_W$. $Z_W$
+accounts for diffusion at low frequencies \cite{bard2001, Lisdat2008}.
+
+
+Each element places a specific demand on the potentiostat. The total
+resistance $R_s + R_{ct}$ is the load that the control amplifier must drive
+to sustain the faradaic current, and so sets the required compliance voltage
+\cite{pineresearch_compliance}. The time constant $R_sC_{dl}$ sets how
+quickly the double layer charges after each potential step, and therefore
+how long a DPV pulse must be held before the capacitive current has decayed
+\cite{bard2001}. $C_{dl}$ also enters the stability of both amplifier loops
+(Section~\ref{sec:afe_stability}). The pulse width, TIA gain and amplifier
+bandwidth are therefore set by the expected $R_s$, $C_{dl}$ and $R_{ct}$ of
+the electrode--analyte interface rather than chosen arbitrarily.
+
+\subsection{Capacitive Current Rejection in DPV}
+\label{sec:dpv_rejection}
+
+As described in Section~\ref{sec:dpv_waveform}, DPV samples the current just
+before each pulse ($I_\text{before}$) and at the end of the pulse
+($I_\text{end}$), and reports $\Delta I = I_\text{end} - I_\text{before}$
+(Equation~\ref{eq:dpv_diff}). After a potential step $\Delta E$, the
+capacitive current decays exponentially
+\cite{palmsens_capacitive_current},
+\begin{equation}
+  I_c(t) = \frac{\Delta E}{R_s}\, e^{-t/R_sC_{dl}},
+  \label{eq:ic}
+\end{equation}
+while the faradaic current follows the Cottrell equation \cite{bard2001},
+\begin{equation}
+  I_f(t) = \frac{nFA\sqrt{D}\,C^*}{\sqrt{\pi t}},
+  \label{eq:cottrell}
+\end{equation}
+where $n$ is the number of electrons transferred, $F$ is Faraday's constant,
+$A$ is the electrode area, $D$ is the diffusion coefficient and $C^*$ is the
+bulk analyte concentration. Because the exponential decays far faster than
+$1/\sqrt{t}$, both samples are taken after the capacitive transient has died
+away, so that $I_{c,\text{before}} \approx I_{c,\text{end}} \approx 0$ and
+\begin{equation}
+  \Delta I \approx I_{f,\text{end}} - I_{f,\text{before}}.
+  \label{eq:delta_if}
+\end{equation}
+The full expansion is given in Appendix~\ref{app:dpv}. In practice this sets
+a minimum pulse width: sampling at $t = 5R_sC_{dl}$ leaves less than
+\SI{1}{\percent} of the initial capacitive current ($e^{-5} \approx 0.007$).
+Because $\Delta I$ approximates the derivative of the faradaic
+current--potential curve, the voltammogram forms a peak which, for a
+reversible system, lies half a pulse amplitude away from the half-wave
+potential $E_{1/2}$ \cite{bard2001}.
+
+% ---------------------------------------------------------------------
+\section{Analog Front-End Stability}
+\label{sec:afe_stability}
+
+The AD5941 implements the three-amplifier topology of
+Section~\ref{sec:3opamp_topology}: the potentiostat amplifier acts as the control
+amplifier driving the CE, the RE is sensed through a high-impedance
+unity-gain stage, and the high-speed TIA holds the WE at virtual ground and
+converts the cell current to a voltage. The cell lies inside the feedback
+loops of the control amplifier and the TIA, so its double-layer capacitance
+affects the stability of both.
+
+Each loop is assessed with the phase-margin criterion. The loop gain
+$L(s) = A(s)\beta(s)$ is evaluated at the crossover frequency $\omega_c$,
+where $|L(j\omega_c)| = 1$, and the phase margin
+$\phi_\text{PM} = \SI{180}{\degree} + \angle L(j\omega_c)$ must be positive
+for the loop to be stable, with \SIrange{45}{65}{\degree} giving a
+well-damped response \cite{c2}. Both amplifiers are modeled with a single
+dominant pole, $A(s) = \omega_t/s$ with $\omega_t = 2\pi \cdot
+\text{GBW}$ \cite{bard2001}. The underlying feedback theory and the
+derivations of the results below are given in Appendix~\ref{app:feedback}.
+
+\subsection{Control Loop}
+\label{sec:control_loop}
+
+Only the high-frequency behaviour of the cell matters for stability. $R_{ct}$
+and $Z_W$ govern the slow faradaic response and are omitted, which reduces
+the cell to $C_{dl}$ in series with the uncompensated resistance $R_u$, the
+part of $R_s$ between the RE and the WE \cite{bard2001, c7, c8}. This
+reduced cell is shown in Figure~\ref{fig:cell_buffer}.
+
+\begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american, thick]
+        
+        % Block style for the RE buffer
+        \tikzset{
+            re_block/.style={
+                rectangle,
+                draw=teal!50!black,
+                fill=teal!80!black,
+                text=white,
+                rounded corners=3pt,
+                minimum width=3.8cm,
+                minimum height=1.2cm,
+                align=center
+            }
+        }
+
+        % 1. Left wire and CE node (Shifted left for clearance)
+        \draw (2,0) -- (0.5,0);
+        \fill (0.5,0) circle (2.5pt);
+        \node[above=0.15cm] at (0.5,0) {\textbf{CE}};
+        \node[below=0.15cm] at (-0.2,0) {\textsf{$e_o(s)$, Op-Amp A}};
+        
+        % Wire entering the dashed box
+        \draw (0.5,0) -- (2.0,0);
+        
+        % 2. Resistor Ru
+        \draw (2.0,0) to[R, l=$R_u$] (4.5,0);
+        
+        % 3. Center Tap (to RE buffer)
+        \fill (4.5,0) circle (2.5pt);
+        
+        % 4. Capacitor Cdl
+        \draw (4.5,0) to[C, l=$C_{dl}$] (7.0,0);
+        
+        % 5. Right wire, WE node, and Ground
+        \draw (7.0,0) -- (8.5,0);
+        \fill (8.5,0) circle (2.5pt);
+        \draw (8.5,0) node[ground]{}; 
+        
+        % Adjusted WE label position to not clash with ground symbol
+        \node[below=0.85cm, align=center] at (8.5,0) {\textbf{WE}\\ \textsf{Virtual ground (Op-Amp C, TIA)}};
+        
+        % 6. Dashed Box for Electrochemical Cell
+        % Adjusted dimensions to encompass R and C properly and leave room for text
+        \draw[dashed, draw=gray!80, thick] (1.6, -1.3) rectangle (7.4, 1.6);
+        
+        % Text shifted slightly inside the box so it doesn't overlap the border
+        \node[anchor=north west, text=gray!90] at (1.7, -0.5) {\textsf{Electrochemical cell ($R_u$, $C_{dl}$)}};
+        
+        % 7. RE Buffer Block
+        \node[re_block] (re_buffer) at (4.5, 2.7) {\textbf{RE buffer}\\ \textsf{Op-Amp B ($\beta\approx1$)}};
+        
+        % 8. Arrows to/from RE Buffer
+        \draw[-stealth, thick] (4.5,0) -- (re_buffer.south);
+        \draw[-stealth, thick] (re_buffer.north) -- (4.5, 4.4) node[above] {\textsf{\textbf{$E_{ref}(s)$ to summing junction}}};
+        
+    \end{circuitikz}
+    \caption{Electrochemical cell equivalent circuit interfaced with the reference electrode buffer.}
+    \label{fig:cell_buffer}
+\end{figure}
+
+
+The RE senses the voltage across $C_{dl}$, so the feedback factor is the
+divider formed by $R_u$ and $C_{dl}$ (Appendix~\ref{app:beta}):
+\begin{equation}
+  \beta(s) = \frac{1}{1 + s\tau_\text{cell}},
+  \qquad \tau_\text{cell} \equiv R_uC_{dl}.
+  \label{eq:beta}
+\end{equation}
+The loop gain of the control amplifier is then
+\begin{equation}
+  L_\text{ctrl}(s) = \frac{\omega_{t,\text{ctrl}}}{s\,(1 + s\tau_\text{cell})},
+  \label{eq:l_ctrl}
+\end{equation}
+which for $\omega \gg 1/\tau_\text{cell}$ crosses unity at
+\begin{equation}
+  \omega_{c,\text{ctrl}} \approx \sqrt{\frac{\omega_{t,\text{ctrl}}}{\tau_\text{cell}}}.
+  \label{eq:wc_ctrl}
+\end{equation}
+At this frequency the integrator contributes \SI{-90}{\degree} and the cell
+pole adds lag approaching a further \SI{-90}{\degree} as
+$\omega_{c,\text{ctrl}}\tau_\text{cell}$ grows, so the phase margin falls as
+$\tau_\text{cell}$ increases. $R_u$ is typically tens to a few hundred ohms
+in a well-conducting aqueous electrolyte \cite{bard2001}, so
+$\tau_\text{cell}$ is much smaller than the $R_fC_{dl}$ time constant of the
+TIA loop (Section~\ref{sec:tia_loop}), and the control loop is the less
+critical of the two. Because the gain-bandwidth product of the control
+amplifier is fixed inside the AD5941, this loop cannot be compensated in the
+design; instead it limits the cells that can be driven, since a
+high-resistance sample or a large electrode raises $\tau_\text{cell}$ and
+erodes the margin. The RE buffer is a voltage follower with $\beta = 1$;
+because its open-loop gain is large across the frequencies of interest, it
+contributes no significant pole \cite{c3}.
+
+\subsection{TIA Loop and Compensation}
+\label{sec:tia_loop}
+
+The WE connects directly to the inverting input of the TIA, so $C_{dl}$ shunts this node in the same way that
+the junction capacitance of a photodiode shunts the input of a photodiode
+amplifier \cite{graeme1996photodiode}.
+
+With a feedback resistor $R_f$, $C_{dl}$ introduces a zero into the noise
+gain (Appendix~\ref{app:tia}),
+\begin{equation}
+  NG(s) = 1 + sR_fC_{dl},
+  \qquad f_z = \frac{1}{2\pi R_fC_{dl}},
+  \label{eq:noise_gain}
+\end{equation}
+which appears as a second pole in the loop gain:
+\begin{equation}
+  L_\text{TIA}(s) = \frac{A(s)}{NG(s)}
+    = \frac{\omega_t}{s\,(1 + sR_fC_{dl})}.
+  \label{eq:l_tia}
+\end{equation}
+For $\omega \gg 1/R_fC_{dl}$ the crossover frequency is
+\begin{equation}
+  \omega_{c,\text{TIA}} \approx \sqrt{\frac{\omega_t}{R_fC_{dl}}}.
+  \label{eq:wc_tia}
+\end{equation}
+At this frequency both poles contribute close to \SI{-90}{\degree}, so the
+phase margin collapses towards \SI{0}{\degree} and the TIA rings or
+oscillates \cite{franco2014design}. Because $R_f$ must be large to resolve
+nanoampere currents, $R_fC_{dl} \gg R_uC_{dl}$, which makes this the
+critical loop.
+
+The loop is stabilised by placing a capacitor $C_f$ in parallel with $R_f$.
+$C_f$ adds a pole to the noise gain at $1/(2\pi R_fC_f)$, above the zero
+caused by $C_{dl}$, which levels off the noise gain before it meets the
+open-loop gain of the amplifier. Placing this pole at $f_z$ and the GBW gives a phase margin of about \SI{45}{\degree} or more
+\cite{graeme1996photodiode, adi_mt059}, for which
+\begin{equation}
+  C_f = \sqrt{\frac{C_{dl}}{2\pi R_f \cdot \text{GBW}}}.
+  \label{eq:cf}
+\end{equation}
+$C_f$ must therefore be sized for the largest expected $C_{dl}$ of the cell rather than chosen independently of it. In the AD5941, the capacitor in
+parallel with the high-speed TIA gain resistor is programmable from
+\SIrange{1}{63}{\pico\farad} in \SI{1}{\pico\farad} steps, alongside gain
+resistors from \SI{200}{\ohm} to \SI{160}{\kilo\ohm}
+\cite[p.~52]{ad5941_ds}, so Equation~\eqref{eq:cf} can be applied for each
+gain range.
+% CHECK: state here which C_TIA value(s) your firmware actually sets for
+% each RTIA range, and check Eq. (eq:cf) against the 63 pF maximum for your
+% electrode's C_dl -- see the note in chat.

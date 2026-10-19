@@ -1,5 +1,5 @@
 % Page layout
-\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 %\usepackage{cite}
 \usepackage{afterpage}
 \newcommand\blankpage{%
@@ -261,7 +261,7 @@
 
 
 % Mathematics
-%\usepackage[cmex10]{amsmath}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{cancel}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -333,6 +333,7 @@
 \usepackage{environ}
 \usepackage{tikz}
 \usetikzlibrary{fit,backgrounds,calc}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
 % Pseudo-code
 \usepackage{algorithm}  % should go before \usepackage{hyperref}
 \NewEnviron{defbox}[3]
@@ -574,3 +575,9 @@
 
 \usepackage{array}
 \usepackage{circuitikz}
+\usepackage{siunitx}
+
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+
+\usepackage[none]{hyphenat}
