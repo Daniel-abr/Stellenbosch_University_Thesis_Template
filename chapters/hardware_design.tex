@@ -1,15 +1,85 @@
-\providecommand{\hwtodo}[1]{\textbf{[TODO: #1]}}
+% Hardware Design Chapter
+
+\providecommand{\capstack}{}
+\renewcommand{\capstack}[1]{\begin{tabular}[c]{@{}l@{}}#1\end{tabular}}
 
 \chapter{Hardware Design}
 \label{chap:hardware_design}
 
-This chapter details the hardware design focused on ensuring that the prototype would function correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions of the ESP32-S3, the display, and reads and writes to the SD card. This was addressed through decoupling, a ferrite bead on the analog supply, and the separation of the analog and digital grounds.
+This chapter details the hardware design focused on ensuring that the prototype functions correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions of the ESP32-S3, the display, and reads and writes to the SD card. This was addressed through decoupling, a ferrite bead on the analog supply, and the separation of the analog and digital grounds.
+
+\section{AFE Requirements}
+\label{sec:requirements}
+ 
+The research group at the University of Johannesburg~\cite{ebrahim_dpv_conditions} specified the measurement method as well as the parameters that the OpenStat should fulfill. The operating requirements are listed in Table~\ref{tab:req_dpv}. The same parameters are used on the PalmSens4
+reference instrument in Chapter~\ref{chap:testing}.
+ 
+\begin{table}[H]
+  \centering
+  \caption{Target DPV operating conditions and the requirements they impose.}
+  \label{tab:req_dpv}
+  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Requirement on the device} \\
+    \midrule
+    Potential window  & \SIrange{0.8}{1.3}{\volt} &
+      Potential covers \SIrange{0.8}{1.325}{\volt}, including the pulse \\
+    Step potential    & \SI{5}{\milli\volt} &
+      DAC LSB $\leq$ \SI{1}{\milli\volt}; each level within
+      $\pm 0.5$\,LSB  \\
+    Pulse amplitude   & \SI{25}{\milli\volt} &
+      $25\pm$\SI{1}{\milli\volt} \\
+    Pulse time        & \SI{50}{\milli\second} &
+      Timing error changes the sampled current by $\leq$ \SI{2}{\percent} \\
+    Interval time     & \SI{0.5}{\second} &
+      \SI{0.5}{\second} $\pm$ \SI{1}{\percent} per step, held over the full scan \\
+    \midrule
+    Current range     & $\pm\SI{750}{\micro\ampere}$ &
+      No saturation at $\pm\SI{750}{\micro\ampere}$; gain error
+      $\leq$ \SI{1}{\percent} per RTIA range after calibration \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{System Requirements}
+
+The table below details the requirements that the OpenStat must meet.
+\begin{table}[h]
+\centering
+\caption{System requirements.}
+\label{tab:requirements_whole_sys}
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+ID & Requirement & Rationale \\
+\midrule
+\multicolumn{3}{l}{\textit{Processing and memory}} \\
+R1 & Buffer a complete scan in memory & Samples are written to storage only after the scan finishes \\
+R2 & At least two SPI buses available for peripherals & One dedicated to the AD5941, one shared by the display and SD card \\
+R3 & Enough GPIO for all peripherals & AD5941, display, SD card and user inputs \\
+\midrule
+\multicolumn{3}{l}{\textit{Display and storage}} \\
+R4 & Colour display with an SPI or I\textsuperscript{2}C interface & Compatible with the microcontroller \\
+R5 & Display fits in landscape orientation & Handheld form factor \\
+R6 & Sufficient display resolution & Current--voltage plot displayed \\
+R7 & Non-volatile storage & Field measurements accessed later \\
+\midrule
+\multicolumn{3}{l}{\textit{User interface}} \\
+R8 & Standalone operation without a computer & Scan parameters set and scans started in the field \\
+\midrule
+\multicolumn{3}{l}{\textit{Power}} \\
+R9 & Battery powered & Portable field use \\
+R10 & Rechargeable from USB & No battery replacement needed \\
+R11 & Regulated supply over battery discharge range & Cell voltage varies around 3.0 and 4.2\,V \\
+R12 & Battery life of a day & 24 hour battery life \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+To start implementing the above requirements, the microcontroller is specified next.
 
 \section{Microcontroller}
 \label{sec:hw_mcu}
-The range of microcontroller options is vast, there are three main architecture options available: STM32, Nordic (nRF52), and ESP. The ESP family is the holds a strong reputation for native Wi-Fi, Bluetooth, sufficient processing power and cost-effectiveness, making it an easy choice.
-
-\hwtodo{Reference for comparing microcontrollers family.}
+The range of microcontroller options is vast, the ESP family was selected as it holds a strong reputation for native Wi-Fi, Bluetooth, sufficient processing power and cost-effectiveness, making it an easy choice.
 The ESP32-S3-WROOM-2-N32R16V was selected for its \SI{32}{\mega\byte} of flash
 and \SI{16}{\mega\byte} of PSRAM \cite{esp32s3_wroom2_ds}. The larger flash and
 PSRAM give more flexibility when handling large assets and when running
@@ -17,198 +87,140 @@ several functions of the device at once. Its dual-core processor allows large
 tasks to be managed while keeping operation smooth, and its Wi-Fi capability
 is used to host the web server described further in Section~\ref{sec:sw_overview}.
 
-
-
-%---------------------------------------------------------------------
-\section{AD5941 Capacitor and Ferrite Bead Selection}
+\section{PCB Component Placement and Layout}
 \label{sec:hw_afe}
 
 The key to low noise in the AD5941 is sufficient filtering and decoupling,
 together with correct component placement. The rules followed when selecting
 the decoupling capacitors were taken from the Analog Devices MT-101 tutorial
-\cite{adi_mt101}. These rules state that every decoupling capacitor must
-connect to a large-area, low-impedance ground plane through vias, to minimise
-inductance \cite{adi_mt101}, and that the capacitors must be placed as close
-as possible to the chip. Finally, a ferrite bead is placed in series with the
+\cite{adi_mt101}. Finally, a ferrite bead is placed in series with the
 supply pin. This keeps external high-frequency noise away from the IC and
-prevents internally generated noise from affecting the rest of the system.
+prevents internally generated noise from affecting the rest of the system \cite{eco2016ferrite}.
 
+\providecommand{\capstack}[1]{\begin{tabular}[t]{@{}l@{}}#1\end{tabular}}
+ 
 \subsection{Capacitor Choices}
 \label{sec:hw_caps}
+ 
+The capacitors around the AD5941 can be separated into two groups, decouping the external supply pins and connecting internal nodes with the IC. The Table~\ref{tab:hw_caps} summarises the capacitors choices for their respective roles. The supply-pin values follow the MT-101
+two-tier convention \cite{adi_mt101} and are checked against a target supply
+impedance, while the internal-node values follow the datasheet
+\cite{ad5941_ds}. The full derivations for capacitor choices are given in
+Appendix~\ref{appen:hw_caps}.
+ 
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Capacitors around the AD5941, grouped by the reasoning behind
+    each value.}
+  \label{tab:hw_caps}
+  \renewcommand\tabularxcolumn[1]{m{#1}}
+  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Pin} & \textbf{Value} & \textbf{Role and justification} \\
+    \midrule
+    % --- Group 1: high-frequency supply decoupling ---------------------
+    \capstack{DVDD (6), $\times 2$ \\ IOVDD (26) \\ AVDD (30) \\ AVDD (41)}
+      & \SI{100}{\nano\farad}
+      & \textit{High-frequency supply decoupling.} No datasheet value given, so one
+        ceramic capacitor per supply pin, as per MT-101 \cite{adi_mt101}. Stays
+        below the \SI{1}{\ohm} target impedance to beyond
+        \SI{100}{\mega\hertz} (Eq.~\eqref{eq:hw_esl_100mhz})
+        \cite{smith1999pds}. \\
+    \midrule
+    % --- Group 2: bulk decoupling --------------------------------------
+    AVDD (30) & \SI{10}{\micro\farad}
+      & \textit{Bulk decoupling.} Second tier of MT-101 \cite{adi_mt101}.
+        Meets the \SI{1}{\ohm} target above \SI{15.9}{\kilo\hertz}
+        (Eq.~\eqref{eq:hw_fmin}) and forms an LC filter with the ferrite bead
+        (Section~\ref{sec:hw_ferrite}). \\
+    \midrule
+    % --- Group 3: references and internal LDOs, 470 nF -----------------
+    \capstack{\texttt{VREF\_2V5} (4) \\ \texttt{VBIAS\_CAP} (31) \\
+              \texttt{DVDD\_REG\_1V8} (14) \\ \texttt{AVDD\_REG} (5)}
+      & \SI{470}{\nano\farad}
+      & \textit{Reference and internal LDO decoupling.} Datasheet value
+        \cite[pp.~11, 20--21]{ad5941_ds}, set by the stability of on-chip
+        buffers and regulators \cite{rinconmora2009ldo}. No value is given
+        for \texttt{AVDD\_REG}, so it is matched to \texttt{DVDD\_REG\_1V8}. \\
+    \midrule
+    % --- Group 4: ADC reference -----------------------------------------
+    \texttt{VREF\_1V82} (43) & \SI{4.7}{\micro\farad}
+      & \textit{ADC reference reservoir.} The datasheet recommends
+        \SI{4.7}{\micro\farad} \cite[p.~19]{ad5941_ds} but tests at
+        \SI{0.47}{\micro\farad} \cite[p.~11]{ad5941_ds}. The larger value was
+        chosen as the more conservative. \\
+    \midrule
+    % --- Group 5: LP DAC outputs -----------------------------------------
+    \capstack{\texttt{VBIAS0} (8) \\ \texttt{VZERO0} (9)}
+      & \SI{100}{\nano\farad}
+      & \textit{Low-power DAC output noise filter.} Datasheet value
+        \cite[p.~20]{ad5941_ds}. \\
+    \midrule
+    % --- Group 6: reset --------------------------------------------------
+    \texttt{RESET} (22) & \SI{100}{\nano\farad}
+      & \textit{Reset debounce.} With the \SI{10}{\kilo\ohm} pull-up,
+        $\tau = \SI{1}{\milli\second} \gg \SI{1}{\micro\second}$ minimum
+        reset pulse \cite[p.~14]{ad5941_ds}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-Each capacitor around the AD5941 is justified by one of three kinds of
-evidence, a value dictated by the datasheet \cite{ad5941_ds}, a decoupling
-convention from a reputable source \cite{adi_mt101}, or first principles. The
-datasheet recommends capacitor values for the internal nodes of the AD5941,
-such as the references, the DAC outputs and the LDO outputs, but not for the
-external supply pins. Decoupling of the supply pins therefore follows the
-convention described below. The choices are summarised in
-Table~\ref{tab:hw_caps} in Appendix~\ref{appen:hw_caps}.
-
-
-\subsubsection{Supply Decoupling: \SI{100}{\nano\farad} and \SI{10}{\micro\farad}}
-\label{sec:hw_supply_decoupling}
-
-Each supply pin has a local \SI{100}{\nano\farad} ceramic capacitor, and AVDD
-has an additional \SI{10}{\micro\farad} bulk capacitor. Together they hold the
-rail below a \SI{1}{\ohm} target impedance from \SI{16}{\kilo\hertz} to beyond
-\SI{100}{\mega\hertz}. The MT-101 tutorial prescribes two tiers of capacitors, a large capacitor, typically \SIrange{10}{100}{\micro\farad}, within about 5cm of the IC, and small ceramics, typically
-\SIrange{0.01}{0.1}{\micro\farad}, as close to the power pins as possible,
-optionally with a ferrite bead in series \cite{adi_mt101}. All decoupling
-capacitors must reach a low-impedance ground plane through a via or a short
-trace \cite{adi_mt101}. Analog Devices applies the same principle in its
-precision converter datasheets; for the AD7714, for example, a
-\SI{10}{\micro\farad} capacitor is used in parallel with \SI{0.1}{\micro\farad}
-on each analog supply \cite{ad7714_ds}.
-
-The worst-case AVDD current step is the sum of all the subsystems of the
-AD5941 switching on at once \cite[p.~14]{ad5941_ds}, which is approximately
-\SI{10}{\milli\ampere}.
-% CHECK: page 14 of Rev. G is the reset / digital I/O table. Confirm the page
-% for the supply-current figures. Also, the ferrite bead section uses 10.1 mA
-% -- use one value throughout.
-The \SI{1.82}{\volt} reference has an AC PSRR of \SI{60}{\decibel}
-\cite[p.~11]{ad5941_ds}, which corresponds to supply noise being attenuated by
-a factor of about 1000. A \SI{10}{\milli\volt} supply disturbance therefore
-appears as \SI{10}{\micro\volt} on the reference, which is a factor of 5.55
-below $1~\text{LSB} = \SI{1.82}{\volt}/2^{15} = \SI{55.5}{\micro\volt}$
-\cite[p.~7]{ad5941_ds}. Taking \SI{10}{\milli\volt} as a conservative limit on
-the supply disturbance, the target impedance is
-\begin{equation}
-  Z_t = \frac{\Delta V}{\Delta I}
-      = \frac{\SI{10}{\milli\volt}}{\SI{10}{\milli\ampere}}
-      = \SI{1}{\ohm}.
-  \label{eq:hw_ztarget}
-\end{equation}
-
-The selection of a \SI{10}{\micro\farad} capacitor was because the impedance of a capacitor falls as frequency rises, so a given capacitor
-holds the rail below $Z_t$ only above a certain frequency. Setting the
-capacitor impedance equal to $Z_t$ and solving for frequency gives that lower
-limit:
-\begin{equation}
-  |Z_C| = \frac{1}{2\pi f C} = Z_t
-  \quad\Rightarrow\quad
-  f_\text{min} = \frac{1}{2\pi C Z_t}
-               = \frac{1}{2\pi\,(\SI{10}{\micro\farad})(\SI{1}{\ohm})}
-               = \SI{15.9}{\kilo\hertz}.
-  \label{eq:hw_fmin}
-\end{equation}
-Above \SI{15.9}{\kilo\hertz} the capacitor can supply the sudden current
-demands of the chip quickly enough that the AVDD voltage barely moves. Below
-\SI{15.9}{\kilo\hertz} the \SI{3.3}{\volt} regulator holds the rail stable.
-
-The selection of a \SI{100}{\nano\farad} capactor was because the rapid switching inside the AD5941 draws short current bursts from the supply.
-The \SI{10}{\micro\farad} capacitor cannot deliver bursts this fast. A small
-capacitor placed directly at each supply pin has far less inductance in its
-path and can deliver them, covering the frequencies from a few megahertz to
-beyond \SI{100}{\mega\hertz}. A value of \SI{100}{\nano\farad} is recommended
-for this role in standard decoupling guidance
-\cite{adi_mt101, ott2009emc, horowitz2015art}, the calculations below show
-that it is adequate for this design.
-
-Every capacitor resonates with its own equivalent series inductance (ESL) at
-its self-resonant frequency, above which it behaves as an inductor. With a
-typical ESL of about \SI{1}{\nano\henry} for the 0805 package used on this
-board \hwtodo{reference for 0805 ESL}:
-\begin{equation}
-  f_\text{SRF} = \frac{1}{2\pi\sqrt{L_\text{ESL}\,C}}:
-  \qquad
-  f_{\text{SRF},\,\SI{10}{\micro\farad}} = \SI{1.6}{\mega\hertz},
-  \qquad
-  f_{\text{SRF},\,\SI{100}{\nano\farad}} = \SI{15.9}{\mega\hertz}.
-  \label{eq:hw_srf}
-\end{equation}
-The \SI{10}{\micro\farad} capacitor is most effective up to around
-\SI{1.6}{\mega\hertz}, which makes it the right part for the slower range,
-roughly \SI{16}{\kilo\hertz} to a few megahertz. The \SI{100}{\nano\farad}
-capacitor keeps improving up to around \SI{15.9}{\mega\hertz}. At
-\SI{100}{\mega\hertz} it still presents only \SI{0.63}{\ohm}, less than the
-targeted \SI{10}{\ohm}, so it covers the fast range adequately.
-% CHECK: "10 ohm" contradicts the 1 ohm target of Eq. (hw_ztarget). I think
-% this should read 1 ohm (0.63 ohm still meets it).
-
-\subsubsection{Internal Nodes: \SI{470}{\nano\farad} and \SI{4.7}{\micro\farad}}
-\label{sec:hw_internal_nodes}
-
-These capacitors connect to nodes inside the AD5941, specifically its voltage
-references and internal regulators. Their correct values depend on internal
-circuit details that Analog Devices does not publish, so they cannot be
-derived independently and the datasheet values are used directly.
-
-The datasheet specifies \SI{470}{\nano\farad} for three pins, namely
-\texttt{VREF\_2V5}, \texttt{VBIAS\_CAP} and \texttt{DVDD\_REG\_1V8}
-\cite{ad5941_ds}, but does not explain how this value was
-chosen. Capacitors on such nodes are normally sized to suit the stability and
-noise requirements of the on-chip reference buffers and regulators
-\cite{rinconmora2009ldo}, and those requirements cannot be assessed without
-internal design data. The datasheet value was therefore adopted as specified.
-
-The datasheet gives no value for \texttt{AVDD\_REG} \cite{ad5941_ds}.
-The \SI{470}{\nano\farad} specified for the other internal regulator output,
-\texttt{DVDD\_REG\_1V8}, was used as the closest available guidance.
-
-The datasheet pin description recommends \SI{4.7}{\micro\farad} on
-\texttt{VREF\_1V82}, the \SI{1.82}{\volt} reference of the ADC
-\cite{ad5941_ds}, again without stating the reasoning. Its
-specification table, however, lists \SI{0.47}{\micro\farad} as the test
-condition for the same pin \cite{ad5941_ds}, so the datasheet is not
-internally consistent. The \SI{4.7}{\micro\farad} recommendation was followed
-as the more conservative of the two. The ADC draws a small pulse of charge
-from this reference during every conversion, and a larger capacitor holds more
-charge, so the reference voltage dips less with each pulse.
-
-\subsection{Ferrite bead}
+Together, the two tiers of supply capacitors hold AVDD below the
+\SI{1}{\ohm} target from about \SI{16}{\kilo\hertz} to beyond
+\SI{100}{\mega\hertz}, which keeps supply noise below one LSB at the ADC
+reference. 
+ 
+\subsection{Ferrite Bead}
 \label{sec:hw_ferrite}
-
-A ferrite bead isolates AVDD from digital noise on the shared
-\SI{3.3}{\volt} rail by forming an LC filter. A bead placed in series with a
-supply rail, combined with capacitors to ground, filters high-frequency noise
-over a broad band \cite{eco2016ferrite}. The Murata BLM18AG601SN1D used here
-is specified as \SI{600}{\ohm}~$\pm$\SI{25}{\percent} at
-\SI{100}{\mega\hertz}, with a rated current of \SI{500}{\milli\ampere} and a
-maximum DC resistance of \SI{380}{\milli\ohm} \cite{murata_blm18ag}. Its implementation is crucial to separate noise from the board to the AD5941 and vice versa.
-
-\subsubsection{DC Drop and Saturation}
-
-At the worst-case AVDD current of \SI{10.1}{\milli\ampere}, the voltage drop
-across the bead is
-$\SI{10}{\milli\ampere} \times \SI{0.38}{\ohm} = \SI{3.8}{\milli\volt}$
-% CHECK: 10.1 mA x 0.38 ohm = 3.84 mV, i.e. 3.8 mV, not 3.9 mV.
-and the dissipation is \SI{38}{\micro\watt}. AVDD and DVDD may differ by at
-most \SI{0.3}{\volt} \cite{ad5941_ds}, so the bead uses
-\SI{1.3}{\percent} of that budget. The inductance of a bead falls as the DC
-bias approaches its rated current \cite{eco2016ferrite}, at
-\SI{2}{\percent} of the rated current this effect is negligible.
-
-\subsubsection{LC Resonance}
-
-Peaking occurs when the bead inductance and a low-ESR capacitor resonate below
-the resistive crossover of the bead. With $C \approx \SI{10.2}{\micro\farad}$ (C9,
-C31 and C33), $R = \text{DCR} + \text{ESR} \approx \SI{0.385}{\ohm}$ and an
-assumed low-frequency bead inductance of $L \approx \SI{1}{\micro\henry}$:
+ 
+AVDD shares the \SI{3.3}{\volt} rail with the ESP32-S3, display and
+SD card. These components place noise on
+the rail from tens of kilohertz to hundreds of megahertz. This noise comes from
+the SPI clocks, regulator ripple and current bursts. A ferrite bead in
+series with AVDD forms a low-pass filter with the AVDD decoupling capacitors,
+and over its resistive band it dissipates this noise as heat instead of
+reflecting it \cite{eco2016ferrite}. A bead was preferred over a separate
+regulator for AVDD because it adds a single small, inexpensive part that is
+most effective at high frequencies.
+The Murata BLM18AG601SN1D was chosen for its high impedance of
+\SI{600}{\ohm} at \SI{100}{\mega\hertz}, with a rated current of
+\SI{500}{\milli\ampere} and a maximum DC resistance $R_\text{DC}$ of
+\SI{0.38}{\ohm} \cite{murata_blm18ag}.
+ 
+The bead operates far from the point where DC current degrades its filtering. Impedance curves form the datasheet are measured at zero bias, and under load the core saturates and the inductance falls. Therefore the beads should operate at no
+more than about \SI{20}{\percent} of its rated current
+\cite{eco2016ferrite}. The worst-case AVDD current of about
+\SI{10}{\milli\ampere} is \SI{2}{\percent} of the rating, so the datasheet
+impedance applies. The resulting \SI{3.8}{\milli\volt} drop uses
+\SI{1.3}{\percent} of the \SI{0.3}{\volt} allowed between AVDD and DVDD
+\cite[p.~7]{ad5941_ds}.
+ 
+The primary risk with ferrite beads is resonance. Below its crossover frequency the bead is almost purely inductive, and it
+resonates with the decoupling capacitors. An underdamped resonance amplifies
+noise instead of attenuating it, which is called peaking \cite{eco2016ferrite}. For the series RLC filter,
 \begin{equation}
-  f_0 = \frac{1}{2\pi\sqrt{LC}} \approx \SI{50}{\kilo\hertz},
+  f_0 = \frac{1}{2\pi\sqrt{L_\text{bead}C}} \approx \SI{50}{\kilo\hertz},
   \qquad
-  Q = \frac{1}{R}\sqrt{\frac{L}{C}}
-    = \frac{\SI{0.313}{\ohm}}{\SI{0.385}{\ohm}}
-    = 0.81.
+  Q = \frac{1}{R_\text{DC}}\sqrt{\frac{L_\text{bead}}{C}} \approx 0.82,
   \label{eq:hw_lc}
 \end{equation}
-% CHECK: this subsection stops at the number. It needs a concluding sentence
-% (what Q = 0.81 means for peaking) and a source/justification for L = 1 uH
-% and the 5 mohm ESR.
+with $C = \SI{10}{\micro\farad}$ on AVDD and an assumed
+$L_\text{bead} \approx \SI{1}{\micro\henry}$, consistent with the
+\SI{600}{\ohm} rating at \SI{100}{\mega\hertz}. Peaking occurs only for
+$Q > 1/\sqrt{2}$ \cite{c2}.
 
-\subsubsection{High-Frequency Attenuation}
-
-At \SI{100}{\mega\hertz} the \SI{100}{\nano\farad} capacitors present about
-\SI{0.63}{\ohm} (ESL-limited, 0805 package), so the bead and capacitor divide
-the noise by roughly $600/0.63$:
-\begin{equation}
-  |H| \approx \frac{\SI{0.63}{\ohm}}{\SI{600}{\ohm}}
-  \quad\Rightarrow\quad
-  \SI{-60}{\decibel}.
-  \label{eq:hw_hf_atten}
-\end{equation}
+It is the \SI{10}{\micro\farad} bulk capacitor that keeps the resonance
+damped. With only the two \SI{100}{\nano\farad} capacitors, $Q$ would be about
+5.9, and the filter would peak by \SI{15}{\decibel} near
+\SI{360}{\kilo\hertz}. The large capacitor lowers $\sqrt{L/C}$ until the
+bead's own series resistance is sufficient to damp the filter.
+ 
+At high frequencies the filter performs as intended. At
+\SI{100}{\mega\hertz} the bead's \SI{600}{\ohm} and the \SI{0.63}{\ohm} of
+the local capacitors (Eq.~\eqref{eq:hw_esl_100mhz}) form a divider that
+attenuates noise by about
+$20\log_{10}(0.63/600) \approx \SI{-60}{\decibel}$.
 
 \subsection{Analog and Digital Ground}
 \label{sec:hw_ground}
@@ -225,39 +237,19 @@ added to the analog reference and the digital switching noise is superimposed
 on the measured signal \cite{adi_mt031}.
 
 To combat this, the PCB was partitioned into an analog region and a digital
-region, which are the lower and upper parts of the board respectively. All
-digital components and traces were confined to the digital region, and the
-same principle was applied to the analog components. Partitioning is effective
-because of how return currents behave. At low frequencies a return current
-spreads out and follows the path of least resistance, which is how currents
-in the analog region behave. At high frequencies, such as those in digital
-edges, the return current follows the path of least inductance, which is the
-path that minimises the loop area between the signal and its return. In
-practice, the return current flows in the ground copper directly beneath its
-own signal trace, spreading only slightly to either side
-\cite{ott2009emc, pithadia2013grounding}. Digital return currents therefore
-stay in the digital region by nature, provided no digital trace is routed
-through the analog region, and the ground beneath the transimpedance amplifier
-remains quiet.
-
-The AD5941 is a mixed-signal device with separate analog ground (AGND) and
-digital ground (DGND) pins. In accordance with Analog Devices guidance, AGND
-and DGND should be joined externally at the device through the shortest
-possible connection \cite{pithadia2013grounding, adi_mt031}. The analog and
-digital grounds are accordingly stitched together directly beneath the AD5941.
-This makes the device the single point at which the two regions meet, commonly
-called a star ground connection, which is the arrangement recommended for a
-single board containing a single converter \cite{adi_mt031}.
-
-The stitched bridge also serves as the crossing point for the signals that
-must pass to the AD5941, namely the SPI bus and the reset and interrupt lines.
-Had the two grounds been fully separated and joined only at a distant point,
-such as the power input, the return current of each of these signals could not
-follow its trace across the gap. It would instead be forced around a large
-loop through the distant connection, and the loop would act as an antenna
-\cite{ott2001partitioning}. By routing the crossing signals over the bridge
-beneath the AD5941, each one retains a continuous return path directly
-underneath it \cite{ott2001partitioning}.
+region, which are the lower and upper parts of the board respectively, with
+all digital components and traces confined to the digital region.
+Partitioning is effective because, at high frequencies such as those in
+digital edges, the return current follows the path of least inductance and
+flows in the ground copper directly beneath its own signal trace
+\cite{ott2009emc, pithadia2013grounding}. In accordance with Analog Devices guidance, the analog and digital grounds should be joined through the
+shortest possible connection \cite{pithadia2013grounding, adi_mt031}. This is done by stitching them together directly beneath
+the AD5941, commonly called a star ground connection \cite{adi_mt031}. The
+stitched bridge also serves as the crossing point for the SPI bus and the
+reset and interrupt lines, so each signal retains a continuous return path
+directly underneath it. If the two grounds been fully separated and joined
+only at a distant point, such as the power input, these return currents would
+be forced around a large loop that acts as an antenna \cite{ott2001partitioning}.
 
 \subsection{Trace Widths}
 \label{sec:hw_trace_widths}
@@ -287,6 +279,9 @@ widths are given in Table~\ref{tab:hw_trace_widths}.
 \begin{table}[htbp]
   \centering
   \small
+  \caption{Required and chosen trace widths for a \SI{10}{\celsius}
+    temperature rise in 1~oz/ft\textsuperscript{2} external copper.}
+  \label{tab:hw_trace_widths}
   \begin{tabular}{@{}lllll@{}}
     \toprule
     \textbf{Net} & \textbf{Design} & \textbf{Required width}
@@ -302,33 +297,16 @@ widths are given in Table~\ref{tab:hw_trace_widths}.
       & \SI{0.6}{\milli\metre} (23.6~mil) & \SI{1.65}{\ampere} \\
     \bottomrule
   \end{tabular}
-  \caption{Required and chosen trace widths for a \SI{10}{\celsius}
-    temperature rise in 1~oz/ft\textsuperscript{2} external copper.}
-  \label{tab:hw_trace_widths}
 \end{table}
 
-% ---------------------------------------------------------------------
 \section{Display and SD Card}
 \label{sec:hw_display}
 
-The display had to be a colour screen with an SPI or I\textsuperscript{2}C
-interface, small enough to fit in landscape orientation in the handheld form
-factor. Permanent storage was also essential, because measurements taken in
-the field must be saved so that they can be accessed later. The display has to
-show the current--voltage plot, so a higher-resolution screen was preferred.
-The DFRobot Fermion 1.8'' TFT (DFR0928) was selected because it met all of
-these requirements and could be sourced from a local supplier. It also
-includes an SD card slot, which removes the need for an extra module,
-connector and wiring, reducing cost and assembly effort. Its key
-specifications are listed in Table~\ref{tab:hw_display_specs}.
+The DFRobot Fermion 1.8" TFT (DFR0928) was selected as the display because it meets requirements R4–R7 from Table~\ref{tab:requirements_whole_sys}, including the addition of an onboard SD card slot. Additional information regarding the display is given in Appendix Table~\ref{tab:hw_display_specs}.
 
-Using the same SPI bus for both the SD card and the display is a double-edged
-sword. By sharing communication lines, the number of SPI buses
-required are reduced. The main
-driving factor in this decision, however, was the selection of the N32R16V:
-two of its four SPI buses are used by its flash and PSRAM
-\cite{esp32s3_wroom2_ds}, which makes combining the SD card and display a
-requirement. If a full SPI bus were to be dedicated to the AD5941, so that scans would be minimally impacted. This does come with trade-offs, that should be acknowledged such as the inability to draw to the screen and to write to the SD card simultaneously. This is avoided by buffering the samples in PSRAM and writing the file
+The display and the SD card share a single SPI bus. The main
+driving factor in this decision, was the selection of the N32R16V as it only has two SPI lanes \cite{esp32s3_wroom2_ds}, which makes combining the SD card and display a
+requirement. This allows a full SPI bus to be dedicated to the AD5941, so that scans are minimally affected. This does come with trade-offs, that should be acknowledged such as the inability to draw to the screen and to write to the SD card simultaneously. This is avoided by buffering the samples in PSRAM and writing the file
 only after the scan has finished.
 
 \section{Power Management}
@@ -341,31 +319,42 @@ Pololu S9V11E2F5 step-up/step-down regulator producing \SI{5}{\volt}, and a
 \SI{5000}{\milli\ampere\hour}, \SI{3.7}{\volt} single-cell LiPo battery. Their
 main specifications are summarised in Table~\ref{tab:hw_power_specs}.
 
-The run time of the system can be estimated with a simple energy balance:
-% CHECK: your sentence was cut off ("To estimate the run time of the system a
-% simple can"); completed as above.
+\subsection{Battery}
+\label{sec:hw_battery}
+
+To verify that the selected 5000mAh battery fulfills the full-day operational requirements, the systems current was measured during idle, transmission over WiFi and DPV measurements. The supply current was measured by powering the PCB at \SI{5}{\volt} from a Siglent SPD3303C bench supply and reading the output current from the supply. The SPD3303C has a current
+readback resolution of \SI{10}{\milli\ampere} and an accuracy of
+$\pm(\SI{0.5}{\percent}~\text{of reading} + 2~\text{digits})$
+\cite{siglent_spd3303c}, that is, about $\pm\SI{21}{\milli\ampere}$ at these
+currents. The board draws $\SI{100}{\milli\ampere} \pm \SI{21}{\milli\ampere}$
+at idle and $\SI{160}{\milli\ampere} \pm \SI{21}{\milli\ampere}$ while
+transmitting over Wi-Fi. The idle current did not change when taking a DPV measurement. Taking \SI{160}{\milli\ampere} as the worst case, the power drawn from the
+battery through the regulator ($\eta_\text{reg} \approx 0.9$) is
+\begin{equation}
+  P_\text{bat} = \frac{\SI{5}{\volt} \times \SI{160}{\milli\ampere}}
+                      {\eta_\text{reg}}
+               = \frac{\SI{0.80}{\watt}}{0.9}
+               \approx \SI{0.89}{\watt},
+  \label{eq:hw_pbat}
+\end{equation}
+and the run time is
 \begin{equation}
   t_\text{run} = \frac{E_\text{bat}\,\eta_\text{reg}}{V_\text{out}\,I_\text{load}}
     = \frac{\SI{5}{\ampere\hour} \times \SI{3.7}{\volt} \times 0.9}
-           {\SI{5}{\volt} \times \text{100 mA}}
-    = \text{33.3 hours}
+           {\SI{5}{\volt} \times \SI{160}{\milli\ampere}}
+    \approx \SI{21}{\hour}.
   \label{eq:hw_runtime}
 \end{equation}
-
+Allowing for the measurement uncertainty, the run time with Wi-Fi
+transmitting lies between \SI{18}{\hour} and \SI{24}{\hour}, and at idle
+between \SI{28}{\hour} and \SI{42}{\hour}. Even the lower bound comfortably
+meets the R12 as well as R9-R11.
 
 \subsection{Charging}
 \label{sec:hw_charging}
 
 The TP4056 is a linear constant-current, constant-voltage charger with a
-\SI{4.2}{\volt} float voltage. From the datasheet \cite{tp4056_ds}, the charge
-current is
-\begin{equation}
-  I_\text{BAT} = \frac{V_\text{PROG}}{R_\text{PROG}} \times 1200
-    = \frac{\SI{1}{\volt}}{\SI{1200}{\ohm}} \times 1200
-    = \SI{1}{\ampere},
-  \qquad \text{where } V_\text{PROG} = \SI{1}{\volt}.
-  \label{eq:hw_ibat}
-\end{equation}
+\SI{4.2}{\volt} float voltage. In its current configuration the charging current is 1A \cite{tp4056_ds}.
 The last stage of the charging cycle slows down, so a factor $k$ is introduced
 to account for the longer charge time. From timing the charging process, the average charge time was found to be
 about \SI{6.5}{\hour}, hence $k = 1.3$:
@@ -386,22 +375,21 @@ the ESP32-S3 to boot, and its soft-start ramps the output up gradually
 \cite{pololu_s9v11e2f5}. The regulator has a \SI{100}{\kilo\ohm} pull-up
 resistor from its enable pin to $V_\text{IN}$; the enable pin turns the
 regulator off below \SI{0.7}{\volt} and on above \SI{0.8}{\volt}
-\cite{pololu_s9v11e2f5}. Connecting a \SI{27}{\kilo\ohm} resistor from the
-enable pin to ground forms a divider that protects the battery from being
-pulled below \SI{2}{\volt}.
-% CHECK: the divider below switches off at 3.3 V, not 2 V -- reword. More
-% importantly, V_on = 3.8 V means the device will not start on a battery
-% below about 3.8 V. See chat.
-The divider draws about \SI{30}{\micro\ampere} continuously, which is
+\cite{pololu_s9v11e2f5}. Connecting a \SI{33}{\kilo\ohm} resistor from the
+enable pin to ground forms a divider that switches the regulator off at about \SI{2.8}{\volt}
+   and back on at about \SI{3.2}{\volt}, as given in
+   Equation~\eqref{eq:hw_cutoff}.
+
+The divider draws about \SI{28}{\micro\ampere} continuously, which is
 sufficiently low for this application.
 \begin{equation}
   V_\text{off} = \SI{0.7}{\volt} \times
-    \frac{\SI{100}{\kilo\ohm} + \SI{27}{\kilo\ohm}}{\SI{27}{\kilo\ohm}}
-    \approx \SI{3.3}{\volt},
+    \frac{\SI{100}{\kilo\ohm} + \SI{33}{\kilo\ohm}}{\SI{33}{\kilo\ohm}}
+    \approx \SI{2.8}{\volt},
   \qquad
   V_\text{on} = \SI{0.8}{\volt} \times
-    \frac{\SI{127}{\kilo\ohm}}{\SI{27}{\kilo\ohm}}
-    \approx \SI{3.8}{\volt}.
+    \frac{\SI{133}{\kilo\ohm}}{\SI{33}{\kilo\ohm}}
+    \approx \SI{3.2}{\volt}.
   \label{eq:hw_cutoff}
 \end{equation}
 
@@ -415,8 +403,6 @@ is not ideal. The overall efficiency is
     \approx 0.9 \times 0.66 = 0.594.
   \label{eq:hw_eta_total}
 \end{equation}
-% CHECK: this assumes a linear 5 V -> 3.3 V regulator, which the text never
-% mentions. Eq. (hw_runtime) also uses only eta_reg = 0.9, not 0.594.
 
 \subsection{Input Decoupling}
 \label{sec:hw_input_decoupling}
@@ -433,6 +419,6 @@ high-frequency noise away from the IC \cite{adi_mt101}.
 \section{User Interface}
 \label{sec:hw_ui}
 
-The interface consists of two push buttons and a rotary encoder with an integrated push button. All are wired in an active-low configuration with 10 k$\Omega$ hardware pull-up resistors. A capacitor on each line forms an RC filter with its pull-up, so on release the pin only reads high once the capacitor has charged past the ESP32-S3 input-high threshold of $0.75 \times V_{DD}$ \cite{esp32s3_ds}. This takes \\t = RC ln(4) $\approx$ 1.39RC.
+The interface consists of two push buttons and a rotary encoder with an integrated push button. All are wired in an active-low configuration with 10 k$\Omega$ hardware pull-up resistors. A capacitor on each line forms an RC filter with its pull-up, so on release the pin only reads high once the capacitor has charged past the ESP32-S3 input-high threshold of $0.75 \times V_{DD}$ \cite{esp32s3_ds}. This takes t = RC ln(4) $\approx$ 1.39RC.
 
 The push buttons use 100 nF ($\approx$ 1.4 ms), which is imperceptible to the user but long enough to absorb most contact bounce \cite{allpcb_debounce}. The encoder lines use 10 nF ($\approx$ 0.14 ms), because the filter must not smear the quadrature edges during fast rotation. The EC11E bounces for up to 2 ms \cite{alps_ec11}, which is longer than the edge spacing allows even at moderate speeds. A hardware-only debounce is therefore not strictly possible, but was done for good practice. The RC filter suppresses short spikes, and the quadrature decoder rejects the remaining bounce in software.

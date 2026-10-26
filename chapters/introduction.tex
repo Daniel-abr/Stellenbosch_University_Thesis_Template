@@ -2,63 +2,23 @@
 \label{chap:introduction}
 
 \section{Background and Motivation}
-The global landscape of analytical chemistry is currently experiencing a significant shift towards point-of-care medical diagnostics and on-site environmental testing. In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiviral medication, in local water systems. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity. DPV superimposes small pulses of potential onto a linear potential ramp or staircase. By measuring the current difference before and near the end of each pulse, the technique reduces background charging current and achieves high sensitivity. This makes DPV a foundational technique for isolating the minute faradaic currents required to detect trace pharmaceuticals outside of a laboratory environment.
+The global landscape of analytical chemistry is currently experiencing a significant shift towards point-of-care medical diagnostics and on-site environmental testing. In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiretroviral and other antiviral medication, in local water systems \cite{schoeman2017efavirenz,Wood2015}. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity \cite{Uslu2011}. DPV superimposes small pulses of potential onto a linear potential ramp or staircase. By measuring the current difference before and near the end of each pulse, the technique reduces background charging current and achieves high sensitivity \cite{IUPAC_DPV}. This makes DPV a foundational technique for isolating the minute Faradaic currents required to detect trace pharmaceuticals outside of a laboratory environment \cite{Hanrahan2004}.
 
 
 \section{Problem Statement}
-The primary barrier when testing water in South Africa is challenging because of the tools required to perform accurate voltammetric analysis are costly, complex and lack in portability. The current commerically available potentiostat, such as the PalmSens4, systems serve as the gold standard for electrochemical analysis. However, these instruments are cost-prohibitive, and operate as closed-source devices. Consequently, it is impossible to integrate them deeply into custom, low-cost or Internet of Things (IoT) architectures. While various open-source alternatives have been developed over the years, many remain tethered to external computers for power and data processing, or rely on proprietary applications that can become obsolete. This presents a distinct need for a smart, autonomous, wireless, and low-cost potentiostat alternative capable of conducting highly sensitive DPV measurements independently in the field.
+The primary barrier when testing water in South Africa is challenging because of the tools required to perform accurate voltammetric analysis are costly and lack in portability \cite{ainla2018,rowe2011}. The current commercially available potentiostat, such as the PalmSens4, systems serve as the gold standard for electrochemical analysis. However, these instruments are cost-prohibitive, and operate as closed-source devices \cite{dryden2015}. Consequently, it is difficult to integrate them deeply into custom, low-cost or Internet of Things (IoT) architectures \cite{ainla2018}. While various open-source alternatives have been developed over the years, many remain tethered to external computers \cite{ainla2018} for power and data processing, or rely on proprietary applications that can become obsolete. This presents a distinct need for a smart, autonomous, wireless, and low-cost potentiostat alternative capable of conducting highly sensitive DPV measurements independently in the field \cite{Hanrahan2004}.
 
 \section{Project Aim, Objectives and Scope}
 The primary aim of this project is to design and develop an open-source, low-cost, wireless potentiostat tailored specifically for the DPV detection of antiviral medications in water. The scope of this project encompasses the following hardware and software implementations:
 \begin{itemize}[label=\textbullet]
-    \item \textbf{Hardware Architecture:} The design will utilise the AD5941 SoC AFE, which offers a compact physical footprint and ultra-low power consumption for portable electrochemical and impedance-based sensing systems.
-    \item \textbf{Microcontroller Integration:} The system will be driven by an ESP32-S3 microcontroller, chosen for its dual-core Xtensa LX7 architecture and native Wi-Fi capabilities.
-    \item \textbf{Physical User Interface:} The hardware will include a standalone physical user interface consisting of an onboard display, two push buttons, and a rotary encoder.
-    \item \textbf{Electrochemical Interface:} The system will interface with a standard three-electrode setup consisting of a working, reference, and counter electrode. This three electrode setup can be used with a SPE or crocodile clips.
-    \item \textbf{Software and Firmware:} Firmware will be developed in C++. It will enable the system to execute DPV measurements, control the local GUI, and host a web server for seamless data extraction via Wi-Fi.
+    \item \textbf{Hardware Architecture:} The design uses the AD5941 SoC AFE, which offers a compact physical footprint and ultra-low power consumption for portable electrochemical and impedance-based sensing systems.
+    \item \textbf{Microcontroller Integration:} The system is driven by an ESP32-S3 microcontroller, chosen for its dual-core Xtensa LX7 architecture and native Wi-Fi capabilities.
+    \item \textbf{Physical User Interface:} The hardware includes a standalone physical user interface consisting of an onboard display, two push buttons, and a rotary encoder.
+    \item \textbf{Electrochemical Interface:} The system interfaces with a standard three-electrode setup consisting of a working, reference, and counter electrode. This three electrode setup can be used with a SPE or crocodile clips.
+    \item \textbf{Software and Firmware:} Firmware was developed in C++. It enables the system to execute DPV measurements, control the local GUI, and host a web server for seamless data extraction via Wi-Fi.
 
 \end{itemize}
  
-\newpage
-\section{System Requirements}
-\label{sec:requirements}
- 
-The measurement method that the device must reproduce was specified by the research group at the University of Johannesburg~\cite{ebrahim_dpv_conditions}. The operating requirements are listed in Table~\ref{tab:req_dpv}. The same parameters are used on the PalmSens4
-reference instrument in Chapter~\ref{chap:testing}.
- 
-\begin{table}[H]
-  \centering
-  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Parameter} & \textbf{Value} & \textbf{Requirement on the device} \\
-    \midrule
-    Start potential   & \SI{0.8}{\volt} vs RE &
-      \multirow{2}{=}{\raggedright Apply a WE--RE potential of at least
-      \SI{1.325}{\volt} } \\
-    Stop potential    & \SI{1.3}{\volt} vs RE & \\
-    Step potential    & \SI{5}{\milli\volt} &
-      DAC resolution well below \SI{5}{\milli\volt} \\
-    Pulse amplitude   & \SI{25}{\milli\volt} &
-      Superimpose a \SI{25}{\milli\volt} pulse on the staircase \\
-    Pulse time & \SI{50}{\milli\second} &
-      TIA settling and current sampling completed inside the pulse \\
-    Interval time     & \SI{0.5}{\second} &
-      Step period timed to be same or better \\
-    Scan rate         & \SI{10}{\milli\volt\per\second} &
-      Follows from step / interval; no separate requirement \\
-    Points per scan   & $\approx 100$ &
-      Store and transfer one full scan \\
-    Scan duration     & \SI{49.5}{\second} &
-      Storage and measurement priority sustained for a full scan \\
-    \midrule
-    Current range     & $\pm\SI{750}{\micro\ampere}$ &
-      RTIA ranges cover the expected peak currents \\
-    \bottomrule
-  \end{tabularx}
-  \caption{Target DPV operating conditions and the requirements they impose.}
-  \label{tab:req_dpv}
-\end{table}
-
 \section{Scope Exclusions}
 
-The scope of this project focuses on the design, development and analytical validation of the potentiostat hardware and firmware. To validate the DPV measurement performance, laboratory-prepared standard solutions of salt and ferricyanide will be used in a supporting electrolyte. These solutions will be used as benchmarks for the developed potentiostat against commercial instruments such as the PalmSens4. The detection of these compounds in real-world water samples is outside the scope of this project. Including this in the scope would require additional sample preparation, extraction, purification steps to isolate the target analytes and adding a supporting electrolyte \cite{Temgoua2023}. This would introduce additional matrix-interference characterisation and independent analytical confirmation (e.g. via chromatography) that fall beyond the hardware-development engineering focus of this work. The system's performance on real water matrices is identified as a direction for future work.
+The scope of this project focuses on the design, development and analytical validation of the potentiostat hardware and firmware. To validate the DPV measurement performance, laboratory-prepared standard solutions of salt and ferricyanide in a supporting electrolyte were used. These solutions served as benchmarks for the developed potentiostat against commercial instruments such as the PalmSens4. The detection of these compounds in real-world water samples is outside the scope of this project. Including this in the scope would require additional sample preparation, extraction, purification steps to isolate the target analytes and adding a supporting electrolyte \cite{Temgoua2023}. This would introduce additional matrix-interference characterisation and independent analytical confirmation (e.g. via chromatography) that fall beyond the hardware-development engineering focus of this work. The system's performance on real water matrices is identified as a direction for future work.

@@ -32,57 +32,30 @@
 
 
 % =====================================================================
-%  Chapter 3 -- System Modeling & Theoretical Design  (shortened)
+%  Chapter 3 -- System Modeling & Theoretical Design
 %
-%
-%  Before compiling, check these against your own source:
-%
-%  1. FIGURES. The figure environments are empty: paste in your existing
-%     drawing for each one (Figures 3.1, 3.2, 3.4 and 3.5 of the old
-%     chapter). Figure 3.3 (block diagram) now lives in the appendix.
-%
-%  2. LABELS IN CHAPTER 2. I guessed these -- change them to yours:
-%       sec:dpv_waveform   -> Section 2.2.4 (waveform and sampling windows)
-%       eq:dpv_delta_i     -> Equation 2.1 (Delta I = I_end - I_before)
-%       sec:three_opamp    -> Section 2.3.2 (classic 3-op-amp topology)
-%
-%  3. CITATION KEYS (from mybib.bib). I couldn't see which key your old
-%     chapter used for each number, so I matched them by content:
-%       [15] Bard & Faulkner      -> bard2001
-%       [30] Randles              -> c5
-%       [31] Randles / EIS use    -> Lisdat2008      % CHECK
-%       [32] compliance voltage   -> pineresearch_compliance
-%       [33] capacitive current   -> palmsens_capacitive_current
-%       [35] feedback theory      -> c2 (Nise)
-%       [36-38] potentiostat instrumentation -> bard2001, c7, c8
-%       [39] voltage follower     -> c3 (Sedra & Smith)
-%       [40] photodiode TIA       -> graeme1996photodiode
-%       [41] input-capacitance compensation -> adi_mt059
-%       [42] TIA ringing          -> franco2014design
-%       AD5941 datasheet          -> ad5941_ds (from hardware_design_refs.bib)
+%  The Randles model and the capacitive current rejection derivation
+%  now live in Chapter 2 (sec:cell_model and sec:dpv_theory).
+%  The label sec:dpv_rejection was moved with them, so references to it
+%  in Chapters 5 and 6 now point to the DPV subsection in Chapter 2.
 % =====================================================================
 
 \chapter{System Modeling \& Theoretical Design}
 \label{chap:modeling}
 
-This chapter breaks down the chosen system architecture into its constituent parts, and models each part to determine the requirements for the hardware and firmware. 
+This chapter presents the potentiostat designed for this project, referred to as the OpenStat. The OpenStat combines an integrated analog front-end, a browser interface and a standalone onboard display in a single handheld instrument. Section~\ref{sec:architecture} describes its architecture and the role of each part. Section~\ref{sec:afe_stability} then analyses the stability of the two amplifier loops that drive and measure the cell, which sets the requirements for the hardware in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}.
 
-% ---------------------------------------------------------------------
+%------------------------------------------------------------------
 \section{System Architecture}
 \label{sec:architecture}
 
-The architecture of the potentiostat that will be implemented is shown in
-Figure~\ref{fig:architecture}. 
-
-% \begin{figure}[htbp]
-%   \centering
-%   \includegraphics[width=\textwidth]{figures/SystemArchitecture}
-%   \caption{System architecture diagram.}
-%   \label{fig:architecture}
-% \end{figure}
+The OpenStat is built around two key elements. An AD5941 analog front-end applies the potential to the three-electrode cell and measures the resulting current. An ESP32-S3 controls the AD5941 over SPI, times the DPV waveform, computes the differential current and stores the results. The AD5941 was selected over a discrete design because it integrates the control amplifier, RE buffer and TIA of Section~\ref{sec:3opamp_topology} on a single chip, together with a 12-bit DAC, a 16-bit ADC and eight programmable gain ranges, at sub-milliwatt power in a millimetre-scale package. Its main limitation, the capped compliance voltage, does not restrict this application. In addition to these key elements are the interfaces that make the instrument standalone, namely a TFT display and SD card, the user interface, and a web server that serves results over Wi-Fi. Figure~\ref{fig:architecture} shows how the firmware connects these parts, with a single main loop servicing the measurement, display and web server in turn.
 
 \begin{figure}[H]
   \centering
+  \caption{Software architecture.
+    Arrows show the direction of calls or data.}
+  \label{fig:architecture}
   \begin{tikzpicture}[x=1cm, y=1cm]
     % --- external, top
     \node[swhw=30mm] (browser) at (7.6, 6.9) {Browser dashboard};
@@ -105,14 +78,14 @@ Figure~\ref{fig:architecture}.
     \node[swlbl, anchor=south west, font=\footnotesize\itshape]
       at ([yshift=0.3mm]fw.north west) {ESP32-S3 firmware};
     % --- hardware, bottom
-    \node[swhw=16mm] (enc)  at (0.5, -1.9) {Encoder,\\buttons};
-    \node[swhw=22mm] (tft)  at (3.1, -1.9) {TFT display};
-    \node[swhw=24mm] (sd)   at (7.6, -1.9) {microSD card};
-    \node[swhw=26mm] (afe)  at (12.0, -1.9) {AD5941 AFE};
+    \node[swhw=16mm] (enc)  at (0.5, -1.1) {Encoder,\\buttons};
+    \node[swhw=22mm] (tft)  at (3.1, -1.1) {TFT display};
+    \node[swhw=24mm] (sd)   at (7.6, -1.1) {microSD card};
+    \node[swhw=26mm] (afe)  at (12.0, -1.1) {AD5941 AFE};
     % --- connections
     \draw[swdbl] (browser) -- node[swlbl, right] {Wi-Fi} (web);
     \draw[swdbl] (pc) -- node[swlbl, right] {USB} (serial);
-    \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.2] {GPIO,\\interrupts} (input);
+    \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.12] {GPIO,\\interrupts} (input);
     \draw[swarr] (input.north) -- node[swlbl, left] {events}
       (input.north |- screens.south);
     \draw[swarr] ([xshift=-4mm]render.north |- screens.south) --
@@ -130,114 +103,15 @@ Figure~\ref{fig:architecture}.
     \draw[swdbl] (driver) --
       node[swlbl, right, align=left, pos=0.72] {SPI (FSPI),\\\SI{4}{\mega\hertz}} (afe);
   \end{tikzpicture}
-  \caption{Software architecture.
-    Arrows show the direction of calls or data.}
-  \label{fig:architecture}
 \end{figure}
 
-The AD5941 analog front-end forms the analog
-core of the system. It applies the potential to the three-electrode cell and measures the resulting current. The ESP32-S3 controls the AD5941 over SPI, generates the
-DPV waveform timing, computes the differential current and stores the
-results. The main while loop manages these tasks alongside an embedded web server, which
-serves the results over Wi-Fi, and a local display driver, which allows the
-device to be operated through its buttons and screen without an external
-device.
-
-\section{Electrochemical Cell \& Equivalent Circuit Modeling}
-\label{sec:cell_model}
-
-\begin{figure}[H]
-    \centering
-    \begin{circuitikz}[american, thick]
-        % Input from Working Electrode (WE)
-        \draw (0,0) node[anchor=east] {WE} to[short, o-] (0.5,0)
-        % Solution Resistance (Rs)
-        to[R, l=$R_s$] (2.5,0);
-        
-        % Split into parallel branches
-        % Top branch: Double Layer Capacitance (Cdl)
-        \draw (2.5,0) -- (2.5,1.5) 
-        to[C, l=$C_{dl}$] (6.5,1.5) -- (6.5,0);
-        
-        % Bottom branch: Charge Transfer Resistance (Rct) and Warburg (Zw)
-        \draw (2.5,0) -- (2.5,-1.5) 
-        to[R, l=$R_{ct}$] (4.5,-1.5)
-        to[generic, l=$Z_W$] (6.5,-1.5) -- (6.5,0);
-        
-        % Output to Counter/Reference Electrode (CE/RE)
-        \draw (6.5,0) to[short, -o] (7,0) node[anchor=west] {CE/RE};
-    \end{circuitikz}
-    \caption{Randles equivalent circuit modeling the electrochemical cell interface.}
-    \label{fig:randles_circuit}
-\end{figure}
-
-
-To design the loops that drive and measure the cell, the cell is reduced to
-an electrical model. The widely used Randles equivalent circuit
-\cite{c5}, shown in Figure~\ref{fig:randles_circuit}, models the
-electrode--electrolyte interface as the solution resistance $R_s$ in series
-with the double-layer capacitance $C_{dl}$, which is in parallel with the
-charge-transfer resistance $R_{ct}$ and the Warburg impedance $Z_W$. $Z_W$
-accounts for diffusion at low frequencies \cite{bard2001, Lisdat2008}.
-
-
-Each element places a specific demand on the potentiostat. The total
-resistance $R_s + R_{ct}$ is the load that the control amplifier must drive
-to sustain the faradaic current, and so sets the required compliance voltage
-\cite{pineresearch_compliance}. The time constant $R_sC_{dl}$ sets how
-quickly the double layer charges after each potential step, and therefore
-how long a DPV pulse must be held before the capacitive current has decayed
-\cite{bard2001}. $C_{dl}$ also enters the stability of both amplifier loops
-(Section~\ref{sec:afe_stability}). The pulse width, TIA gain and amplifier
-bandwidth are therefore set by the expected $R_s$, $C_{dl}$ and $R_{ct}$ of
-the electrode--analyte interface rather than chosen arbitrarily.
-
-\subsection{Capacitive Current Rejection in DPV}
-\label{sec:dpv_rejection}
-
-As described in Section~\ref{sec:dpv_waveform}, DPV samples the current just
-before each pulse ($I_\text{before}$) and at the end of the pulse
-($I_\text{end}$), and reports $\Delta I = I_\text{end} - I_\text{before}$
-(Equation~\ref{eq:dpv_diff}). After a potential step $\Delta E$, the
-capacitive current decays exponentially
-\cite{palmsens_capacitive_current},
-\begin{equation}
-  I_c(t) = \frac{\Delta E}{R_s}\, e^{-t/R_sC_{dl}},
-  \label{eq:ic}
-\end{equation}
-while the faradaic current follows the Cottrell equation \cite{bard2001},
-\begin{equation}
-  I_f(t) = \frac{nFA\sqrt{D}\,C^*}{\sqrt{\pi t}},
-  \label{eq:cottrell}
-\end{equation}
-where $n$ is the number of electrons transferred, $F$ is Faraday's constant,
-$A$ is the electrode area, $D$ is the diffusion coefficient and $C^*$ is the
-bulk analyte concentration. Because the exponential decays far faster than
-$1/\sqrt{t}$, both samples are taken after the capacitive transient has died
-away, so that $I_{c,\text{before}} \approx I_{c,\text{end}} \approx 0$ and
-\begin{equation}
-  \Delta I \approx I_{f,\text{end}} - I_{f,\text{before}}.
-  \label{eq:delta_if}
-\end{equation}
-The full expansion is given in Appendix~\ref{app:dpv}. In practice this sets
-a minimum pulse width: sampling at $t = 5R_sC_{dl}$ leaves less than
-\SI{1}{\percent} of the initial capacitive current ($e^{-5} \approx 0.007$).
-Because $\Delta I$ approximates the derivative of the faradaic
-current--potential curve, the voltammogram forms a peak which, for a
-reversible system, lies half a pulse amplitude away from the half-wave
-potential $E_{1/2}$ \cite{bard2001}.
+The hardware that implements this architecture is described in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}. The rest of this chapter considers whether the analog front-end remains stable when the electrochemical cell is connected to it.
 
 % ---------------------------------------------------------------------
 \section{Analog Front-End Stability}
 \label{sec:afe_stability}
 
-The AD5941 implements the three-amplifier topology of
-Section~\ref{sec:3opamp_topology}: the potentiostat amplifier acts as the control
-amplifier driving the CE, the RE is sensed through a high-impedance
-unity-gain stage, and the high-speed TIA holds the WE at virtual ground and
-converts the cell current to a voltage. The cell lies inside the feedback
-loops of the control amplifier and the TIA, so its double-layer capacitance
-affects the stability of both.
+The AD5941 implements the three-amplifier topology of Section~\ref{sec:3opamp_topology}. Its potentiostat amplifier acts as the control amplifier driving the CE, the RE is sensed through a high-impedance unity-gain stage, and the high-speed TIA holds the WE at virtual ground and converts the cell current to a voltage. The Randles model of Section~\ref{sec:cell_model} places specific demands on these amplifiers. The total resistance $R_s + R_{ct}$ sets the compliance voltage that the control amplifier must provide \cite{pineresearch_compliance}, and the time constant $R_sC_{dl}$ sets how long a DPV pulse must be held before the capacitive current has decayed \cite{bard2001}. The cell also lies inside the feedback loops of both the control amplifier and the TIA, so $C_{dl}$ affects the stability of each.
 
 Each loop is assessed with the phase-margin criterion. The loop gain
 $L(s) = A(s)\beta(s)$ is evaluated at the crossover frequency $\omega_c$,
@@ -253,13 +127,16 @@ derivations of the results below are given in Appendix~\ref{app:feedback}.
 \label{sec:control_loop}
 
 Only the high-frequency behaviour of the cell matters for stability. $R_{ct}$
-and $Z_W$ govern the slow faradaic response and are omitted, which reduces
-the cell to $C_{dl}$ in series with the uncompensated resistance $R_u$, the
-part of $R_s$ between the RE and the WE \cite{bard2001, c7, c8}. This
-reduced cell is shown in Figure~\ref{fig:cell_buffer}.
+and $Z_W$ in Figure~\ref{fig:randles_circuit} govern the slow Faradaic
+response and are omitted, which reduces the cell to $C_{dl}$ in series with
+the uncompensated resistance $R_u$, the part of $R_s$ between the RE and the
+WE \cite{bard2001, c7, c8}. This reduced cell is shown in
+Figure~\ref{fig:cell_buffer}.
 
 \begin{figure}[H]
     \centering
+    \caption{Electrochemical cell equivalent circuit interfaced with the reference electrode buffer.}
+    \label{fig:cell_buffer}
     \begin{circuitikz}[american, thick]
         
         % Block style for the RE buffer
@@ -317,8 +194,6 @@ reduced cell is shown in Figure~\ref{fig:cell_buffer}.
         \draw[-stealth, thick] (re_buffer.north) -- (4.5, 4.4) node[above] {\textsf{\textbf{$E_{ref}(s)$ to summing junction}}};
         
     \end{circuitikz}
-    \caption{Electrochemical cell equivalent circuit interfaced with the reference electrode buffer.}
-    \label{fig:cell_buffer}
 \end{figure}
 
 
@@ -402,4 +277,4 @@ resistors from \SI{200}{\ohm} to \SI{160}{\kilo\ohm}
 gain range.
 % CHECK: state here which C_TIA value(s) your firmware actually sets for
 % each RTIA range, and check Eq. (eq:cf) against the 63 pF maximum for your
-% electrode's C_dl -- see the note in chat.
+% electrode's C_dl.

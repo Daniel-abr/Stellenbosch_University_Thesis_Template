@@ -1,4 +1,48 @@
 \graphicspath{{conclusion/fig/}}
 
-\mychapter{Summary and conclusions}{Summary and Conclusions}{}
+\chapter{Conclusion and Future Work}
 \label{chap:conclusion}
+
+% =====================================================================
+%  Conclusion and Future Work  (one page, as a chapter)
+%
+%  Add with:   \input{conclusion}
+%  Packages: siunitx (already in the preamble).
+%  Labels used from testing_calibration.tex: chap:testing, sec:fc_shift,
+%  sec:rtia_cal.
+%
+%  Checked on A4, 12 pt, 2.5 cm margins: fits on one page incl. heading.
+%  Markers:   % CHECK: ...   something to confirm before submission
+% =====================================================================
+
+\providecommand{\devname}{OpenStat}
+\section{Conclusion}
+
+This project set out to design an open-source, wireless potentiostat for the
+DPV detection of antiretroviral drugs in water. The \devname{} meets this aim:
+it combines the AD5941 analog front-end with an ESP32-S3, runs from a battery,
+and can be operated either from its own display, buttons and rotary encoder or
+through a web interface over Wi-Fi. The tests of Chapter~\ref{chap:testing}
+showed that the waveform is correct to within one DAC code and that, after
+calibration, all eight current ranges read within \SI{0.44}{\percent}. On dummy cells the device agreed with the expected values to within
+\SI{2.1}{\percent}, and on salt and ferricyanide solutions it matched the
+PalmSens4 to within the reference instrument's own scan-to-scan
+repeatability. The only systematic difference is a potential offset of about
+\SI{25}{\milli\volt}. 
+
+\section{Future Work}
+
+On the hardware side, the \SI{200}{\ohm} range cannot be used above about
+\SI{750}{\micro\ampere} because the potentiostat amplifier runs in its normal
+power mode (Section~\ref{sec:rtia_cal}). Adding a high-power mode for
+measurements above this current would make the full range usable. The
+TP4056 charger has no power-path management, so the device cannot safely run
+while it charges; a charger with power-path control, would solve this issue.
+
+In the firmware, the \devname{} currently returns the voltammogram and leaves
+its interpretation to the user. Automatic baseline correction and peak
+detection would let it report peak height and potential directly, and,
+combined with standard addition on the same electrode, a concentration.
+Beyond this, a machine-learning model trained on voltammograms, removed from the scope of this project, could identify which compounds are present where their peaks overlap, rather than only recording the curve. The \SI{25}{\milli\volt} potential offset (Section~\ref{sec:fc_shift}) should
+be traced in the firmware and confirmed on the \SIlist{10;80}{\kilo\ohm}
+ranges. The device should then be tested with oseltamivir and efavirenz, with preconcentration or a modified electrode to reach nanomolar levels.

@@ -35,10 +35,10 @@
 
 The hardware described in Chapter~\ref{chap:hardware_design} has the ability to apply a
 potential to the cell and measure the current that flows, but it is the
-firmware that turns these two features into an acutal measurement.
-The firmware has four tasks: to generate the DPV waveform, to sample and convert the cell current, to store the result,
-and to present it to the user. This chapter
-describes the structure of the firmware and the logic of how a measurement is performed.
+firmware that turns these two features into a useful measurement.
+This chapter describes the structure of the firmware and the logic of how a measurement is performed.
+
+% The firmware has four tasks; to generate the DPV waveform, to sample and convert the cell current, to store the result, and to present it to the user.
 
 % ---------------------------------------------------------------------
 \section{Software Overview}
@@ -52,9 +52,7 @@ the web server and ArduinoJson for JSON encoding.
 There were three design decisions shaped the structure of the software:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Project-specific AD5941 driver.} Analog Devices
-    supplies a general-purpose software library for the AFE, which covers every measurement mode of the device. The driver for this project was adapted from this library and was written around the needs of this project. The initialisation sequence prescribed in the datasheet
-    \cite{ad5941_ds} was followed, accessing the device registers directly over SPI, and
-    implements only the functions that a DPV measurement requires. This gives
+    supplies a general-purpose software library for the AFE, which covers every measurement mode of the device. The driver for this project was adapted from this library and was written around the needs of this project. This gives
     the firmware direct control of the gain resistor $R_\text{TIA}$ of the
     transimpedance amplifier, which the automatic range selection in
     Section~\ref{sec:sw_ranging} switches repeatedly before a scan.
@@ -123,8 +121,10 @@ There were three design decisions shaped the structure of the software:
 %   \label{fig:sw_architecture}
 % \end{figure}
 
-
-
+The dedicated bus keeps display and storage traffic away from the measurement
+in hardware, but all of these modules still share the processor's time. How
+that time is divided, and when the measurement takes priority, is set by the
+top-level program flow.
 
 \section{Top-Level Program Flow}  
 \label{sec:sw_toplevel}
@@ -135,6 +135,9 @@ every pass and none of them blocks the loop, except when the device is sampling 
 
 \begin{figure}[!htb]
   \centering
+  \caption{Top-level program flow: start-up sequence (left) and the
+    cooperative main loop (right).}
+  \label{fig:sw_toplevel}
   \begin{tikzpicture}[node distance=4.5mm and 12mm]
     % --- start-up column
     \node[swterm=22mm] (pwr) {Power on};
@@ -164,9 +167,6 @@ every pass and none of them blocks the loop, except when the device is sampling 
     \node[swlbl, anchor=south, font=\footnotesize\itshape] at ([yshift=1mm]l1.north) {main loop};
     \node[swlbl, anchor=south, font=\footnotesize\itshape] at ([yshift=1mm]pwr.north) {start-up};
   \end{tikzpicture}
-  \caption{Top-level program flow: start-up sequence (left) and the
-    cooperative main loop (right).}
-  \label{fig:sw_toplevel}
 \end{figure}
 
 % ---------------------------------------------------------------------
@@ -174,11 +174,13 @@ every pass and none of them blocks the loop, except when the device is sampling 
 \label{sec:sw_dpv}
 
 A scan is defined by the parameters required in Table~\ref{tab:sw_params}. They are
-stored in non-volatile storage (NVS), a partition of the ESP's flash memory, edited on the device and restricted to the limits seen in able~\ref{tab:sw_ranges} whenever they are loaded or edited to protect the hardware. The scan rate is not set directly and is found by dividing the number of steps by the period.
+stored in non-volatile storage (NVS), a partition of the ESP's flash memory, edited on the device and restricted to the limits seen in Table~\ref{tab:sw_ranges} whenever they are loaded or edited to protect the hardware. The scan rate is not set directly and is found by dividing the number of steps by the period.
 
 \begin{table}[H]
   \centering
   \small
+  \caption{DPV scan parameters, their default values and permitted ranges.}
+  \label{tab:sw_params}
   \begin{tabular}{@{}llll@{}}
     \toprule
     \textbf{Parameter} & \textbf{Symbol} & \textbf{Default} & \textbf{Permitted range} \\
@@ -192,8 +194,6 @@ stored in non-volatile storage (NVS), a partition of the ESP's flash memory, edi
     TIA range         & $R_\text{TIA}$      & automatic               & automatic, or one of eight fixed values \\
     \bottomrule
   \end{tabular}
-  \caption{DPV scan parameters, their default values and permitted ranges.}
-  \label{tab:sw_params}
 \end{table}
 
 \subsection{Generating the Potential}
@@ -207,23 +207,20 @@ staircase and the pulses.
 
 The applied potential is therefore
 \begin{equation}
-  E = V_\text{ZERO} - V_\text{BIAS},
+  E = V_\text{ZERO} - V_\text{BIAS}, where
   \qquad
   V_\text{BIAS} = \SI{0.2}{\volt} + D_{12}\times\frac{\SI{2.2}{\volt}}{4095},
   \label{eq:sw_potential}
 \end{equation}
-$D_{12}$ is the 12-bit code and one code is \SI{537.2}{\micro\volt} which represents the voltage change per code. With
+and $D_{12}$ is the 12-bit code and one code is \SI{537.2}{\micro\volt} which represents the voltage change per code. With
 $V_\text{ZERO}$ fixed at this value, the permitted range of $E$ in
 Table~\ref{tab:sw_params} keeps $V_\text{BIAS}$ between \SI{0.41}{\volt} and
 \SI{2.06}{\volt}, inside the \SIrange{0.2}{2.4}{\volt} output range of the DAC.
 
 \subsection{Scan Flow}
 
-Figure~\ref{fig:sw_scan} shows the process of how one scan is run. Before any timing starts,
-the TIA range is selected (Section~\ref{sec:sw_ranging}) and the requested
-timing is checked against the minimum that the sampling scheme can support
-(Section~\ref{sec:sw_sampling}), a scan that fails this check is stopped. The
-scan consists of
+Before any timing starts, the TIA range is selected (Section~\ref{sec:sw_ranging}) and the requested timing is checked against the minimum that the sampling scheme can support
+(Section~\ref{sec:sw_sampling}), a scan that fails this check is stopped. The scan consists of
 \begin{equation}
   N = \left\lfloor \frac{E_\text{end} - E_\text{start}}{\Delta E_\text{s}} \right\rfloor
   \label{eq:sw_npoints}
@@ -242,7 +239,7 @@ single file only once the scan has stopped, so that card activity cannot
 disturb the measurement. Every way of leaving a scan, whether completion, a
 stop request or an overload, passes through the same stop routine, which stops
 the ADC, returns the cell to $E = \SI{0}{\volt}$ and saves the points captured
-so far.
+so far. For more detail Figure~\ref{fig:sw_scan} in Appendix~\ref{app:sw_scan} shows the process of how one scan is run. 
 
 
 \section{Pulse Sampling and Timing}
@@ -261,8 +258,7 @@ All DAC updates and ADC conversions are done on the microcontroller. The stairca
 That control is used to give the measurement priority over everything else
 while a scan is running. Whenever the current is being sampled, the firmware
 does nothing but sample: the buttons are not read, the display is not
-updated and nothing is written to the SD card. All other activity is confined
-to the part of each step in which no sample is being taken. This keeps the
+updated and nothing is written to the SD card. This keeps the
 digital activity of the device out of the sampling windows, which reduces the
 noise coupled into the measurement and improves its accuracy. The cost is
 that the timing between windows depends on the main loop, and the sampling
@@ -271,9 +267,17 @@ current.
 
 \subsection{Averaging Window}
 
-In the configuration used (sinc3 oversampling of 5 and sinc2 oversampling of
-178 on the \SI{800}{\kilo\hertz} ADC), the AD5941 produces a filtered result
-every $T_\text{s} = \SI{1.1125}{\milli\second}$. The device also offers a
+Before the ADC of the AD5941 transmits the measruements to the ESP32-S3 its output
+passes through two digital filters inside the device, a sinc3 filter
+followed by a sinc2 filter \cite[p.~57]{ad5941_ds}. A sinc filter is a
+low-pass filter that averages a block of consecutive samples and outputs
+one result per block, so it both suppresses noise and lowers the data rate.
+The number of samples per output is the oversampling ratio. In the
+configuration used, the sinc3 filter reduces the raw \SI{800}{\kilo\hertz}
+ADC rate by a factor of 5 to \SI{160}{\kilo\hertz}, and the sinc2 filter
+reduces it further by a factor of 178 \cite[p.~59]{ad5941_ds}, so the
+AD5941 produces one filtered result every
+$T_\text{s} = 178/\SI{160}{\kilo\hertz} = \SI{1.1125}{\milli\second}$. The device also offers a
 \SI{50}{\hertz}/\SI{60}{\hertz} notch filter after the sinc2 filter, but with
 it enabled the settling time after a step is \SI{37}{\milli\second}, against
 \SI{2.245}{\milli\second} without it \cite[p.~17]{ad5941_ds}. A
@@ -303,6 +307,8 @@ phase at which the charging current has had the longest time to decay.
 
 \begin{figure}[!htb]
   \centering
+  \caption{One DPV step with the default timing. Shaded bands show the two averaging windows.}
+  \label{fig:sw_timing}
   \begin{tikzpicture}[x=0.94cm, y=1cm, font=\footnotesize]
     % sampling windows
     \fill[black!18] (4.6,0.2) rectangle (6.0,3.45);
@@ -354,9 +360,6 @@ phase at which the charging current has had the longest time to decay.
     \foreach \x in {0, 6.0, 8.2}
       \draw[densely dotted, line width=0.3pt] (\x,0.2) -- (\x,-0.45);
   \end{tikzpicture}
-  \caption{One DPV step with the default timing. Shaded bands
-    show the two averaging windows.}
-  \label{fig:sw_timing}
 \end{figure}
 
 Three properties of this scheme limit the effect of software timing:
@@ -396,7 +399,7 @@ is not controlled.
 \label{sec:sw_current}
 
 The ADC measures the differential output of the high-speed TIA through its
-gain stage, set to a gain of 1.5. The specific gain value was selected as it is the only factory-calibrated gain from the datasheet \cite[p.~56]{ad5941_ds}. The mean code $\bar{D}$ of a
+gain stage, set to a gain of 1.5. The specific gain value was selected as it is the only factory-calibrated gain from the datasheet \cite[p.~56]{ad5941_ds} and is appropriate for this configuration. The mean code $\bar{D}$ of a
 window is converted to the TIA output voltage with the transfer function given
 in the datasheet for this gain \cite[p.~56]{ad5941_ds}, and then to a current
 using the nominal value of the selected gain resistor:
@@ -436,7 +439,7 @@ can source or sink only $\pm\SI{750}{\micro\ampere}$ in its normal mode
 useful with the high-current mode of the amplifier enabled.
 
 The AD5941 is calibrated against an external resistor connected
-in place of the cell. The gain and offset constants are compiled into the firmware and are listed in Table~\ref{tab:sw_ranges}.
+in place of the cell. The gain and offset constants are compiled into the firmware and are listed as additional information in Appendix~\ref{app:sw_ranges}.
 
 \subsection{Automatic Range Selection}
 \label{sec:sw_ranging}
@@ -450,11 +453,13 @@ full scale, the next more sensitive range is selected and the probe is
 repeated. Successive ranges differ by a factor of five or two, so a signal
 just below the threshold occupies at most \SI{50}{\percent} of full scale on
 the range that is finally chosen. The remainder is headroom for the pulse
-response and the faradaic peak, which the probe does not see because it
+response and the Faradaic peak, which the probe does not see because it
 applies no pulse.
 
 \begin{figure}[H]
   \centering
+  \caption{Automatic selection of the TIA range before a scan.}
+  \label{fig:sw_autorange}
   \begin{tikzpicture}[node distance=5mm and 4mm]
     \node[swterm=16mm] (a) {Scan start};
     \node[swproc=22mm, right=of a] (b) {Select \SI{1}{\kilo\ohm};\\settle \SI{20}{\milli\second}};
@@ -469,8 +474,6 @@ applies no pulse.
     \draw[swarr] (e) -- (c);
     \draw[swarr] (d.south) |- node[swlbl, right, pos=0.25] {no} (f.east);
   \end{tikzpicture}
-  \caption{Automatic selection of the TIA range before a scan.}
-  \label{fig:sw_autorange}
 \end{figure}
 
 The range is then held for the whole scan. Changing the gain resistor during

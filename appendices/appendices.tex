@@ -1,54 +1,12 @@
-\chapter{AD5941 Capacitor Selection}{}
-\makeatletter\@mkboth{}{Appendix}\makeatother
-\label{appen:hw_caps}
+\chapter{Project planning schedule}
+\label{app:plan_schedule}
 
-Table~\ref{tab:hw_caps} lists the capacitors around the AD5941 and the
-justification for each value, as discussed in Section~\ref{sec:hw_caps}.
-
-\begin{table}[H]
-  \centering
-  \caption{Capacitors around the AD5941 and the justification for each value.}
-  \label{tab:hw_caps}
-  \footnotesize
-  \setstretch{1}
-  \renewcommand{\arraystretch}{1.3}
-  \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{@{}l l l
-      >{\raggedright\arraybackslash}p{3.7cm}
-      >{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Ref} & \textbf{Pin} & \textbf{Value} & \textbf{Role} & \textbf{Reason} \\
-    \midrule
-    C7, C24 & DVDD (6)   & \SI{100}{\nano\farad} & HF supply decoupling
-        & Two-tier convention \cite{adi_mt101}; target impedance \cite{smith1999pds} \\
-    C30 & IOVDD (26)     & \SI{100}{\nano\farad} & HF decoupling of SPI drivers
-        & Two-tier convention \cite{adi_mt101}; one capacitor per pin \\
-    C31 & AVDD (30)      & \SI{100}{\nano\farad} & HF supply decoupling
-        & Two-tier convention \cite{adi_mt101}; local to pin 30 \\
-    C33 & AVDD (41)      & \SI{100}{\nano\farad} & HF supply decoupling
-        & Two-tier convention \cite{adi_mt101}; local to pin 41 \\
-    C9  & AVDD (30)      & \SI{10}{\micro\farad} & Bulk decoupling; LC filter with FB1
-        & Meets \SI{1}{\ohm} target above \SI{16}{\kilo\hertz} \cite{smith1999pds} \\
-    C1  & \texttt{AVDD\_REG} (5) & \SI{470}{\nano\farad} & Internal LDO output capacitor
-        & No datasheet value; matched to \texttt{DVDD\_REG\_1V8}
-          \cite[p.~21]{ad5941_ds}, \cite{rinconmora2009ldo} \\
-    C8  & \texttt{DVDD\_REG\_1V8} (14) & \SI{470}{\nano\farad} & Internal LDO output capacitor
-        & Datasheet value \cite[p.~21]{ad5941_ds} \\
-    C6  & \texttt{VREF\_2V5} (4) & \SI{470}{\nano\farad} & \SI{2.5}{\volt} reference decoupling
-        & Datasheet value and test condition \cite[pp.~11, 20]{ad5941_ds} \\
-    C10 & \texttt{VREF\_1V82} (43) & \SI{4.7}{\micro\farad} & ADC \SI{1.82}{\volt} reference reservoir
-        & Datasheet recommendation \cite[p.~19]{ad5941_ds}; kickback bound \\
-    C5  & \texttt{VBIAS\_CAP} (31) & \SI{470}{\nano\farad} & ADC \SI{1.11}{\volt} common-mode decoupling
-        & Datasheet value and test condition \cite[pp.~11, 20]{ad5941_ds} \\
-    C27 & \texttt{VBIAS0} (8) & \SI{100}{\nano\farad} & LP DAC output noise filter
-        & Datasheet value \cite[p.~20]{ad5941_ds} \\
-    C28 & \texttt{VZERO0} (9) & \SI{100}{\nano\farad} & LP DAC output noise filter
-        & Datasheet value \cite[p.~20]{ad5941_ds} \\
-    C29 & \texttt{RESET} (22) & \SI{100}{\nano\farad} & Reset hold and deglitch ($R_8 = \SI{10}{\kilo\ohm}$)
-        & $\tau = \SI{1}{\milli\second} \gg \SI{1}{\micro\second}$ minimum pulse \cite[p.~14]{ad5941_ds} \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
+\begin{figure}[H]
+    \caption{The decidend Gantt chart for the project planning schedule.}
+    \label{fig:gantt_chart}
+    \centering
+    \includegraphics[angle=90, width=0.3\linewidth]{figures/gantt_chart.png}
+\end{figure}
 
 
 % =====================================================================
@@ -71,7 +29,7 @@ Chapter~\ref{chap:modeling}.
 \label{app:dpv}
 
 After a potential step, the total current at the electrode is the sum of the
-faradaic and capacitive components,
+Faradaic and capacitive components,
 \begin{equation}
   I_\text{total}(t) = I_f(t) + I_c(t),
 \end{equation}
@@ -90,9 +48,9 @@ has decayed, so $I_{c,\text{before}} \approx 0$. $I_\text{end}$ is sampled at
 the end of a pulse that is long compared with $R_sC_{dl}$, so the transient
 caused by the pulse has also decayed and $I_{c,\text{end}} \approx 0$.
 Equation~\eqref{eq:app_delta_i_expanded} therefore reduces to
-Equation~\eqref{eq:delta_if}, leaving only the faradaic signal.
+Equation~\eqref{eq:delta_if}, leaving only the Faradaic signal.
 
-Because $\Delta I$ is the change in faradaic current caused by a small
+Because $\Delta I$ is the change in Faradaic current caused by a small
 potential change $\Delta E$, it approximates the derivative of the
 current--potential curve:
 \begin{equation}
@@ -187,8 +145,35 @@ so it contributes no pole over the frequency range of interest \cite{c3}.
 \section{TIA Transfer Function and Compensation}
 \label{app:tia}
 
+\begin{figure}[H]
+    \caption{Analog front-end transimpedance amplifier circuit.}
+    \label{fig:tia_circuit}
+    \centering
+    \begin{circuitikz}[american, thick]
+        \draw (0,0) node[ground]{} to[C, l=$C_{dl}$] (0,2);
+        \draw (2,0) node[ground]{} to[isource, l=$I_{in}$] (2,2);
+        \draw (0,2) to[short] (3,2);
+        \draw (4.2, 1.5) node[op amp] (opamp) {};
+        \draw (3,2) to[short] (opamp.-);
+        \draw (opamp.+) to[short] (3.0, 1.0) node[ground]{};
+        \draw (opamp.out) to[short, -o] (7.5, 1.5) node[anchor=west] {$V_{out}$};
+        \draw (3,2) to[short] (3, 3.5)
+              to[R, l=$R_f$] (6, 3.5)
+              to[short] (6, 1.5);
+        \draw (3,3.5) to[short] (3, 5)
+              to[C, l=$C_f$] (6, 5)
+              to[short] (6, 3.5);
+        \node[circ] at (2,2) {};
+        \node[circ] at (3,2) {};
+        \node[circ] at (3,3.5) {};
+        \node[circ] at (6,1.5) {};
+        \node[circ] at (6,3.5) {};
+    \end{circuitikz}
+
+\end{figure}
+
 Applying Kirchhoff's current law at the inverting node of the TIA in
-Figure~\ref{fig:tia}, without $C_f$, the cell current $I_\text{in}$ divides
+Figure~\ref{fig:tia_circuit}, without $C_f$, the cell current $I_\text{in}$ divides
 between $C_{dl}$ and $R_f$:
 \begin{equation}
   I_\text{in} = V_n\,sC_{dl} + \frac{V_n - V_\text{out}}{R_f}.
@@ -397,29 +382,29 @@ and solving for $C_f$ gives Equation~\eqref{eq:cf}.
 \label{app:webserver_dashboard}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\linewidth]{figures/dashboard.png}
     \caption{The webserver dashboard for the potentiostat.}
     \label{fig:dashboard}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/dashboard.png}
 \end{figure}
 
 
 \chapter{KiCad Schematic}
 \label{app:kicad_schematic}
 \begin{figure}[H]
-    \centering
-    \includegraphics[angle=90, width=0.6\linewidth]{figures/KicadExport.pdf}
     \caption{The KiCad schematic for the potentiostat.}
     \label{fig:kicad_schematic}
+    \centering
+    \includegraphics[angle=90, width=0.6\linewidth]{figures/KicadExport.pdf}
 \end{figure}
 
 \chapter{KiCad PCB}
 \label{app:kicad_pcb}
 \begin{figure}[H]
-    \centering
-    \includegraphics[angle=0, width=0.9\linewidth]{figures/pcbexport.pdf}
     \caption{The KiCad PCB for the potentiostat.}
     \label{fig:kicad_pcb}
+    \centering
+    \includegraphics[angle=0, width=0.9\linewidth]{figures/pcbexport.pdf}
 \end{figure}
 
 
@@ -427,8 +412,238 @@ and solving for $C_f$ gives Equation~\eqref{eq:cf}.
 \label{app:case_render}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\linewidth]{figures/case model.png}
     \caption{The case render for the potentiostat.}
     \label{fig:case_render}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/case model.png}
+
 \end{figure}
+
+
+% Capacitor selection appendix
+
+\chapter{AD5941 Capacitor Selection}
+\label{appen:hw_caps}
+ 
+This appendix gives the full reasoning behind the capacitor values summarised
+in Table~\ref{tab:hw_caps} of Section~\ref{sec:hw_caps}.
+ 
+\section{Supply Decoupling: \SI{100}{\nano\farad} and \SI{10}{\micro\farad}}
+\label{sec:hw_supply_decoupling}
+ 
+Each supply pin has a local \SI{100}{\nano\farad} ceramic capacitor, and AVDD
+has an additional \SI{10}{\micro\farad} bulk capacitor. The MT-101 tutorial
+prescribes two tiers of capacitors: a large capacitor, typically
+\SIrange{10}{100}{\micro\farad}, within about \SI{5}{\centi\metre} of the IC,
+and small ceramics, typically \SIrange{0.01}{0.1}{\micro\farad}, as close to
+the power pins as possible, optionally with a ferrite bead in series
+\cite{adi_mt101}. Analog Devices applies the same principle in its precision
+converter datasheets; for the AD7714, for example, a \SI{10}{\micro\farad}
+capacitor is used in parallel with \SI{0.1}{\micro\farad} on each analog
+supply \cite{ad7714_ds}.
+ 
+\paragraph{Target impedance.}
+The worst-case AVDD current step is the sum of all the subsystems of the
+AD5941 switching on at once \cite[p.~14]{ad5941_ds}, which is approximately
+\SI{10}{\milli\ampere}.
+% CHECK: page 14 of Rev. G is the reset / digital I/O table. Confirm the page
+% for the supply-current figures. Also, the ferrite bead section uses 10.1 mA
+% -- use one value throughout.
+The \SI{1.82}{\volt} reference has an AC PSRR of \SI{60}{\decibel}
+\cite[p.~11]{ad5941_ds}, which corresponds to supply noise being attenuated by
+a factor of about 1000. A \SI{10}{\milli\volt} supply disturbance therefore
+appears as \SI{10}{\micro\volt} on the reference, which is a factor of 5.5
+below $1~\text{LSB} = \SI{1.82}{\volt}/2^{15} = \SI{55.5}{\micro\volt}$
+\cite[p.~7]{ad5941_ds}. Taking \SI{10}{\milli\volt} as a conservative limit on
+the supply disturbance, the target impedance is
+\begin{equation}
+  Z_t = \frac{\Delta V}{\Delta I}
+      = \frac{\SI{10}{\milli\volt}}{\SI{10}{\milli\ampere}}
+      = \SI{1}{\ohm}.
+  \label{eq:hw_ztarget}
+\end{equation}
+ 
+\paragraph{\SI{10}{\micro\farad}.}
+The impedance of a capacitor falls as frequency rises, so a given capacitor
+holds the rail below $Z_t$ only above a certain frequency. Setting the
+capacitor impedance equal to $Z_t$ and solving for frequency gives that lower
+limit:
+\begin{equation}
+  |Z_C| = \frac{1}{2\pi f C} = Z_t
+  \quad\Rightarrow\quad
+  f_\text{min} = \frac{1}{2\pi C Z_t}
+               = \frac{1}{2\pi\,(\SI{10}{\micro\farad})(\SI{1}{\ohm})}
+               = \SI{15.9}{\kilo\hertz}.
+  \label{eq:hw_fmin}
+\end{equation}
+Above \SI{15.9}{\kilo\hertz} the capacitor can supply the sudden current
+demands of the chip quickly enough that the AVDD voltage barely moves. Below
+\SI{15.9}{\kilo\hertz} the \SI{3.3}{\volt} regulator holds the rail stable.
+ 
+\paragraph{\SI{100}{\nano\farad}.}
+Rapid switching inside the AD5941 draws short current bursts from the supply.
+The \SI{10}{\micro\farad} capacitor cannot deliver bursts this fast. A small
+capacitor placed directly at each supply pin has far less inductance in its
+path and can deliver them, covering the frequencies from a few megahertz to
+beyond \SI{100}{\mega\hertz}. A value of \SI{100}{\nano\farad} is recommended
+for this role in standard decoupling guidance
+\cite{adi_mt101, ott2009emc, horowitz2015art}, and the calculations below show
+that it is adequate for this design.
+ 
+Every capacitor resonates with its own equivalent series inductance (ESL) at
+its self-resonant frequency, above which it behaves as an inductor. With a
+typical ESL of about \SI{1}{\nano\henry} for the 0805 package used on this
+board \hwtodo{reference for 0805 ESL}:
+\begin{equation}
+  f_\text{SRF} = \frac{1}{2\pi\sqrt{L_\text{ESL}\,C}}:
+  \qquad
+  f_{\text{SRF},\,\SI{10}{\micro\farad}} = \SI{1.6}{\mega\hertz},
+  \qquad
+  f_{\text{SRF},\,\SI{100}{\nano\farad}} = \SI{15.9}{\mega\hertz}.
+  \label{eq:hw_srf}
+\end{equation}
+The \SI{10}{\micro\farad} capacitor is most effective up to around
+\SI{1.6}{\mega\hertz}, which makes it the right part for the slower range,
+roughly \SI{16}{\kilo\hertz} to a few megahertz. The \SI{100}{\nano\farad}
+capacitor keeps improving up to around \SI{15.9}{\mega\hertz}. Above that its
+impedance is set by the ESL alone,
+\begin{equation}
+  |Z| \approx 2\pi f L_\text{ESL}
+      = 2\pi\,(\SI{100}{\mega\hertz})(\SI{1}{\nano\henry})
+      = \SI{0.63}{\ohm},
+  \label{eq:hw_esl_100mhz}
+\end{equation}
+which is still below the \SI{1}{\ohm} target, so it covers the fast range
+adequately.
+ 
+\section{Internal Nodes: \SI{470}{\nano\farad} and \SI{4.7}{\micro\farad}}
+\label{sec:hw_internal_nodes}
+ 
+These capacitors connect to nodes inside the AD5941, specifically its voltage
+references and internal regulators. Their correct values depend on internal
+circuit details that Analog Devices does not publish, so they cannot be
+derived independently and the datasheet values are used directly.
+ 
+\paragraph{\SI{470}{\nano\farad}.}
+The datasheet specifies \SI{470}{\nano\farad} for three pins, namely
+\texttt{VREF\_2V5}, \texttt{VBIAS\_CAP} and \texttt{DVDD\_REG\_1V8}
+\cite[pp.~11, 20--21]{ad5941_ds}, but does not explain how this value was
+chosen. Capacitors on such nodes are normally sized to suit the stability and
+noise requirements of the on-chip reference buffers and regulators
+\cite{rinconmora2009ldo}, and those requirements cannot be assessed without
+internal design data. The datasheet value was therefore adopted as specified.
+ 
+The datasheet gives no value for \texttt{AVDD\_REG} \cite[p.~20]{ad5941_ds}.
+The \SI{470}{\nano\farad} specified for the other internal regulator output,
+\texttt{DVDD\_REG\_1V8}, was used as the closest available guidance.
+ 
+\paragraph{\SI{4.7}{\micro\farad}.}
+The datasheet pin description recommends \SI{4.7}{\micro\farad} on
+\texttt{VREF\_1V82}, the \SI{1.82}{\volt} reference of the ADC
+\cite[p.~19]{ad5941_ds}, again without stating the reasoning. Its
+specification table, however, lists \SI{0.47}{\micro\farad} as the test
+condition for the same pin \cite[p.~11]{ad5941_ds}, so the datasheet is not
+internally consistent. The \SI{4.7}{\micro\farad} recommendation was followed
+as the more conservative of the two. The ADC draws a small pulse of charge
+from this reference during every conversion, and a larger capacitor holds more
+charge, so the reference voltage dips less with each pulse.
+
+% =====================================================================
+%  Appendix -- Bill of Materials
+%
+%  Add after \appendix with:   \input{appendix_bom}
+%  Referenced from environmental_analysis.tex as Appendix~\ref{app:bom}.
+%  Packages: booktabs, siunitx (as elsewhere) and xltabular, so add
+%      \usepackage{xltabular}
+%  to the preamble. The table breaks across pages.
+%  Generated from Openstat_BOM.xlsx (25 Oct 2026).
+% =====================================================================
+
+\chapter{Bill of Materials}
+\label{app:bom}
+
+Table~\ref{tab:bom} lists the components bought for the prototype. Prices are
+the suppliers' listed prices in rand excluding VAT, for the quantity ordered;
+items sold in packs or with a minimum order are costed at the full pack.
+Shipping and import duties are excluded. Suppliers are abbreviated as
+MR (MicroRobotics), DK (DigiKey), CM (Communica), RS (RS Components) and
+PW (PCBWay). Items marked $^{\dagger}$ are estimates: the resistors and
+capacitors marked Kit came from laboratory component kits and are costed at
+Communica's single-unit price for the same value (the \SI{12}{\pico\farad}
+at the nearest listed value, \SI{15}{\pico\farad}), and the PCB is costed
+from a PCBWay online quote of US\$30.89 for five boards at R16.59/US\$
+(25~October~2026).
+
+{\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}X l l r r r@{}}
+  \caption{Bill of materials for the OpenStat prototype.}
+  \label{tab:bom} \\
+  \toprule
+  \textbf{Description} & \textbf{Part no.} & \textbf{Supplier} & \textbf{Qty} &
+  \textbf{Unit (R)} & \textbf{Total (R)} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{6}{@{}l}{\textit{Table~\ref{tab:bom} continued}} \\
+  \toprule
+  \textbf{Description} & \textbf{Part no.} & \textbf{Supplier} & \textbf{Qty} &
+  \textbf{Unit (R)} & \textbf{Total (R)} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \multicolumn{6}{@{}l}{\textit{Microcontroller}} \\
+  ESP32-S3 development board, \SI{32}{\mega\byte} flash, \SI{16}{\mega\byte} PSRAM & N32R16V-M & MR & 1 & 336.00 & 336.00 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Display and storage}} \\
+  \num{1.8}-inch \num{128}~$\times$~\num{160} TFT display with microSD slot & DFR0928 & MR & 1 & 168.00 & 168.00 \\
+  \SI{32}{\giga\byte} microSD card & MSC100-32GB & MR & 1 & 148.00 & 148.00 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Power}} \\
+  Li-Po cell, \SI{3.7}{\volt}, \SI{5000}{\milli\ampere\hour} & 955565 & MR & 1 & 138.00 & 138.00 \\
+  Li-Po charger module, \SI{1}{\ampere}, USB-C (TP4056) & PK4056 & MR & 1 & 16.00 & 16.00 \\
+  Step-up/step-down regulator, \SI{5}{\volt} & Pololu S9V11E2F5 & MR & 1 & 80.00 & 80.00 \\
+  Electrolytic capacitor, \SI{100}{\micro\farad} \SI{25}{\volt} (pack of 10) & CAP-100UF-25V & MR & 1 & 8.00 & 8.00 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Analog front end}} \\
+  Ferrite bead 0805, \SI{600}{\ohm} at \SI{100}{\mega\hertz} & 74279204 & RS & 10 & 3.98 & 39.84 \\
+  Crystal, \SI{16}{\mega\hertz}, \num{\pm 10}~ppm & X1E000021011912 & RS & 5 & 33.63 & 168.16 \\
+  Thin-film resistor 0805, \SI{220}{\ohm}, \SI{0.1}{\percent} & ERA6VEB2200V & RS & 10 & 7.62 & 76.20 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Connectors}} \\
+  JST-PH 2-pin cable, \SI{20}{\centi\metre} (pack of 4) & JST-PH-2P-20CM & MR & 1 & 10.00 & 10.00 \\
+  Edge connector, dual-row female, 6-way & 7-5530843-7 & DK & 2 & 49.85 & 99.70 \\
+  DIL socket, 6-way, right-angle & 727060 & CM & 2 & 3.15 & 6.30 \\
+  SIL header, 40-way & 709401 & CM & 1 & 6.25 & 6.25 \\
+  Female header, 40-way (pack of 10) & H40P-FEM-254 & MR & 1 & 18.00 & 18.00 \\
+  SIL header, 20-way (pack of 10) & HM20P-254-BLK & MR & 1 & 10.00 & 10.00 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{User input}} \\
+  Rotary encoder EC11, vertical & EC11-VS-15 & MR & 2 & 10.00 & 20.00 \\
+  Tactile switch, \SI{6}{\milli\metre}~$\times$~\SI{6}{\milli\metre} SMD & DTSM63R & CM & 4 & 3.70 & 14.80 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Passives}} \\
+  SMD electrolytic capacitor, \SI{100}{\micro\farad} \SI{6.3}{\volt} & 100UF 6,3VES & CM & 4 & 1.35 & 5.40 \\
+  Resistor 0805, \SI{0}{\ohm} (minimum order 100) & CHR0805 0R & CM & 100 & 0.14 & 14.00 \\
+  Capacitor 0805, \SI{470}{\nano\farad}$^{\dagger}$ & CHC0805 & Kit & 4 & 0.60 & 2.40 \\
+  Capacitor 0805, \SI{4.7}{\micro\farad}$^{\dagger}$ & CHC0805 & Kit & 1 & 0.56 & 0.56 \\
+  Capacitor 0805, \SI{12}{\pico\farad} C0G$^{\dagger}$ & CHC0805 & Kit & 2 & 0.35 & 0.70 \\
+  Capacitor 0805, \SI{100}{\nano\farad}$^{\dagger}$ & CHC0805 & Kit & 15 & 0.94 & 14.10 \\
+  Capacitor 0805, \SI{10}{\nano\farad}$^{\dagger}$ & CHC0805 & Kit & 2 & 0.45 & 0.90 \\
+  Capacitor 0805, \SI{220}{\pico\farad} C0G$^{\dagger}$ & CHC0805 & Kit & 1 & 0.20 & 0.20 \\
+  Capacitor 0805, \SI{10}{\micro\farad}$^{\dagger}$ & CHC0805 & Kit & 1 & 1.04 & 1.04 \\
+  Resistor 0805, \SI{10}{\kilo\ohm}, \SI{1}{\percent}$^{\dagger}$ & CHR0805 & Kit & 7 & 0.12 & 0.84 \\
+  Resistor 0805, \SI{1}{\kilo\ohm}, \SI{1}{\percent}$^{\dagger}$ & CHR0805 & Kit & 1 & 0.12 & 0.12 \\
+  Resistor 0805, \SI{15}{\kilo\ohm}, \SI{1}{\percent}$^{\dagger}$ & CHR0805 & Kit & 1 & 0.12 & 0.12 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{Prototyping}} \\
+  Veroboard, \SI{50}{\milli\metre}~$\times$~\SI{70}{\milli\metre} (pack of 4) & VERO5070 & MR & 1 & 20.00 & 20.00 \\
+  \addlinespace
+  \multicolumn{6}{@{}l}{\textit{PCB}} \\
+  Two-layer FR-4 PCB, \SI{150}{\milli\metre}~$\times$~\SI{50}{\milli\metre} (5 boards)$^{\dagger}$ & PCBWay & PW & 5 & 102.48 & 512.41 \\
+  \midrule
+  \multicolumn{5}{@{}l}{Subtotal (excl.\ VAT)} & 1\,936.04 \\
+  \multicolumn{5}{@{}l}{VAT (\SI{15}{\percent})} & 290.41 \\
+  \multicolumn{5}{@{}l}{\textbf{Total (incl.\ VAT)}} & \textbf{2\,226.45} \\
+\end{xltabular}
+}
