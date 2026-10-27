@@ -1,0 +1,102 @@
+% Figure 3.1 -- measurement signal chain of the OpenStat.
+% Needs \usepackage{circuitikz} and \usetikzlibrary{calc}.
+% Scaled to \textwidth with \resizebox in the figure environment.
+\begin{circuitikz}[
+    font=\footnotesize,
+    blk/.style={draw, rectangle, rounded corners=1.5pt, align=center,
+                minimum height=1.0cm, minimum width=1.15cm, inner sep=2.5pt,
+                fill=white},
+    note/.style={font=\scriptsize\itshape, text=black!55, align=center},
+    pin/.style={circle, draw, fill=white, inner sep=1.2pt},
+    >=latex, line width=0.5pt,
+    ]
+  \ctikzset{bipoles/length=0.95cm}
+
+  % ================= chip boundary ===================================
+  \draw[dashed, rounded corners=4pt, black!50]
+       (3.0,1.55) rectangle (13.0,-5.7);
+  \node[anchor=north east, font=\scriptsize\bfseries, text=black!55]
+       at (12.95,1.50) {AD5941};
+
+  % ================= cell (external) =================================
+  \draw[rounded corners=3pt, black!30, fill=black!3]
+       (0.25,1.20) rectangle (2.45,-3.95);
+  \node[font=\scriptsize\bfseries, text=black!55, anchor=north west]
+       at (0.30,1.15) {Cell};
+  \coordinate (CEn) at (1.5,0.6);
+  \coordinate (REn) at (1.5,-1.0);
+  \coordinate (Mn)  at (1.5,-1.85);
+  \coordinate (WEn) at (1.5,-3.35);
+  \draw (CEn) to[R, l_=\scriptsize$R_s{-}R_u$] (REn);
+  \draw (REn) to[R, l_=\scriptsize$R_u$] (Mn);
+  \draw (Mn) -| (1.0,-2.15) to[C, l_=\scriptsize$C_{dl}$] (1.0,-3.05) |- (WEn);
+  \draw (Mn) -| (2.0,-2.15) to[R, l^=\scriptsize$R_{ct}$] (2.0,-3.05) |- (WEn);
+  \fill (Mn) circle (1.2pt); \fill (WEn) circle (1.2pt);
+  \node[note, anchor=north] at (1.35,-3.45) {Sec.~2.1.2};
+
+  % ================= pins ==============================================
+  \node[pin, label={[font=\scriptsize]above:CE}] (CEp) at (3.0,0.6) {};
+  \node[pin, label={[font=\scriptsize]above:RE}] (REp) at (3.0,-1.0) {};
+  \node[pin, label={[font=\scriptsize]above:WE}] (WEp) at (3.0,-3.35) {};
+  \draw (CEn) -- (CEp);
+  \draw (REn) -- (REp);
+  \draw (WEn) -- (WEp);
+
+  % ================= control amplifier (points left) ===================
+  \draw[fill=white] (4.6,0) -- (6.0,0.75) -- (6.0,-0.75) -- cycle;
+  \node at (5.55,0) {PA};
+  \node[font=\scriptsize] at (5.85,0.38) {$+$};
+  \node[font=\scriptsize] at (5.85,-0.38) {$-$};
+  % output -> CE
+  \draw (4.6,0) -- (4.1,0) |- (CEp);
+  % RE -> inverting input (routed under the triangle)
+  \draw (REp) -- (6.35,-1.0) |- (6.0,-0.38);
+  \node[note, anchor=north] at (5.35,-1.08) {control amplifier\\[-1pt]Sec.~3.3.2};
+
+  % ================= LPDAC ===========================================
+  \node[blk, minimum width=2.1cm] (DAC) at (9.1,0.38)
+       {LPDAC\\[-1pt]\scriptsize 12-bit $V_\mathrm{BIAS}$, 6-bit $V_\mathrm{ZERO}$};
+  \node[note, anchor=north east] at ($(DAC.south)+(-0.12,0)$) {Eq.~5.1};
+  \draw[->] (DAC.west |- 0,0.38) -- (6.0,0.38);
+
+  % ================= HSTIA (points right) ============================
+  \draw[fill=white] (6.0,-2.25) -- (6.0,-3.75) -- (7.4,-3.0) -- cycle;
+  \node[font=\scriptsize] at (6.55,-3.0) {HSTIA};
+  \node[font=\scriptsize] at (6.15,-2.62) {$+$};
+  \node[font=\scriptsize] at (6.15,-3.38) {$-$};
+  % V_ZERO -> non-inverting input
+  \draw[->] (9.1,-0.22) -- (9.1,-1.75) -| (5.6,-2.62) -- (6.0,-2.62);
+  \node[font=\scriptsize, anchor=south west] at (7.6,-1.75) {$V_\mathrm{ZERO}$};
+  % WE -> R_L -> inverting input
+  \draw (WEp) to[R, l_=\scriptsize$R_L\approx110\,\Omega$] (5.2,-3.35) coordinate (inv) -- (6.0,-3.35);
+  \fill (inv) circle (1.2pt);
+  % feedback R_TIA || C_f
+  \draw (inv) -- (5.2,-4.15) to[R, l=\scriptsize$R_\mathrm{TIA}$] (7.8,-4.15) coordinate (fr);
+  \draw (5.2,-4.15) -- (5.2,-4.85) to[C, l_=\scriptsize$C_f$] (7.8,-4.85) -- (fr);
+  \draw (fr) -- (7.8,-3.0);
+  \draw (7.4,-3.0) -- (7.8,-3.0);
+  \fill (7.8,-3.0) circle (1.2pt);
+  \fill (5.2,-4.15) circle (1.2pt); \fill (fr) circle (1.2pt);
+  \node[note, anchor=west] at (7.9,-4.45) {Sec.~3.3};
+
+  % ================= digitisation =====================================
+  \node[blk] (PGA) at (8.85,-3.0) {PGA\\[-1pt]\scriptsize$\times1.5$};
+  \node[blk] (ADC) at (10.35,-3.0) {ADC\\[-1pt]\scriptsize 16-bit};
+  \node[blk] (FLT) at (11.85,-3.0) {sinc3\\[-1pt]sinc2};
+  \draw[->] (7.8,-3.0) -- (PGA);
+  \draw[->] (PGA) -- (ADC);
+  \draw[->] (ADC) -- (FLT);
+  \node[note, anchor=north] at (ADC.south) {$\pm0.9$\,V};
+  \node[note, anchor=north] at (FLT.south) {Sec.~5.4.2};
+
+  % ================= ESP32-S3 ==========================================
+  \node[blk, text width=2.45cm, minimum height=2.0cm] (MCU) at (14.75,-1.3)
+       {\textbf{ESP32-S3}\\[2pt]\scriptsize mean of 18 samples\\[-1pt]\scriptsize (20\,ms window)\\[2pt]\scriptsize $\Delta I = I_\mathrm{end}-I_\mathrm{before}$};
+  \draw[->] (FLT.east) -- (14.75,-3.0) -- (MCU.south);
+  \draw[<->] (DAC.east) -- (14.75,0.38) -- (MCU.north);
+  \node[font=\scriptsize, anchor=south] at (13.6,0.38) {SPI};
+  \node[font=\scriptsize, anchor=south] at (13.6,-3.0) {SPI};
+
+  % ================= current range note ==============================
+  \node[note, anchor=south] at (4.05,-3.05) {pA to 750\,\textmu A};
+\end{circuitikz}

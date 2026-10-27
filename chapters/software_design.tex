@@ -1,3 +1,33 @@
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, fit, patterns}
+
+\tikzset{
+  swbase/.style={draw, align=center, font=\footnotesize, inner sep=3pt,
+                 line width=0.5pt,
+                 execute at begin node={\hyphenpenalty=10000\relax\exhyphenpenalty=10000\relax}},
+  swproc/.style={swbase, rectangle, minimum height=7mm, text width=#1},
+  swproc/.default=34mm,
+  swterm/.style={swbase, rectangle, rounded corners=3.4mm,
+                 minimum height=7mm, text width=#1},
+  swterm/.default=30mm,
+  swdec/.style={swbase, diamond, aspect=2.4, inner sep=0.5pt, text width=#1},
+  swdec/.default=24mm,
+  % predefined process (detailed in another figure): box with side bars
+  swsub/.style={swproc=#1, inner xsep=4.5mm,
+    path picture={
+      \draw[line width=0.5pt]
+        ([xshift=1.6mm]path picture bounding box.north west) --
+        ([xshift=1.6mm]path picture bounding box.south west)
+        ([xshift=-1.6mm]path picture bounding box.north east) --
+        ([xshift=-1.6mm]path picture bounding box.south east);}},
+  swsub/.default=30mm,
+  swarr/.style={-{Latex[length=2mm]}, line width=0.5pt},
+  swdbl/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, line width=0.5pt},
+  swlbl/.style={font=\scriptsize, inner sep=1.5pt},
+  swhw/.style={swbase, rectangle, minimum height=8mm, text width=#1,
+               fill=black!10},
+  swhw/.default=26mm,
+}
+
 \providecommand{\swtodo}[1]{\textbf{[TODO: #1]}}
 
 \usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, fit, patterns}
@@ -40,7 +70,63 @@ This chapter describes the structure of the firmware and the logic of how a meas
 
 % The firmware has four tasks; to generate the DPV waveform, to sample and convert the cell current, to store the result, and to present it to the user.
 
-% ---------------------------------------------------------------------
+
+\begin{figure}[H]
+  \centering
+  \caption{Software structure.
+    Arrows show the direction of calls or data.}
+  \label{fig:architecture}
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    % --- external, top
+    \node[swhw=30mm] (browser) at (7.6, 6.9) {Browser dashboard};
+    \node[swhw=26mm] (pc)      at (12.8, 6.9) {Serial terminal};
+    % --- row A
+    \node[swproc=36mm] (screens) at (2.3, 5.0) {Screens and screen\\state machine};
+    \node[swproc=34mm] (web)     at (7.6, 5.0) {Web server\\(HTTP, WebSocket)};
+    \node[swproc=26mm] (serial)  at (12.8, 5.0) {Serial bench\\commands};
+    % --- row B
+    \node[swproc=16mm] (input)  at (0.5, 3.0) {Input\\manager};
+    \node[swproc=46mm, minimum height=10mm] (engine) at (7.6, 3.0)
+      {\textbf{Sweep engine}\\result buffer and storage};
+    \node[swproc=26mm] (params) at (12.8, 3.0) {Scan parameters\\(saved in NVS)};
+    % --- row C
+    \node[swproc=22mm] (render) at (3.1, 1.0) {Renderer};
+    \node[swproc=26mm] (driver) at (12.0, 1.0) {AD5941 driver};
+    % --- firmware boundary
+    \node[draw, dashed, line width=0.5pt, inner sep=3mm,
+          fit=(screens)(serial)(input)(render)(driver)(params)] (fw) {};
+    \node[swlbl, anchor=south west, font=\footnotesize\itshape]
+      at ([yshift=0.3mm]fw.north west) {ESP32-S3 firmware};
+    % --- hardware, bottom
+    \node[swhw=16mm] (enc)  at (0.5, -1.1) {Encoder,\\buttons};
+    \node[swhw=22mm] (tft)  at (3.1, -1.1) {TFT display};
+    \node[swhw=24mm] (sd)   at (7.6, -1.1) {microSD card};
+    \node[swhw=26mm] (afe)  at (12.0, -1.1) {AD5941 AFE};
+    % --- connections
+    \draw[swdbl] (browser) -- node[swlbl, right] {Wi-Fi} (web);
+    \draw[swdbl] (pc) -- node[swlbl, right] {USB} (serial);
+    \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.12] {GPIO,\\interrupts} (input);
+    \draw[swarr] (input.north) -- node[swlbl, left] {events}
+      (input.north |- screens.south);
+    \draw[swarr] ([xshift=-4mm]render.north |- screens.south) --
+      node[swlbl, left, pos=0.3] {draw} ([xshift=-4mm]render.north);
+    \draw[swdbl] ([xshift=16mm]screens.south) |-
+      node[swlbl, right, pos=0.22] {callbacks} (engine.west);
+    \draw[swarr] ([xshift=-17mm]engine.south) |-
+      node[swlbl, above, pos=0.75] {live trace} (render.east);
+    \draw[swdbl] (web) -- node[swlbl, left] {commands, points} (engine);
+    \draw[swarr] (serial.south) -- ++(0,-0.5) -| ([xshift=17mm]engine.north);
+    \draw[swdbl] (params) -- (engine);
+    \draw[swarr] ([xshift=17mm]engine.south) |- (driver.west);
+    \draw[swarr] (render) -- node[swlbl, right, pos=0.72] {SPI (HSPI)} (tft);
+    \draw[swdbl] (engine) -- node[swlbl, right, pos=0.86] {SPI (HSPI)} (sd);
+    \draw[swdbl] (driver) --
+      node[swlbl, right, align=left, pos=0.72] {SPI (FSPI),\\\SI{4}{\mega\hertz}} (afe);
+  \end{tikzpicture}
+\end{figure}
+
+Each of the modules in Figure~\ref{fig:architecture} is described in the sections that follow.
+
 \section{Software Overview}
 \label{sec:sw_overview}
 

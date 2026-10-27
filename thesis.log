@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.13)  26 OCT 2026 20:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.13)  27 OCT 2026 17:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1490,6 +1490,19 @@ Package: ltablex 2014/08/13 v1.1 Modified tabularx
 Package babel Info: 'afrikaans' activates 'dutch' shorthands.
 (babel)             Reported on input line 16.
 \g__glossaries_gls_ref_main_int=\count555
+
+
+LaTeX Warning: Label `app:tia' multiply defined.
+
+
+LaTeX Warning: Label `app:tia@cref' multiply defined.
+
+
+LaTeX Warning: Label `eq:app_kcl' multiply defined.
+
+
+LaTeX Warning: Label `eq:app_kcl@cref' multiply defined.
+
 )
 \openout1 = `thesis.aux'.
 
@@ -1655,7 +1668,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<stb-thesis-frntp.pdf, id=412, 597.50786pt x 845.04686pt>
+<stb-thesis-frntp.pdf, id=424, 597.50786pt x 845.04686pt>
 File: stb-thesis-frntp.pdf Graphic file (type pdf)
 <use stb-thesis-frntp.pdf>
 Package pdftex.def Info: stb-thesis-frntp.pdf  used on input line 3.
@@ -1836,12 +1849,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [2]
 Chapter 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 14--14
-|[]\T1/lmr/m/sc/17.28 (+20) Electrochemical Sens-ing (Us-ing a
- []
-
-<figures/3opamp.jpeg, id=897, 1284.8pt x 600.2425pt>
+<figures/3opamp.jpeg, id=923, 1284.8pt x 600.2425pt>
 File: figures/3opamp.jpeg Graphic file (type jpg)
 <use figures/3opamp.jpeg>
 Package pdftex.def Info: figures/3opamp.jpeg  used on input line 21.
@@ -1855,18 +1863,18 @@ Package microtype Info: Character `029' is missing
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 28.01804pt, for example:
-(fancyhdr)                \setlength{\headheight}{28.01804pt}.
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-13.51804pt}.
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [4]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 28.01804pt, for example:
-(fancyhdr)                \setlength{\headheight}{28.01804pt}.
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-13.51804pt}.
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [5]
 Package microtype Info: Loading generic protrusion settings for font family
@@ -1878,10 +1886,10 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)                Make it at least 28.01804pt, for example:
-(fancyhdr)                \setlength{\headheight}{28.01804pt}.
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-13.51804pt}.
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [6]
 
@@ -1971,11 +1979,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[10]) (./chapters/modeling.tex (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
-File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
- (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
-File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
+[10]) (./chapters/modeling.tex
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2013,17 +2017,13 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [15]
 Chapter 4.
-
-Underfull \hbox (badness 10000) in paragraph at lines 75--75
-[]|\T1/lmr/m/n/12 (+20) Standalone op-er-a-tion with-out a
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [16
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 77--77
+[]|\T1/lmr/m/n/12 (+20) Standalone op-er-a-tion with-out a
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2071,7 +2071,11 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[22]) (./chapters/software_design.tex
+[22]) (./chapters/software_design.tex (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
+File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
+File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2093,9 +2097,6 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [25]
 
-LaTeX Warning: Reference `app:sw_scan' on page 26 undefined on input line 242.
-
-
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
 (fancyhdr)                \setlength{\headheight}{27.11653pt}.
@@ -2103,6 +2104,9 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [26]
+
+LaTeX Warning: Reference `app:sw_scan' on page 27 undefined on input line 328.
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2147,10 +2151,10 @@ Chapter 6.
 [32
 
 ]
-<figures/Testing/waveform.pdf, id=1348, 462.62733pt x 327.39064pt>
+<figures/Testing/waveform.pdf, id=1354, 462.62733pt x 327.39064pt>
 File: figures/Testing/waveform.pdf Graphic file (type pdf)
 <use figures/Testing/waveform.pdf>
-Package pdftex.def Info: figures/Testing/waveform.pdf  used on input line 90.
+Package pdftex.def Info: figures/Testing/waveform.pdf  used on input line 89.
 (pdftex.def)             Requested size: 355.08984pt x 251.28728pt.
 
 
@@ -2184,15 +2188,15 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [35]
-<figures/Testing/randles_wec_top.png, id=1384, 578.16pt x 259.2084pt>
+<figures/Testing/randles_wec_top.png, id=1390, 578.16pt x 259.2084pt>
 File: figures/Testing/randles_wec_top.png Graphic file (type png)
 <use figures/Testing/randles_wec_top.png>
-Package pdftex.def Info: figures/Testing/randles_wec_top.png  used on input line 272.
+Package pdftex.def Info: figures/Testing/randles_wec_top.png  used on input line 271.
 (pdftex.def)             Requested size: 223.07211pt x 100.00713pt.
-<figures/Testing/randles_cell3_top.png, id=1385, 578.16pt x 259.2084pt>
+<figures/Testing/randles_cell3_top.png, id=1391, 578.16pt x 259.2084pt>
 File: figures/Testing/randles_cell3_top.png Graphic file (type png)
 <use figures/Testing/randles_cell3_top.png>
-Package pdftex.def Info: figures/Testing/randles_cell3_top.png  used on input line 276.
+Package pdftex.def Info: figures/Testing/randles_cell3_top.png  used on input line 275.
 (pdftex.def)             Requested size: 223.07211pt x 100.00713pt.
 
 
@@ -2203,10 +2207,10 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [36 <./figures/Testing/randles_wec_top.png (PNG copy)> <./figures/Testing/randles_cell3_top.png (PNG copy)>]
-<figures/Testing/salt_pairs.pdf, id=1397, 450.04323pt x 262.33571pt>
+<figures/Testing/salt_pairs.pdf, id=1403, 450.04323pt x 262.33571pt>
 File: figures/Testing/salt_pairs.pdf Graphic file (type pdf)
 <use figures/Testing/salt_pairs.pdf>
-Package pdftex.def Info: figures/Testing/salt_pairs.pdf  used on input line 312.
+Package pdftex.def Info: figures/Testing/salt_pairs.pdf  used on input line 311.
 (pdftex.def)             Requested size: 318.66948pt x 185.75928pt.
 
 
@@ -2217,10 +2221,10 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [37 <./figures/Testing/salt_pairs.pdf>]
-<figures/Testing/salt_line_fit.pdf, id=1425, 233.21504pt x 175.70721pt>
+<figures/Testing/salt_line_fit.pdf, id=1431, 233.21504pt x 175.70721pt>
 File: figures/Testing/salt_line_fit.pdf Graphic file (type pdf)
 <use figures/Testing/salt_line_fit.pdf>
-Package pdftex.def Info: figures/Testing/salt_line_fit.pdf  used on input line 358.
+Package pdftex.def Info: figures/Testing/salt_line_fit.pdf  used on input line 357.
 (pdftex.def)             Requested size: 227.62206pt x 171.50017pt.
 
 
@@ -2231,15 +2235,15 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [38 <./figures/Testing/salt_line_fit.pdf>]
-<figures/Testing/fc_pairs.pdf, id=1466, 463.45871pt x 175.6161pt>
+<figures/Testing/fc_pairs.pdf, id=1472, 463.45871pt x 175.6161pt>
 File: figures/Testing/fc_pairs.pdf Graphic file (type pdf)
 <use figures/Testing/fc_pairs.pdf>
-Package pdftex.def Info: figures/Testing/fc_pairs.pdf  used on input line 379.
+Package pdftex.def Info: figures/Testing/fc_pairs.pdf  used on input line 378.
 (pdftex.def)             Requested size: 364.19667pt x 138.009pt.
-<figures/Testing/fc_compare.pdf, id=1468, 439.61095pt x 189.87312pt>
+<figures/Testing/fc_compare.pdf, id=1474, 439.61095pt x 189.87312pt>
 File: figures/Testing/fc_compare.pdf Graphic file (type pdf)
 <use figures/Testing/fc_compare.pdf>
-Package pdftex.def Info: figures/Testing/fc_compare.pdf  used on input line 398.
+Package pdftex.def Info: figures/Testing/fc_compare.pdf  used on input line 397.
 (pdftex.def)             Requested size: 386.96027pt x 167.1381pt.
 
 
@@ -2257,7 +2261,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[40 <./figures/Testing/fc_compare.pdf>]
+[40 <./figures/Testing/fc_compare.pdf>]) (./chapters/environmental_sustainability.tex
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2265,7 +2269,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[41]) (./chapters/environmental_sustainability.tex
+[41]
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2275,6 +2279,9 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [42]
 Chapter 7.
+
+LaTeX Warning: Reference `eq:hw_eta_total' on page 43 undefined on input line 58.
+
 
 LaTeX Warning: Reference `app:ga3' on page 43 undefined on input line 60.
 
@@ -2303,22 +2310,17 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [47]
-Underfull \hbox (badness 1314) in paragraph at lines 151--152
-[]\T1/lmr/m/n/12 (+20) G. L. Booman and W. B. Hol-brook, ``Elec-tro-an-a-lyt-i-cal controlled-potential
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
 []\T1/lmr/m/n/12 (+20) Espressif Sys-tems, \T1/lmr/m/it/12 (+20) ESP32-S3-WROOM-2 Datasheet\T1/lmr/m/n/12 (+20) , Espres-sif Sys-tems,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
 [][]$\T1/lmr/m/n/12 (+20) https : / / www . espressif . com / sites / default / ^^\les / documentation / esp32-[]s3-[]wroom-[]2 _
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 169--170
+Underfull \hbox (badness 1533) in paragraph at lines 157--158
 \T1/lmr/m/n/12 (+20) MT-101, Rev. 0, 2009, [][]$https : / / www . analog . com / media / en / training-[]seminars /
  []
 
@@ -2330,6 +2332,15 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [48]
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+[]\T1/lmr/m/n/12 (+20) ALLPCB, ``The en-gi-neer's guide to switch con-tact
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+\T1/lmr/m/n/12 (+20) de-bounce tech-niques,'' [][]$https : / / www . allpcb . com / allelectrohub /
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2338,17 +2349,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [49]
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
-[]\T1/lmr/m/n/12 (+20) ALLPCB, ``The en-gi-neer's guide to switch con-tact
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
-\T1/lmr/m/n/12 (+20) de-bounce tech-niques,'' [][]$https : / / www . allpcb . com / allelectrohub /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
 [][]$\T1/lmr/m/n/12 (+20) https : / / int . siglent . com / u _ ^^\le / download / 25 _ 04 _ 27 / SDS1000X-[]E _ DataSheet _
  []
 
@@ -2359,7 +2360,12 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[50]) (./appendices/appendices.tex
+[50]
+Underfull \hbox (badness 1314) in paragraph at lines 247--248
+[]\T1/lmr/m/n/12 (+20) G. L. Booman and W. B. Hol-brook, ``Elec-tro-an-a-lyt-i-cal controlled-potential
+ []
+
+) (./appendices/appendices.tex
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2369,7 +2375,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 [51]
 Appendix A.
-<figures/gantt_chart.png, id=1667, 1444.64719pt x 420.06938pt>
+<figures/gantt_chart.png, id=1674, 1444.64719pt x 420.06938pt>
 File: figures/gantt_chart.png Graphic file (type png)
 <use figures/gantt_chart.png>
 Package pdftex.def Info: figures/gantt_chart.png  used on input line 8.
@@ -2381,6 +2387,18 @@ Appendix B.
 [53
 
 ]
+
+LaTeX Warning: Reference `fig:cell_buffer' on page 54 undefined on input line 101.
+
+
+LaTeX Warning: Reference `eq:beta' on page 54 undefined on input line 111.
+
+
+LaTeX Warning: Reference `eq:l_ctrl' on page 54 undefined on input line 121.
+
+
+LaTeX Warning: Reference `eq:wc_ctrl' on page 54 undefined on input line 128.
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2397,6 +2415,18 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
 [55]
+
+LaTeX Warning: Reference `eq:noise_gain' on page 56 undefined on input line 195.
+
+
+LaTeX Warning: Reference `eq:l_tia' on page 56 undefined on input line 196.
+
+
+LaTeX Warning: Reference `eq:wc_tia' on page 56 undefined on input line 198.
+
+
+LaTeX Warning: Reference `eq:cf' on page 56 undefined on input line 213.
+
 
 Package fancyhdr Warning: \headheight is too small (14.5pt): 
 (fancyhdr)                Make it at least 27.11653pt, for example:
@@ -2422,7 +2452,7 @@ Appendix F.
 
 ]
 Appendix G.
-<figures/dashboard.png, id=1768, 1444.64719pt x 679.03688pt>
+<figures/dashboard.png, id=1767, 1444.64719pt x 679.03688pt>
 File: figures/dashboard.png Graphic file (type png)
 <use figures/dashboard.png>
 Package pdftex.def Info: figures/dashboard.png  used on input line 388.
@@ -2431,7 +2461,7 @@ Package pdftex.def Info: figures/dashboard.png  used on input line 388.
 
  <./figures/dashboard.png>]
 Appendix H.
-<figures/KicadExport.pdf, id=1774, 845.07724pt x 597.55246pt>
+<figures/KicadExport.pdf, id=1773, 845.07724pt x 597.55246pt>
 File: figures/KicadExport.pdf Graphic file (type pdf)
 <use figures/KicadExport.pdf>
 Package pdftex.def Info: figures/KicadExport.pdf  used on input line 398.
@@ -2492,7 +2522,15 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 Appendix L.
 [68
 
-])
+]
+
+Package fancyhdr Warning: \headheight is too small (14.5pt): 
+(fancyhdr)                Make it at least 27.11653pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.11653pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
+
+[69])
 
 Package caption Warning: Unused \captionsetup[algorithm] on input line 377.
 See the caption package documentation for explanation.
@@ -2504,7 +2542,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.61653pt}.
 
-[69] (./thesis.aux)
+[70] (./thesis.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
@@ -2513,22 +2551,25 @@ L3 programming layer <2026-06-18>
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 65BAB78BC86C4B7E94BAD8DC0C47BAF7;17040.
+(rerunfilecheck)             Checksum: 36DC99AFF0E4097944C99AA4348EFAA4;17542.
  ) 
 Here is how much of TeX's memory you used:
- 79844 strings out of 467168
- 1892287 string characters out of 5413705
- 2829995 words of memory out of 5000000
- 107274 multiletter control sequences out of 15000+600000
- 816571 words of font info for 409 fonts, out of 8000000 for 9000
+ 80136 strings out of 467168
+ 1899412 string characters out of 5413705
+ 2831455 words of memory out of 5000000
+ 107558 multiletter control sequences out of 15000+600000
+ 818740 words of font info for 412 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 201i,15n,302p,2647b,1386s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb>
-Output written on thesis.pdf (88 pages, 2091105 bytes).
+ 201i,15n,302p,2647b,1387s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb>
+Output written on thesis.pdf (89 pages, 2117863 bytes).
 PDF statistics:
- 2071 PDF objects out of 2073 (max. 8388607)
- 1784 compressed objects within 18 object streams
- 367 named destinations out of 1000 (max. 500000)
- 110975 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 2092 PDF objects out of 2487 (max. 8388607)
+ 1800 compressed objects within 18 object streams
+ 370 named destinations out of 1000 (max. 500000)
+ 113047 words of extra memory for PDF output out of 128383 (max. 10000000)
 

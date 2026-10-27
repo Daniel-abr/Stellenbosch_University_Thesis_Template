@@ -647,3 +647,61 @@ from a PCBWay online quote of US\$30.89 for five boards at R16.59/US\$
   \multicolumn{5}{@{}l}{\textbf{Total (incl.\ VAT)}} & \textbf{2\,226.45} \\
 \end{xltabular}
 }
+
+\section{TIA Noise Gain with a Series Cell}
+\label{app:tia}
+
+At the inverting input of the TIA the cell is represented by the impedance
+$Z_c = R_\Sigma + 1/sC_{dl}$ to the solution node, which the control loop
+holds at a fixed potential, and the feedback network by
+$Z_f = R_\mathrm{TIA}/(1 + sR_\mathrm{TIA}C_f)$. Applying Kirchhoff's current
+law at the inverting node, with $V_n$ the node voltage and $I_\mathrm{in}$ the
+faradaic current,
+\begin{equation}
+  I_\mathrm{in} = \frac{V_n}{Z_c} + \frac{V_n - V_\mathrm{out}}{Z_f},
+  \qquad
+  V_n = -\frac{V_\mathrm{out}}{A(s)}.
+  \label{eq:app_kcl}
+\end{equation}
+Eliminating $V_n$ gives the closed-loop transimpedance
+\begin{equation}
+  Z_T(s) \equiv \frac{V_\mathrm{out}}{I_\mathrm{in}}
+    = -\frac{Z_f}{1 + NG(s)/A(s)},
+  \qquad
+  NG(s) = 1 + \frac{Z_f}{Z_c},
+  \label{eq:app_zt}
+\end{equation}
+so the loop gain is $A(s)/NG(s)$ \cite{graeme1996photodiode}. With $C_f = 0$,
+\begin{equation}
+  NG(s) = 1 + \frac{sR_\mathrm{TIA}C_{dl}}{1 + sR_\Sigma C_{dl}}
+        = \frac{1 + s\left(R_\mathrm{TIA}+R_\Sigma\right)C_{dl}}{1 + sR_\Sigma C_{dl}},
+\end{equation}
+which is Equation~\eqref{eq:ng_series}. Setting $R_\Sigma = 0$ recovers the
+photodiode case, $NG = 1 + sR_\mathrm{TIA}C_{dl}$, whose noise gain rises
+without limit.
+
+With $A(s) = 2\pi\,\mathrm{GBW}/s$, the phase of the loop gain is
+\begin{equation}
+  \angle L(jf) = \SI{-90}{\degree} - \arctan\frac{f}{f_z} + \arctan\frac{f}{f_p}.
+\end{equation}
+For $f_c \gg f_z$ the second term is close to \SI{-90}{\degree}, so
+$\phi_\mathrm{PM} = \SI{180}{\degree} + \angle L(jf_c) \approx
+\arctan(f_c/f_p)$, which is Equation~\eqref{eq:pm_approx}. Above $f_p$,
+$|NG| \approx 1 + R_\mathrm{TIA}/R_\Sigma$ and $|A| = \mathrm{GBW}/f$, so the
+crossover is at $f_c = \mathrm{GBW}\,R_\Sigma/(R_\mathrm{TIA}+R_\Sigma)$. A
+margin of \SI{45}{\degree} requires $f_c \geq f_p$:
+\begin{equation}
+  \frac{\mathrm{GBW}\,R_\Sigma}{R_\mathrm{TIA}+R_\Sigma} \geq
+  \frac{1}{2\pi R_\Sigma C_{dl}}
+  \quad\Longrightarrow\quad
+  R_\Sigma^2 \geq \frac{R_\mathrm{TIA}+R_\Sigma}{2\pi\,\mathrm{GBW}\,C_{dl}}
+  \approx \frac{R_\mathrm{TIA}}{2\pi\,\mathrm{GBW}\,C_{dl}},
+\end{equation}
+since $R_\Sigma \ll R_\mathrm{TIA}$, which gives Equation~\eqref{eq:rmin}.
+
+With $C_f$ fitted, $Z_f$ falls above $1/(2\pi R_\mathrm{TIA}C_f)$, so the
+noise gain falls from its plateau at \SI{-20}{\decibel} per decade and adds
+phase lead at the crossover. Because the approximations above lose accuracy
+when $f_c$ lies near $f_p$, the margins in Table~\ref{tab:pm} were computed by
+solving $|A(jf)/NG(jf)| = 1$ numerically with the full expression for
+$NG(s)$, including $C_f$.

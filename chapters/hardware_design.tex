@@ -41,6 +41,8 @@ reference instrument in Chapter~\ref{chap:testing}.
   \end{tabularx}
 \end{table}
 
+\newpage
+
 \section{System Requirements}
 
 The table below details the requirements that the OpenStat must meet.
@@ -397,12 +399,7 @@ A design oversight was the choice to boost the voltage to \SI{5}{\volt} when
 no component requires a \SI{5}{\volt} supply. A \SI{3.3}{\volt}
 step-up/step-down regulator would have been more efficient. The large
 \SI{5000}{\milli\ampere\hour} battery makes this loss affordable, although it
-is not ideal. The overall efficiency is
-\begin{equation}
-  \eta_\text{total} = \eta_\text{reg} \times \frac{\SI{3.3}{\volt}}{\SI{5}{\volt}}
-    \approx 0.9 \times 0.66 = 0.594.
-  \label{eq:hw_eta_total}
-\end{equation}
+is not ideal.
 
 \subsection{Input Decoupling}
 \label{sec:hw_input_decoupling}

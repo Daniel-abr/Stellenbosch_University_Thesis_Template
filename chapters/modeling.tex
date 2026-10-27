@@ -1,280 +1,266 @@
-\providecommand{\swtodo}[1]{\textbf{[TODO: #1]}}
-
-\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, fit, patterns}
-
-\tikzset{
-  swbase/.style={draw, align=center, font=\footnotesize, inner sep=3pt,
-                 line width=0.5pt,
-                 execute at begin node={\hyphenpenalty=10000\relax\exhyphenpenalty=10000\relax}},
-  swproc/.style={swbase, rectangle, minimum height=7mm, text width=#1},
-  swproc/.default=34mm,
-  swterm/.style={swbase, rectangle, rounded corners=3.4mm,
-                 minimum height=7mm, text width=#1},
-  swterm/.default=30mm,
-  swdec/.style={swbase, diamond, aspect=2.4, inner sep=0.5pt, text width=#1},
-  swdec/.default=24mm,
-  % predefined process (detailed in another figure): box with side bars
-  swsub/.style={swproc=#1, inner xsep=4.5mm,
-    path picture={
-      \draw[line width=0.5pt]
-        ([xshift=1.6mm]path picture bounding box.north west) --
-        ([xshift=1.6mm]path picture bounding box.south west)
-        ([xshift=-1.6mm]path picture bounding box.north east) --
-        ([xshift=-1.6mm]path picture bounding box.south east);}},
-  swsub/.default=30mm,
-  swarr/.style={-{Latex[length=2mm]}, line width=0.5pt},
-  swdbl/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, line width=0.5pt},
-  swlbl/.style={font=\scriptsize, inner sep=1.5pt},
-  swhw/.style={swbase, rectangle, minimum height=8mm, text width=#1,
-               fill=black!10},
-  swhw/.default=26mm,
-}
-
-
-% =====================================================================
-%  Chapter 3 -- System Modeling & Theoretical Design
+%====================================================================
+%  Chapter 3 -- System Modeling & Theoretical Design (rewritten draft)
 %
-%  The Randles model and the capacitive current rejection derivation
-%  now live in Chapter 2 (sec:cell_model and sec:dpv_theory).
-%  The label sec:dpv_rejection was moved with them, so references to it
-%  in Chapters 5 and 6 now point to the DPV subsection in Chapter 2.
+%  Paste into the report in place of the old chapter. Cross-references
+%  to other chapters are written as plain numbers (e.g. Section~5.4.3)
+%  so that this file compiles on its own; swap them for your \ref labels.
+%  \chk{...} marks values you still need to fill in or confirm.
 % =====================================================================
 
-\chapter{System Modeling \& Theoretical Design}
+\chapter{System Modeling \& Design}
 \label{chap:modeling}
 
-This chapter presents the potentiostat designed for this project, referred to as the OpenStat. The OpenStat combines an integrated analog front-end, a browser interface and a standalone onboard display in a single handheld instrument. Section~\ref{sec:architecture} describes its architecture and the role of each part. Section~\ref{sec:afe_stability} then analyses the stability of the two amplifier loops that drive and measure the cell, which sets the requirements for the hardware in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}.
+This chapter models the measurement path of the OpenStat, the device this project aims to develop, and derives the requirements it places on the hardware. These requirements describe the choice between the high-speed TIA (HSTIA) and the low-power TIA
+(LPTIA) of the AD5941, and the conditions under which the chosen amplifier
+remains stable with an electrode connected. 
+% ---------------------------------------------------------------------
+\section{Signal Chain}
+\label{sec:signal_chain}
 
-%------------------------------------------------------------------
-\section{System Architecture}
-\label{sec:architecture}
-
-The OpenStat is built around two key elements. An AD5941 analog front-end applies the potential to the three-electrode cell and measures the resulting current. An ESP32-S3 controls the AD5941 over SPI, times the DPV waveform, computes the differential current and stores the results. The AD5941 was selected over a discrete design because it integrates the control amplifier, RE buffer and TIA of Section~\ref{sec:3opamp_topology} on a single chip, together with a 12-bit DAC, a 16-bit ADC and eight programmable gain ranges, at sub-milliwatt power in a millimetre-scale package. Its main limitation, the capped compliance voltage, does not restrict this application. In addition to these key elements are the interfaces that make the instrument standalone, namely a TFT display and SD card, the user interface, and a web server that serves results over Wi-Fi. Figure~\ref{fig:architecture} shows how the firmware connects these parts, with a single main loop servicing the measurement, display and web server in turn.
+Figure~\ref{fig:signal_chain} shows the measurement path of the OpenStat.
+The low-power DAC (LPDAC) of the AD5941 sets $V_\mathrm{BIAS}$ and the potentiostat amplifier which drives the CE until the RE reaches the same
+potential. The HSTIA holds the WE at $V_\mathrm{ZERO}$ and
+converts the cell current to a voltage, which is amplified, digitised and
+filtered before the ESP32-S3 averages it into $I_\mathrm{before}$ and
+$I_\mathrm{end}$ (Section~\ref{sec:sw_sampling}). 
 
 \begin{figure}[H]
   \centering
-  \caption{Software architecture.
-    Arrows show the direction of calls or data.}
-  \label{fig:architecture}
-  \begin{tikzpicture}[x=1cm, y=1cm]
-    % --- external, top
-    \node[swhw=30mm] (browser) at (7.6, 6.9) {Browser dashboard};
-    \node[swhw=26mm] (pc)      at (12.8, 6.9) {Serial terminal};
-    % --- row A
-    \node[swproc=36mm] (screens) at (2.3, 5.0) {Screens and screen\\state machine};
-    \node[swproc=34mm] (web)     at (7.6, 5.0) {Web server\\(HTTP, WebSocket)};
-    \node[swproc=26mm] (serial)  at (12.8, 5.0) {Serial bench\\commands};
-    % --- row B
-    \node[swproc=16mm] (input)  at (0.5, 3.0) {Input\\manager};
-    \node[swproc=46mm, minimum height=10mm] (engine) at (7.6, 3.0)
-      {\textbf{Sweep engine}\\result buffer and storage};
-    \node[swproc=26mm] (params) at (12.8, 3.0) {Scan parameters\\(saved in NVS)};
-    % --- row C
-    \node[swproc=22mm] (render) at (3.1, 1.0) {Renderer};
-    \node[swproc=26mm] (driver) at (12.0, 1.0) {AD5941 driver};
-    % --- firmware boundary
-    \node[draw, dashed, line width=0.5pt, inner sep=3mm,
-          fit=(screens)(serial)(input)(render)(driver)(params)] (fw) {};
-    \node[swlbl, anchor=south west, font=\footnotesize\itshape]
-      at ([yshift=0.3mm]fw.north west) {ESP32-S3 firmware};
-    % --- hardware, bottom
-    \node[swhw=16mm] (enc)  at (0.5, -1.1) {Encoder,\\buttons};
-    \node[swhw=22mm] (tft)  at (3.1, -1.1) {TFT display};
-    \node[swhw=24mm] (sd)   at (7.6, -1.1) {microSD card};
-    \node[swhw=26mm] (afe)  at (12.0, -1.1) {AD5941 AFE};
-    % --- connections
-    \draw[swdbl] (browser) -- node[swlbl, right] {Wi-Fi} (web);
-    \draw[swdbl] (pc) -- node[swlbl, right] {USB} (serial);
-    \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.12] {GPIO,\\interrupts} (input);
-    \draw[swarr] (input.north) -- node[swlbl, left] {events}
-      (input.north |- screens.south);
-    \draw[swarr] ([xshift=-4mm]render.north |- screens.south) --
-      node[swlbl, left, pos=0.3] {draw} ([xshift=-4mm]render.north);
-    \draw[swdbl] ([xshift=16mm]screens.south) |-
-      node[swlbl, right, pos=0.22] {callbacks} (engine.west);
-    \draw[swarr] ([xshift=-17mm]engine.south) |-
-      node[swlbl, above, pos=0.75] {live trace} (render.east);
-    \draw[swdbl] (web) -- node[swlbl, left] {commands, points} (engine);
-    \draw[swarr] (serial.south) -- ++(0,-0.5) -| ([xshift=17mm]engine.north);
-    \draw[swdbl] (params) -- (engine);
-    \draw[swarr] ([xshift=17mm]engine.south) |- (driver.west);
-    \draw[swarr] (render) -- node[swlbl, right, pos=0.72] {SPI (HSPI)} (tft);
-    \draw[swdbl] (engine) -- node[swlbl, right, pos=0.86] {SPI (HSPI)} (sd);
-    \draw[swdbl] (driver) --
-      node[swlbl, right, align=left, pos=0.72] {SPI (FSPI),\\\SI{4}{\mega\hertz}} (afe);
-  \end{tikzpicture}
+  \caption{Measurement signal chain of the OpenStat. The the Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency
+    response.}
+  \label{fig:signal_chain}
+\begin{circuitikz}[
+    font=\footnotesize,
+    blk/.style={draw, rectangle, rounded corners=1.5pt, align=center,
+                minimum height=1.0cm, minimum width=1.15cm, inner sep=2.5pt,
+                fill=white},
+    note/.style={font=\scriptsize\itshape, text=black!55, align=center},
+    pin/.style={circle, draw, fill=white, inner sep=1.2pt},
+    >=latex, line width=0.5pt,
+    ]
+  \ctikzset{bipoles/length=0.95cm}
+
+  % ================= chip boundary ===================================
+  \draw[dashed, rounded corners=4pt, black!50]
+       (3.0,1.55) rectangle (13.0,-5.7);
+  \node[anchor=north east, font=\scriptsize\bfseries, text=black!55]
+       at (12.95,1.50) {AD5941};
+
+  % ================= cell (external) =================================
+  \draw[rounded corners=3pt, black!30, fill=black!3]
+       (0.25,1.20) rectangle (2.45,-3.95);
+  \node[font=\scriptsize\bfseries, text=black!55, anchor=north west]
+       at (0.30,1.15) {Randles Cell};
+  \coordinate (CEn) at (1.5,0.6);
+  \coordinate (REn) at (1.5,-1.0);
+  \coordinate (Mn)  at (1.5,-1.85);
+  \coordinate (WEn) at (1.5,-3.35);
+  \draw (CEn) to[R, l_=\scriptsize$R_s{-}R_u$] (REn);
+  \draw (REn) to[R, l_=\scriptsize$R_u$] (Mn);
+  \draw (Mn) -| (1.0,-2.15) to[C, l_=\scriptsize$C_{dl}$] (1.0,-3.05) |- (WEn);
+  \draw (Mn) -| (2.0,-2.15) to[R, l^=\scriptsize$R_{ct}$] (2.0,-3.05) |- (WEn);
+  \fill (Mn) circle (1.2pt); \fill (WEn) circle (1.2pt);
+  \node[note, anchor=north] at (1.35,-3.45) {};
+
+  % ================= pins ==============================================
+  \node[pin, label={[font=\scriptsize]above:CE}] (CEp) at (3.0,0.6) {};
+  \node[pin, label={[font=\scriptsize]above:RE}] (REp) at (3.0,-1.0) {};
+  \node[pin, label={[font=\scriptsize]above:WE}] (WEp) at (3.0,-3.35) {};
+  \draw (CEn) -- (CEp);
+  \draw (REn) -- (REp);
+  \draw (WEn) -- (WEp);
+
+  % ================= control amplifier (points left) ===================
+  \draw[fill=white] (4.6,0) -- (6.0,0.75) -- (6.0,-0.75) -- cycle;
+  \node at (5.55,0) {PA};
+  \node[font=\scriptsize] at (5.85,0.38) {$+$};
+  \node[font=\scriptsize] at (5.85,-0.38) {$-$};
+  % output -> CE
+  \draw (4.6,0) -- (4.1,0) |- (CEp);
+  % RE -> inverting input (routed under the triangle)
+  \draw (REp) -- (6.35,-1.0) |- (6.0,-0.38);
+  \node[note, anchor=north] at (5.35,-1.08) {};
+
+  % ================= LPDAC ===========================================
+  \node[blk, minimum width=2.1cm] (DAC) at (9.1,0.38)
+       {LPDAC\\[-1pt]\scriptsize 12-bit $V_\mathrm{BIAS}$, 6-bit $V_\mathrm{ZERO}$};
+  \node[note, anchor=north east] at ($(DAC.south)+(-0.12,0)$) {};
+  \draw[->] (DAC.west |- 0,0.38) -- (6.0,0.38);
+
+  % ================= HSTIA (points right) ============================
+  \draw[fill=white] (6.0,-2.25) -- (6.0,-3.75) -- (7.4,-3.0) -- cycle;
+  \node[font=\scriptsize] at (6.55,-3.0) {HSTIA};
+  \node[font=\scriptsize] at (6.15,-2.62) {$+$};
+  \node[font=\scriptsize] at (6.15,-3.38) {$-$};
+  % V_ZERO -> non-inverting input
+  \draw[->] (9.1,-0.22) -- (9.1,-1.75) -| (5.6,-2.62) -- (6.0,-2.62);
+  \node[font=\scriptsize, anchor=south west] at (7.6,-1.75) {$V_\mathrm{ZERO}$};
+  % WE -> R_L -> inverting input
+  \draw (WEp) to[R, l_=\scriptsize$R_L\approx110\,\Omega$] (5.2,-3.35) coordinate (inv) -- (6.0,-3.35);
+  \fill (inv) circle (1.2pt);
+  % feedback R_TIA || C_f
+  \draw (inv) -- (5.2,-4.15) to[R, l=\scriptsize$R_\mathrm{TIA}$] (7.8,-4.15) coordinate (fr);
+  \draw (5.2,-4.15) -- (5.2,-4.85) to[C, l_=\scriptsize$C_f$] (7.8,-4.85) -- (fr);
+  \draw (fr) -- (7.8,-3.0);
+  \draw (7.4,-3.0) -- (7.8,-3.0);
+  \fill (7.8,-3.0) circle (1.2pt);
+  \fill (5.2,-4.15) circle (1.2pt); \fill (fr) circle (1.2pt);
+  \node[note, anchor=west] at (7.9,-4.45) {};
+
+  % ================= digitisation =====================================
+  \node[blk] (PGA) at (8.85,-3.0) {PGA\\[-1pt]\scriptsize$\times1.5$};
+  \node[blk] (ADC) at (10.35,-3.0) {ADC\\[-1pt]\scriptsize 16-bit};
+  \node[blk] (FLT) at (11.85,-3.0) {sinc3\\[-1pt]sinc2};
+  \draw[->] (7.8,-3.0) -- (PGA);
+  \draw[->] (PGA) -- (ADC);
+  \draw[->] (ADC) -- (FLT);
+  \node[note, anchor=north] at (ADC.south) {};
+  \node[note, anchor=north] at (FLT.south) {Sec.~\ref{eq:sw_window}};
+
+  % ================= ESP32-S3 ==========================================
+  \node[blk, text width=2.45cm, minimum height=2.0cm] (MCU) at (14.75,-1.3)
+       {\textbf{ESP32-S3}\\[2pt]\scriptsize mean of 18 samples\\[-1pt]\scriptsize (20\,ms window)\\[2pt]\scriptsize $\Delta I = I_\mathrm{end}-I_\mathrm{before}$};
+  \draw[->] (FLT.east) -- (14.75,-3.0) -- (MCU.south);
+  \draw[<->] (DAC.east) -- (14.75,0.38) -- (MCU.north);
+  \node[font=\scriptsize, anchor=south] at (13.6,0.38) {SPI};
+  \node[font=\scriptsize, anchor=south] at (13.6,-3.0) {SPI};
+
+  % ================= current range note ==============================
+  \node[note, anchor=south] at (4.05,-3.05) {pA to 750\,\textmu A};
+\end{circuitikz}
+
 \end{figure}
 
-The hardware that implements this architecture is described in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}. The rest of this chapter considers whether the analog front-end remains stable when the electrochemical cell is connected to it.
+In the feeback loop there are two aspects that need to be taken into consideration, the fixed internal load resistor $R_L \approx \SI{110}{\ohm}$ \cite[pp.~10, 50]{ad5941_ds}, and the capacitor $C_f$ across the gain resistor $R_\mathrm{TIA}$ is programmable from \SIrange{1}{63}{\pico\farad} \cite[p.~52]{ad5941_ds}. 
+
+\section{Choice and Operating Limits of the TIA}
+\label{sec:tia_choice}
+
+The AD5941 has two TIAs that can measure the WE current. The LPTIA is
+intended for continuous, low-power sensing such as gas or glucose sensors,
+and offers gain resistors up to \SI{512}{\kilo\ohm} \cite[p.~10]{ad5941_ds},
+three times the largest of the HSTIA. The HSTIA is specified for signals up
+to \SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}, and the datasheet notes that
+it is the path for high-bandwidth measurements such as ramps and cyclic
+voltammetry \cite[p.~30]{ad5941_ds}.
+
+\subsection{High-Speed or Low-Power TIA}
+\label{sec:hstia_lptia}
+
+According to the datasheet the recommended configuration for voltammetry is to use the  High Speed TIA. This drives the CE from the low-power DAC through the potentiostat loop,
+disconnects the low-power DAC output capacitors so that the potential can
+step quickly, and measures the WE current on the HSTIA
+\cite[Table~21, p.~38]{ad5941_ds}. The OpenStat follows this configuration.
+
+The LPTIA was not ruled out on speed advantages would be that with a small feedback capacitor it can
+also follow a \SI{50}{\milli\second} pulse, and it has the larger gain resistors. The HSTIA has more practical advantages. Its
+feedback capacitor $C_f$ is set in firmware \cite[p.~52]{ad5941_ds}, whereas
+the LPTIA uses an external capacitor fixed at assembly, so the compensation
+can be changed without modifying the board. Its bandwidth also covers
+impedance measurement up to \SI{200}{\kilo\hertz}, against
+\SI{300}{\hertz} for the low-bandwidth loop \cite[p.~9]{ad5941_ds}, which
+leaves impedance spectroscopy open as future work.
+
+\subsection{Stability with a Cell Connected}
+\label{sec:stability}
+
+The AD5941 applies a voltage to the connected cell through feedback. The potentiostat amplifier drives the CE until the RE equals $V_\mathrm{BIAS}$, the HSTIA holds the WE at $V_\mathrm{ZERO}$, and the
+current is whatever the cell draws at that potential, up to
+\SI{750}{\micro\ampere} \cite[p.~9]{ad5941_ds}. The cell’s electrical properties affect how both amplifiers behave. In the control loop, $R_u$ and $C_{dl}$ add a pole at
+$1/(2\pi R_uC_{dl})$, its gain-bandwidth product is fixed in
+the AD5941, so this loop cannot be compensated and instead limits the cells
+that can be driven \cite{bard2001}. 
+
+The TIA loop can be shaped through $C_f$. The working electrode is seen from the inverting input of the HSTIA, the cell is $C_{dl}$ in series
+with $R_\Sigma = R_u + R_L$ to the solution, which the control loop holds at
+a fixed potential. Without $C_f$ the noise gain is
+\begin{equation}
+  NG(s) = 1 + \frac{R_\mathrm{TIA}}{R_\Sigma + 1/sC_{dl}}
+        = \frac{1 + s\left(R_\mathrm{TIA} + R_\Sigma\right)C_{dl}}{1 + sR_\Sigma C_{dl}},
+  \label{eq:ng_series}
+\end{equation}
+with a zero at $f_z = 1/2\pi(R_\mathrm{TIA}+R_\Sigma)C_{dl}$ and a pole at
+$f_p = 1/2\pi R_\Sigma C_{dl}$, above which it levels off at
+$1 + R_\mathrm{TIA}/R_\Sigma$. Unlike the photodiode amplifier often used as a
+model for this circuit \cite{graeme1996photodiode}, whose noise gain keeps
+rising, $R_\Sigma$ isolates $C_{dl}$ at high frequency. The loop crosses over
+where the open-loop gain of the amplifier, $\mathrm{GBW}/f$, has fallen to the
+noise gain. With no cell connected the noise gain is 1 and the crossover is at
+the full GBW; with the electrode connected the crossover moves down to the
+plateau,
+$f_c \approx \mathrm{GBW}\cdot R_\Sigma/(R_\mathrm{TIA}+R_\Sigma)$. For a
+single-pole amplifier with $f_c \gg f_z$, the phase margin is
+approximately \cite{c2}
+\begin{equation}
+  \phi_\mathrm{PM} \approx \arctan\left(\frac{f_c}{f_p}\right),
+  \label{eq:pm_approx}
+\end{equation}
+so a margin of at least \SI{45}{\degree} requires $f_c \geq f_p$, or
+\begin{equation}
+  R_\Sigma \geq \sqrt{\frac{R_\mathrm{TIA}}{2\pi\,\mathrm{GBW}\,C_{dl}}}.
+  \label{eq:rmin}
+\end{equation}
+The margin is smallest on the largest gain resistor with the smallest series
+resistance. The datasheet does not give the GBW of the HSTIA, so a
+conservative \SI{1}{\mega\hertz} is assumed; a larger value only increases the
+margins. On the \SI{160}{\kilo\ohm} range the plateau is about 1450, so the
+crossover lies near \SI{1}{\mega\hertz}$/1450 \approx \SI{700}{\hertz}$; on the
+\SI{1}{\kilo\ohm} range it lies near \SI{100}{\kilo\hertz}.
+Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range with
+$R_u = 0$, computed from the full loop gain. See Appendix (Appendix~X) for the full derivation.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Phase margin of the TIA loop on the \SI{160}{\kilo\ohm} range
+    ($R_\Sigma = R_L = \SI{110}{\ohm}$, $R_u = 0$,
+    $\mathrm{GBW} = \SI{1}{\mega\hertz}$).}
+  \label{tab:pm}
+  \small
+  \begin{tabular}{@{}lccccc@{}}
+    \toprule
+    $C_{dl}$ & \SI{10}{\nano\farad} & \SI{100}{\nano\farad} & \SI{1}{\micro\farad} & \SI{2.5}{\micro\farad} & \SI{5}{\micro\farad} \\
+    \midrule
+    $C_f = 0$                    & \SI{5}{\degree}  & \SI{13}{\degree} & \SI{38}{\degree} & \SI{55}{\degree} & \SI{69}{\degree} \\
+    $C_f = \SI{31}{\pico\farad}$ (used) & \SI{22}{\degree} & \SI{18}{\degree} & \SI{40}{\degree} & \SI{57}{\degree} & \SI{70}{\degree} \\
+    $C_f = \SI{63}{\pico\farad}$ & \SI{40}{\degree} & \SI{24}{\degree} & \SI{42}{\degree} & \SI{58}{\degree} & \SI{71}{\degree} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+For the C220AT electrode, the typical
+\SIrange{10}{40}{\micro\farad\per\centi\metre\squared} of gold
+\cite{bard2001} gives $C_{dl} \approx \SIrange{1.3}{5}{\micro\farad}$
+\chk{replace with measured $R_u$ and $C_{dl}$}. With the
+$C_f = \SI{31}{\pico\farad}$ used on every range, its margin is at least
+\SI{44}{\degree} with no solution resistance and \SI{70}{\degree} with
+$R_u = \SI{100}{\ohm}$, and the dummy cell WE~A
+(\SI{560}{\ohm} + \SI{33}{\nano\farad}) of Section~6.3 has
+\SI{53}{\degree}. The weak case is about \SI{100}{\nano\farad}, such as a
+microelectrode, where the margin falls below \SI{20}{\degree}; raising $C_f$
+to \SI{63}{\pico\farad} on the sensitive ranges would help.
+
+\subsection{Analog and Digital Bandwidth}
+\label{sec:settling}
+
+The measurement path of the AD5941 has two bandwidths with opposite purposes. The analog
+path must be wide so that the cell current is converted faithfully as it
+changes at each pulse edge. The HSTIA is specified for signals up to
+\SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}, corresponding to a time
+constant below \SI{1}{\micro\second}. The digital path is then made narrow to reject
+noise. The ADC samples at \SI{800}{\kilo S\per\second}
+\cite[p.~55]{ad5941_ds}, and two averaging (sinc) filters reduce this in
+stages: the sinc3 filter averages five samples, lowering the rate to
+\SI{160}{\kilo S\per\second} with a bandwidth of about
+\SI{42}{\kilo\hertz}, and the sinc2 filter averages a further 178, lowering
+it to about \SI{900}{S\per\second} with a bandwidth of
+about \SI{290}{\hertz}. Because the narrowing happens after the signal has been digitised, it lowers
+the noise of each sample without slowing the response to a pulse edge.
 
 % ---------------------------------------------------------------------
-\section{Analog Front-End Stability}
-\label{sec:afe_stability}
+\section{Summary}
+\label{sec:modeling_summary}
 
-The AD5941 implements the three-amplifier topology of Section~\ref{sec:3opamp_topology}. Its potentiostat amplifier acts as the control amplifier driving the CE, the RE is sensed through a high-impedance unity-gain stage, and the high-speed TIA holds the WE at virtual ground and converts the cell current to a voltage. The Randles model of Section~\ref{sec:cell_model} places specific demands on these amplifiers. The total resistance $R_s + R_{ct}$ sets the compliance voltage that the control amplifier must provide \cite{pineresearch_compliance}, and the time constant $R_sC_{dl}$ sets how long a DPV pulse must be held before the capacitive current has decayed \cite{bard2001}. The cell also lies inside the feedback loops of both the control amplifier and the TIA, so $C_{dl}$ affects the stability of each.
-
-Each loop is assessed with the phase-margin criterion. The loop gain
-$L(s) = A(s)\beta(s)$ is evaluated at the crossover frequency $\omega_c$,
-where $|L(j\omega_c)| = 1$, and the phase margin
-$\phi_\text{PM} = \SI{180}{\degree} + \angle L(j\omega_c)$ must be positive
-for the loop to be stable, with \SIrange{45}{65}{\degree} giving a
-well-damped response \cite{c2}. Both amplifiers are modeled with a single
-dominant pole, $A(s) = \omega_t/s$ with $\omega_t = 2\pi \cdot
-\text{GBW}$ \cite{bard2001}. The underlying feedback theory and the
-derivations of the results below are given in Appendix~\ref{app:feedback}.
-
-\subsection{Control Loop}
-\label{sec:control_loop}
-
-Only the high-frequency behaviour of the cell matters for stability. $R_{ct}$
-and $Z_W$ in Figure~\ref{fig:randles_circuit} govern the slow Faradaic
-response and are omitted, which reduces the cell to $C_{dl}$ in series with
-the uncompensated resistance $R_u$, the part of $R_s$ between the RE and the
-WE \cite{bard2001, c7, c8}. This reduced cell is shown in
-Figure~\ref{fig:cell_buffer}.
-
-\begin{figure}[H]
-    \centering
-    \caption{Electrochemical cell equivalent circuit interfaced with the reference electrode buffer.}
-    \label{fig:cell_buffer}
-    \begin{circuitikz}[american, thick]
-        
-        % Block style for the RE buffer
-        \tikzset{
-            re_block/.style={
-                rectangle,
-                draw=teal!50!black,
-                fill=teal!80!black,
-                text=white,
-                rounded corners=3pt,
-                minimum width=3.8cm,
-                minimum height=1.2cm,
-                align=center
-            }
-        }
-
-        % 1. Left wire and CE node (Shifted left for clearance)
-        \draw (2,0) -- (0.5,0);
-        \fill (0.5,0) circle (2.5pt);
-        \node[above=0.15cm] at (0.5,0) {\textbf{CE}};
-        \node[below=0.15cm] at (-0.2,0) {\textsf{$e_o(s)$, Op-Amp A}};
-        
-        % Wire entering the dashed box
-        \draw (0.5,0) -- (2.0,0);
-        
-        % 2. Resistor Ru
-        \draw (2.0,0) to[R, l=$R_u$] (4.5,0);
-        
-        % 3. Center Tap (to RE buffer)
-        \fill (4.5,0) circle (2.5pt);
-        
-        % 4. Capacitor Cdl
-        \draw (4.5,0) to[C, l=$C_{dl}$] (7.0,0);
-        
-        % 5. Right wire, WE node, and Ground
-        \draw (7.0,0) -- (8.5,0);
-        \fill (8.5,0) circle (2.5pt);
-        \draw (8.5,0) node[ground]{}; 
-        
-        % Adjusted WE label position to not clash with ground symbol
-        \node[below=0.85cm, align=center] at (8.5,0) {\textbf{WE}\\ \textsf{Virtual ground (Op-Amp C, TIA)}};
-        
-        % 6. Dashed Box for Electrochemical Cell
-        % Adjusted dimensions to encompass R and C properly and leave room for text
-        \draw[dashed, draw=gray!80, thick] (1.6, -1.3) rectangle (7.4, 1.6);
-        
-        % Text shifted slightly inside the box so it doesn't overlap the border
-        \node[anchor=north west, text=gray!90] at (1.7, -0.5) {\textsf{Electrochemical cell ($R_u$, $C_{dl}$)}};
-        
-        % 7. RE Buffer Block
-        \node[re_block] (re_buffer) at (4.5, 2.7) {\textbf{RE buffer}\\ \textsf{Op-Amp B ($\beta\approx1$)}};
-        
-        % 8. Arrows to/from RE Buffer
-        \draw[-stealth, thick] (4.5,0) -- (re_buffer.south);
-        \draw[-stealth, thick] (re_buffer.north) -- (4.5, 4.4) node[above] {\textsf{\textbf{$E_{ref}(s)$ to summing junction}}};
-        
-    \end{circuitikz}
-\end{figure}
-
-
-The RE senses the voltage across $C_{dl}$, so the feedback factor is the
-divider formed by $R_u$ and $C_{dl}$ (Appendix~\ref{app:beta}):
-\begin{equation}
-  \beta(s) = \frac{1}{1 + s\tau_\text{cell}},
-  \qquad \tau_\text{cell} \equiv R_uC_{dl}.
-  \label{eq:beta}
-\end{equation}
-The loop gain of the control amplifier is then
-\begin{equation}
-  L_\text{ctrl}(s) = \frac{\omega_{t,\text{ctrl}}}{s\,(1 + s\tau_\text{cell})},
-  \label{eq:l_ctrl}
-\end{equation}
-which for $\omega \gg 1/\tau_\text{cell}$ crosses unity at
-\begin{equation}
-  \omega_{c,\text{ctrl}} \approx \sqrt{\frac{\omega_{t,\text{ctrl}}}{\tau_\text{cell}}}.
-  \label{eq:wc_ctrl}
-\end{equation}
-At this frequency the integrator contributes \SI{-90}{\degree} and the cell
-pole adds lag approaching a further \SI{-90}{\degree} as
-$\omega_{c,\text{ctrl}}\tau_\text{cell}$ grows, so the phase margin falls as
-$\tau_\text{cell}$ increases. $R_u$ is typically tens to a few hundred ohms
-in a well-conducting aqueous electrolyte \cite{bard2001}, so
-$\tau_\text{cell}$ is much smaller than the $R_fC_{dl}$ time constant of the
-TIA loop (Section~\ref{sec:tia_loop}), and the control loop is the less
-critical of the two. Because the gain-bandwidth product of the control
-amplifier is fixed inside the AD5941, this loop cannot be compensated in the
-design; instead it limits the cells that can be driven, since a
-high-resistance sample or a large electrode raises $\tau_\text{cell}$ and
-erodes the margin. The RE buffer is a voltage follower with $\beta = 1$;
-because its open-loop gain is large across the frequencies of interest, it
-contributes no significant pole \cite{c3}.
-
-\subsection{TIA Loop and Compensation}
-\label{sec:tia_loop}
-
-The WE connects directly to the inverting input of the TIA, so $C_{dl}$ shunts this node in the same way that
-the junction capacitance of a photodiode shunts the input of a photodiode
-amplifier \cite{graeme1996photodiode}.
-
-With a feedback resistor $R_f$, $C_{dl}$ introduces a zero into the noise
-gain (Appendix~\ref{app:tia}),
-\begin{equation}
-  NG(s) = 1 + sR_fC_{dl},
-  \qquad f_z = \frac{1}{2\pi R_fC_{dl}},
-  \label{eq:noise_gain}
-\end{equation}
-which appears as a second pole in the loop gain:
-\begin{equation}
-  L_\text{TIA}(s) = \frac{A(s)}{NG(s)}
-    = \frac{\omega_t}{s\,(1 + sR_fC_{dl})}.
-  \label{eq:l_tia}
-\end{equation}
-For $\omega \gg 1/R_fC_{dl}$ the crossover frequency is
-\begin{equation}
-  \omega_{c,\text{TIA}} \approx \sqrt{\frac{\omega_t}{R_fC_{dl}}}.
-  \label{eq:wc_tia}
-\end{equation}
-At this frequency both poles contribute close to \SI{-90}{\degree}, so the
-phase margin collapses towards \SI{0}{\degree} and the TIA rings or
-oscillates \cite{franco2014design}. Because $R_f$ must be large to resolve
-nanoampere currents, $R_fC_{dl} \gg R_uC_{dl}$, which makes this the
-critical loop.
-
-The loop is stabilised by placing a capacitor $C_f$ in parallel with $R_f$.
-$C_f$ adds a pole to the noise gain at $1/(2\pi R_fC_f)$, above the zero
-caused by $C_{dl}$, which levels off the noise gain before it meets the
-open-loop gain of the amplifier. Placing this pole at $f_z$ and the GBW gives a phase margin of about \SI{45}{\degree} or more
-\cite{graeme1996photodiode, adi_mt059}, for which
-\begin{equation}
-  C_f = \sqrt{\frac{C_{dl}}{2\pi R_f \cdot \text{GBW}}}.
-  \label{eq:cf}
-\end{equation}
-$C_f$ must therefore be sized for the largest expected $C_{dl}$ of the cell rather than chosen independently of it. In the AD5941, the capacitor in
-parallel with the high-speed TIA gain resistor is programmable from
-\SIrange{1}{63}{\pico\farad} in \SI{1}{\pico\farad} steps, alongside gain
-resistors from \SI{200}{\ohm} to \SI{160}{\kilo\ohm}
-\cite[p.~52]{ad5941_ds}, so Equation~\eqref{eq:cf} can be applied for each
-gain range.
-% CHECK: state here which C_TIA value(s) your firmware actually sets for
-% each RTIA range, and check Eq. (eq:cf) against the 63 pF maximum for your
-% electrode's C_dl.
+The switchable ranges for are needed to span tens of picoamperes to the maximum
+\SI{750}{\micro\ampere}, the HSTIA was used in the datasheets's
+voltammetry configuration, as the LPTIA's larger resistors offer no benefit. With $R_L$ in series with the cell, the TIA is stable with the test
+electrode on every range.
