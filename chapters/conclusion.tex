@@ -17,6 +17,7 @@
 
 \providecommand{\devname}{OpenStat}
 \section{Conclusion}
+\label{sec:conclusion}
 
 This project set out to design an open-source, wireless potentiostat for the
 DPV detection of antiretroviral drugs in water. The \devname{} meets this aim:
@@ -31,12 +32,10 @@ repeatability. The only systematic difference is a potential offset of about
 \SI{25}{\milli\volt}. 
 
 \section{Future Work}
+\label{sec:future_work}
 
-On the hardware side, the \SI{200}{\ohm} range cannot be used above about
-\SI{750}{\micro\ampere} because the potentiostat amplifier runs in its normal
-power mode (Section~\ref{sec:rtia_cal}). Adding a high-power mode for
-measurements above this current would make the full range usable. The
-TP4056 charger has no power-path management, so the device cannot safely run
+On the hardware side, by adding a high-power mode for
+measurements above \SI{750}{\micro\ampere} would make the \SI{200}{\ohm} range usable (Section~\ref{sec:rtia_cal}). The TP4056 charger has no power-path management, so the device cannot safely run
 while it charges; a charger with power-path control, would solve this issue.
 
 In the firmware, the \devname{} currently returns the voltammogram and leaves
@@ -45,4 +44,4 @@ detection would let it report peak height and potential directly, and,
 combined with standard addition on the same electrode, a concentration.
 Beyond this, a machine-learning model trained on voltammograms, removed from the scope of this project, could identify which compounds are present where their peaks overlap, rather than only recording the curve. The \SI{25}{\milli\volt} potential offset (Section~\ref{sec:fc_shift}) should
 be traced in the firmware and confirmed on the \SIlist{10;80}{\kilo\ohm}
-ranges. The device should then be tested with oseltamivir and efavirenz, with preconcentration or a modified electrode to reach nanomolar levels.
+ranges. The firmware should also compensate the measured 3\,\% short pulse and period, match the PalmSens4's start-of-scan hold, and be checked for linearity with more calibration points per range. The device should then be tested with oseltamivir and efavirenz, with preconcentration or a modified electrode to reach nanomolar levels.

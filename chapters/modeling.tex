@@ -239,28 +239,10 @@ $R_u = \SI{100}{\ohm}$, and the dummy cell WE~A
 microelectrode, where the margin falls below \SI{20}{\degree}; raising $C_f$
 to \SI{63}{\pico\farad} on the sensitive ranges would help.
 
-\subsection{Analog and Digital Bandwidth}
-\label{sec:settling}
+%\section{Summary}
+%\label{sec:modeling_summary}
 
-The measurement path of the AD5941 has two bandwidths with opposite purposes. The analog
-path must be wide so that the cell current is converted faithfully as it
-changes at each pulse edge. The HSTIA is specified for signals up to
-\SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}, corresponding to a time
-constant below \SI{1}{\micro\second}. The digital path is then made narrow to reject
-noise. The ADC samples at \SI{800}{\kilo S\per\second}
-\cite[p.~55]{ad5941_ds}, and two averaging (sinc) filters reduce this in
-stages: the sinc3 filter averages five samples, lowering the rate to
-\SI{160}{\kilo S\per\second} with a bandwidth of about
-\SI{42}{\kilo\hertz}, and the sinc2 filter averages a further 178, lowering
-it to about \SI{900}{S\per\second} with a bandwidth of
-about \SI{290}{\hertz}. Because the narrowing happens after the signal has been digitised, it lowers
-the noise of each sample without slowing the response to a pulse edge.
-
-% ---------------------------------------------------------------------
-\section{Summary}
-\label{sec:modeling_summary}
-
-The switchable ranges for are needed to span tens of picoamperes to the maximum
-\SI{750}{\micro\ampere}, the HSTIA was used in the datasheets's
-voltammetry configuration, as the LPTIA's larger resistors offer no benefit. With $R_L$ in series with the cell, the TIA is stable with the test
-electrode on every range.
+%The switchable ranges for are needed to span tens of %picoamperes to the maximum
+%\SI{750}{\micro\ampere}, the HSTIA was used in the datasheets's
+%voltammetry configuration, as the LPTIA's larger resistors offer no benefit. With $R_L$ in series with the cell, the TIA is stable with the test
+%electrode on every range.

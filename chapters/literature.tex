@@ -108,72 +108,70 @@ In continuous sweeps such as CV and LSV, by contrast, charging current is presen
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[font=\sffamily, >=Stealth]
+\caption{Waveform profile for DPV. Grey blocks represent the current sampling windows. Adapted from \cite{palmsens2026dpv}.}
+\label{fig:dpv_waveform}
+\begin{tikzpicture}[font=\sffamily\small, >=Stealth, x=1cm, y=0.6cm]
 
     % --- Main Boundary Axes (The 'L' shape) ---
     \draw[line width=1.2pt] (0, 7) -- (0, 0) -- (11, 0);
-    
+
     % --- Detached Axis Arrows ---
     \draw[->, line width=1pt] (-0.4, 3.5) -- (-0.4, 5.0) node[midway, left=2pt] {E};
     \draw[->, line width=1pt] (7.5, -0.4) -- (9.0, -0.4) node[midway, below=2pt] {t};
 
     % --- Applied Potential Waveform (Blue Line) ---
-    \draw[dpvblue, line width=1.2pt] 
-        (2.5, 1.5) -- (4.5, 1.5) % Pretreatment & initial baseline
-        -- (4.5, 4.0)            % Pulse 1 up
-        -- (5.5, 4.0)            % Pulse 1 flat
-        -- (5.5, 2.5)            % Pulse 1 down to new baseline
-        -- (7.5, 2.5)            % Inter-pulse baseline
-        -- (7.5, 5.0)            % Pulse 2 up
-        -- (8.5, 5.0)            % Pulse 2 flat
-        -- (8.5, 3.5)            % Pulse 2 down to final baseline
-        -- (10.0, 3.5);          % Final baseline extending right
+    \draw[dpvblue, line width=1.2pt]
+        (2.5, 1.5) -- (4.5, 1.5)
+        -- (4.5, 4.0)
+        -- (5.5, 4.0)
+        -- (5.5, 2.5)
+        -- (7.5, 2.5)
+        -- (7.5, 5.0)
+        -- (8.5, 5.0)
+        -- (8.5, 3.5)
+        -- (10.0, 3.5);
 
     % --- Current Sampling Windows (Grey Boxes) ---
-    % i1 box (just before pulse 1)
-    \fill[boxgray] (3.7, 1.35) rectangle (4.5, 1.65);
-    \node[above] at (4.1, 1.65) {i$_1$};
-    
-    % i2 box (just before pulse 1 ends)
-    \fill[boxgray] (4.7, 3.85) rectangle (5.5, 4.15);
-    \node[above] at (5.1, 4.15) {i$_2$};
+    \fill[boxgray] (3.7, 1.3) rectangle (4.5, 1.7);
+    \node[above] at (4.1, 1.7) {i$_1$};
+
+    \fill[boxgray] (4.7, 3.8) rectangle (5.5, 4.2);
+    \node[above] at (5.1, 4.2) {i$_2$};
 
     % --- Annotations & Dashed Lines ---
-    
+
     % E_begin
     \draw[dashed, thick] (3.7, 1.5) -- (1.5, 1.5) node[left] {E$_{\text{begin}}$};
-    
+
     % E_pulse
     \draw[dashed, thick] (4.5, 4.0) -- (2.5, 4.0);
     \draw[<->, thick] (2.8, 1.5) -- (2.8, 4.0) node[midway, left=2pt] {E$_{\text{pulse}}$};
-    
+
     % E_step
     \draw[dashed, thick] (4.5, 1.5) -- (6.0, 1.5);
     \draw[<->, thick] (5.7, 1.5) -- (5.7, 2.5) node[midway, right=2pt] {E$_{\text{step}}$};
-    
-    % t_int (Interval time - measured from falling edge to falling edge)
-    \draw[dashed, thick] (5.5, 4.0) -- (5.5, 6.2); % Falling edge of pulse 1
-    \draw[dashed, thick] (8.5, 5.0) -- (8.5, 6.2); % Falling edge of pulse 2
-    \draw[<->, thick] (5.5, 6) -- (8.5, 6) node[midway, above] {t$_{\text{int}} = \frac{\text{E}_{\text{step}}}{\text{scanrate}}$};
-    
-    % t_pulse (Pulse time - measured on the second pulse)
-    \draw[dashed, thick] (7.5, 5.0) -- (7.5, 5.6); % Rising edge of pulse 2
-    \draw[<->, thick] (7.5, 5.3) -- (8.5, 5.3) node[midway, above] {t$_{\text{pulse}}$};
-    
+
+    % t_int (falling edge to falling edge)
+    \draw[dashed, thick] (5.5, 4.0) -- (5.5, 7.0);
+    \draw[dashed, thick] (8.5, 5.0) -- (8.5, 7.0);
+    \draw[<->, thick] (5.5, 6.8) -- (8.5, 6.8) node[midway, above] {t$_{\text{int}} = \frac{\text{E}_{\text{step}}}{\text{scanrate}}$};
+
+    % t_pulse (on the second pulse)
+    \draw[dashed, thick] (7.5, 5.0) -- (7.5, 5.7);
+    \draw[<->, thick] (7.5, 5.4) -- (8.5, 5.4) node[midway, above] {t$_{\text{pulse}}$};
+
     % E_end
     \draw[dashed, dpvblue, line width=1.2pt] (10.0, 3.5) -- (10.0, 5.5) node[right, text=black] {E$_{\text{end}}$};
 
     % --- Text Labels ---
-    \node[anchor=west] at (0.2, 0.8) {Pretreatment};
-    \node at (8.0, 1) {measured current = i$_2$ $-$ i$_1$}; 
-    
+    \node[anchor=west] at (0.2, 0.5) {Pretreatment};
+    \node at (8.0, 1) {measured current = i$_2$ $-$ i$_1$};
+
     % Start of scan arrow
     \draw[->, thick] (2.8, -0.2) -- (2.8, 1.4);
     \node[below] at (2.8, -0.2) {Start of scan};
 
 \end{tikzpicture}
-\caption{Waveform profile for DPV. Grey blocks represent the current sampling windows. Where frequency is $f = 1/T_{\text{pulse}}$. Adapted from \cite{palmsens2026dpv}.}
-\label{fig:dpv_waveform}
 \end{figure}
 
 \mysubsection{Application to Antiviral Drug Residues in Water}{Application to Antiviral Drug Residues in Water}
@@ -193,12 +191,7 @@ This section explores the fundamentals of a potentiostat, namely its role, desig
 
 The role of a potentiostat is to manage the control amplifier and the TIA, and to buffer the reference electrode. For reference electrode buffering, the electrode must remain perfectly stable at a known half-cell potential. To prevent the voltage from drifting, zero current is allowed to flow through the electrode. This is achieved using an electrometer, an operational amplifier with an extremely high input impedance \cite{iest2026threeelectrode}.
 
-The control amplifier drives the system by constantly comparing the desired input voltage, set by a DAC, with the actual voltage measured at the reference electrode. The resulting error signal is minimised by forcing current through the counter electrode and into the solution, which actively compensates for any changes in the electrochemical cell's resistance. The TIA holds the working electrode at a 0\,V reference while catching every electron produced or consumed by the reaction \cite{bard2001}. These electrons generate a small Faradaic current that is converted into a potential, which can then be measured by an \ac{ADC} \cite{bard2001}. The precision of the measurements made by the TIA depends not only on the AFEs noise performance but when the sample is taken. As discussed in Section~\ref{sec:dpv_sensitivity}, the capacitive and Faradaic currents are distinguished by their differing decay times. Therefore, to sample accurately, precision timing and specific, predictable sampling windows are required. The occurrence of a timing jitter would directly degrade the signal--to-noise ratio regardless of the AFE's noise performance. To ensure precision timing a direct requirement is placed on the microcontroller's clock stability and the software architecture that drives the AFE.
-
-\mysubsection{Three Operational Amplifier Potentiostat Topology}{Three Operational Amplifier Potentiostat Topology}
-\label{sec:3opamp_topology}
-
-This section translates the three roles above into a physical circuit architecture, shown in Figure~\ref{fig:3opamp}. The three operational amplifiers are the respective parts of a potentiostat: A is the control amplifier, B is the buffer, and C is the TIA.
+The control amplifier drives the system by constantly comparing the desired input voltage, set by a DAC, with the actual voltage measured at the reference electrode. The resulting error signal is minimised by forcing current through the counter electrode and into the solution, which actively compensates for any changes in the electrochemical cell's resistance. The TIA holds the working electrode at a 0\,V reference while catching every electron produced or consumed by the reaction \cite{bard2001}. These electrons generate a small Faradaic current that is converted into a potential, which can then be measured by an \ac{ADC} \cite{bard2001}. The precision of the measurements made by the TIA depends not only on the AFEs noise performance but when the sample is taken. As discussed in Section~\ref{sec:dpv_sensitivity}, the capacitive and Faradaic currents are distinguished by their differing decay times. Therefore, to sample accurately, precision timing and specific, predictable sampling windows are required. The occurrence of a timing jitter would directly degrade the signal--to-noise ratio regardless of the AFE's noise performance. To ensure accurate measurements key performance parameters need ot be considered when building and designing a potentiostat.
 
 \mysubsection{Key Performance Parameters}{Key Performance Parameters}
 \label{sec:key_performance_parameters}
@@ -210,7 +203,7 @@ This section establishes the criteria used to evaluate the effectiveness of the 
 
     \item \textbf{Compliance voltage:} The control amplifier must drive the cell resistance $R_s + R_{ct}$ of Section~\ref{sec:cell_model}. If this resistance is high, the control amplifier needs a high compliance voltage to push the necessary current through the counter electrode \cite{pineresearch_compliance}.
 
-    \item \textbf{Noise floor and \ac{LOD}:} The LOD  is fundamentally constrained by the inherent noise floor of the potentiostat's analog front end. In high-sensitivity applications, the TIA requires large feedback resistors to convert picoampere-level Faradaic currents into measurable voltages. However, these resistive components inherently generate thermal (Johnson--Nyquist) noise. Therefore, a device targeting nanoampere or picoampere signals requires a potentiostat topology with an exceptionally low electrical noise floor \cite{graeme1996photodiode,adi_mt059}.
+    \item \textbf{Noise floor and \ac{LOD}:} The LOD  is constrained by the noise floor of the potentiostat's AFE. In high-sensitivity applications, the TIA requires large feedback resistors to convert picoampere-level Faradaic currents into measurable voltages. However, these resistive components inherently generate thermal noise. Therefore, a device targeting nanoampere or picoampere signals requires a potentiostat topology with an exceptionally low electrical noise floor \cite{graeme1996photodiode,adi_mt059}.
 
     \item \textbf{Bandwidth / scan rate limits:} This is the maximum speed at which the potentiostat can alter the applied potential. Fast techniques such as \ac{SWV} require high-bandwidth operational amplifiers to avoid signal distortion \cite{bard2001}.
 
@@ -220,16 +213,16 @@ This section establishes the criteria used to evaluate the effectiveness of the 
 \mysubsection{Analog Front-End Approaches}{Analog Front-End Approaches}
 \label{sec:afe_approaches}
 
-Transitioning from the theoretical 3-op-amp topology to a physical implementation requires selecting an appropriate hardware architecture. To combat bulky bench top potentiostats, engineers developed two approaches to AFE's. First, a discrete circuit using individual operational amplifiers. Second, utilising a fully integrated \ac{SoC} AFE, such as the AD5941. Each approach presents distinct engineering trade-offs regarding power consumption, physical footprint, and architectural flexibility, which are summarised in Table~\ref{tab:afe_approaches}.
+Transitioning from the theoretical 3-op-amp topology to a physical implementation requires selecting an appropriate hardware architecture. To combat bulky bench top potentiostats, engineers developed two approaches to AFE's. First, a discrete circuit using individual operational amplifiers. Second, utilising a fully integrated \ac{SoC} AFE, such as the AD5941. Each approach presents distinct engineering trade-offs which are summarised in Table~\ref{tab:afe_approaches}.
 
 \begin{table}[H]
     \footnotesize
     \centering
-    \caption{Comparison of discrete op-amp and integrated AFE IC implementation approaches.}
+    \caption{Comparison of discrete op-amp and integrated AFE IC approaches.}
     \label{tab:afe_approaches}
     \begin{tabular}{p{4cm}p{5cm}p{5cm}}
     \toprule
-        \textbf{Implementation \newline Approach} & \textbf{Advantages} & \textbf{Trade-offs} \\
+        \textbf{Approach} & \textbf{Advantages} & \textbf{Trade-offs} \\
     \midrule
         Discrete op-amp design &
         Architectural flexibility, capable of massive compliance voltages, component-level tuning for extreme precision. &
@@ -237,7 +230,7 @@ Transitioning from the theoretical 3-op-amp topology to a physical implementatio
         \addlinespace
         Integrated AFE ICs &
         Millimeter-scale physical footprint, very low power consumption, built-in hardware digital filtering. &
-        Hard-capped compliance voltage ($\leq 3$\,V), fixed internal current measurement ranges, limited deep customisation, requires complex SPI firmware development. \\
+        Limmited compliance voltage ($\leq 3$\,V), fixed internal current measurement ranges, limited deep customisation, requires complex firmware development. \\
     \bottomrule
     \end{tabular}
 \end{table}
@@ -247,37 +240,37 @@ Each approach to AFEs have their strengths and weaknesses, as discussed above. T
 \mysection{Survey of Existing Potentiostat Designs}{Survey of Existing Potentiostat Designs}
 \label{sec:survey_designs}
 
-The democratisation of electrochemical instrumentation has led to a rapid expansion of custom potentiostat designs. This section surveys the architectural evolution of these devices, establishing a performance baseline and identifying gaps in standalone usability, summarised in Table~\ref{tab:design_comparison} 
+The democratisation of electrochemical instrumentation has led to a rapid expansion of custom potentiostat designs. This section surveys the architectural evolution of these devices, performance and gaps in standalone usability are summarised in Table~\ref{tab:design_comparison} 
 
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \begin{table}[H]
-    \tiny
+    \scriptsize
     \centering
+    \setlength{\tabcolsep}{4pt}
     \caption{Comparison of surveyed potentiostat designs.}
     \label{tab:design_comparison}
-    \begin{tabular}{
-        >{\raggedright\arraybackslash}p{2.3cm}
-        >{\raggedright\arraybackslash}p{2.3cm}
-        >{\raggedright\arraybackslash}p{2.6cm}
-        >{\raggedright\arraybackslash}p{2.3cm}
-        >{\raggedright\arraybackslash}p{1.5cm}
-        >{\raggedright\arraybackslash}p{1.5cm}
-        >{\raggedright\arraybackslash}p{2cm}
-    }
+    \begin{tabularx}{\textwidth}{L L L L P{1.3cm} P{1.3cm} L}
     \toprule
-        \textbf{Design / Platform} & \textbf{MCU / AFE Architecture} & \textbf{Primary Techniques Supported} & \textbf{Connectivity \& Interface} & \textbf{Onboard Display?} & \textbf{Onboard Analysis?} & \textbf{Open-Source Completeness} \\
+        \textbf{Design / Platform} & \textbf{MCU / AFE Architecture} & \textbf{Techniques Supported} & \textbf{Connectivity \& Interface} & \textbf{Onboard Display?} & \textbf{Onboard Analysis?} & \textbf{Open-Source Completeness} \\
     \midrule
-        Commercial (e.g.\ EmStat\cite{MultiEmStat4}) & Proprietary & CV, DPV, SWV, EIS, CA & USB / Proprietary PC GUI & No & No (PC-based) & Closed source \\
-        CheapStat \cite{rowe2011} & Atmel AVR / Discrete & CV, SWV, CA & None / Basic LCD output & Yes (Basic LCD) & No & Full (PCB/Firmware) \\
-        DStat \cite{dryden2015} & Atmel XMEGA / Discrete & CV, DPV, SWV, CA & USB / Python PC GUI & No & No & Full (PCB/Firmware/GUI) \\
-        Smartphone-Integrated (e.g.\ UWED \cite{ainla2018}) & BLE MCU / Discrete & CV, DPV, SWV & Bluetooth / Custom App & No & No & Partial (Hardware focus) \\
-        HunStat2 \cite{hunstat2_2025} & Mixed / AD5941 SoC & CV, DPV, SWV, EIS & USB / Serial Datalogging & No & No & Full (Hardware/Firmware) \\
-        NanoStat \cite{lee2022} & ESP32 / Discrete & CV, SWV, CA & Wi-Fi / Embedded Web GUI & No (Headless) & No & Full (Hardware/Web GUI) \\
+        Commercial (e.g.\ EmStat~\cite{MultiEmStat4}) & Proprietary & CV, DPV, SWV, EIS, CA & USB / Proprietary GUI & No & No & Closed source \\
+        \addlinespace
+        CheapStat~\cite{rowe2011} & Atmel AVR / Discrete & CV, SWV, CA & None / Basic LCD output & Yes & No & Full (PCB/Firmware) \\
+        \addlinespace
+        DStat~\cite{dryden2015} & Atmel XMEGA / Discrete & CV, DPV, SWV, CA & USB / Python PC GUI & No & No & Full (PCB/Firmware/GUI) \\
+        \addlinespace
+        UWED~\cite{ainla2018} & BLE MCU / Discrete & CV, DPV, SWV & Bluetooth / Custom App & No & No & Partial (Hardware focus) \\
+        \addlinespace
+        HunStat2~\cite{hunstat2_2025} & Mixed / AD5941 SoC & CV, DPV, SWV, EIS & USB / Serial Datalogging & No & No & Full (Hardware/Firmware) \\
+        \addlinespace
+        NanoStat~\cite{lee2022} & ESP32 / Discrete & CV, SWV, CA & Wi-Fi / Web GUI & No & No & Full (Hardware/ GUI) \\
     \bottomrule
-    \end{tabular}
+    \end{tabularx}
 \end{table}
 
-Each design from Table~\ref{tab:design_comparison} is discussed in more detail below, highlighting the evolution of potentiostat architectures and their trade-offs in terms of performance, portability, and usability.
+Each design from Table~\ref{tab:design_comparison} is discussed in more detail below, highlighting the evolution of potentiostat architectures and their trade-offs.
 
 \mysubsection{Commercial Instruments}{Commercial Instruments}
 \label{sec:commercial_instruments}
@@ -289,12 +282,12 @@ Commercial systems such as the PalmSens4 \cite{PalmSens4}, EmStat \cite{MultiEmS
 \label{sec:general_purpose_opensource}
 \label{sec:portable_wireless}
 
-CheapStat \cite{rowe2011} showed that basic analytical electrochemistry was achievable with a \ac{BOM} under \$100, although its 8-bit microcontroller limited \ac{ADC}/\ac{DAC} resolution and compliance range. DStat \cite{dryden2015} closed much of the performance gap, reaching near-commercial sensitivity with a discrete analog front-end and supporting CV, SWV, DPV and CA through a Python \ac{GUI}. However, it depends on a USB-connected PC for power and control, which rules out field use. Smartphone-integrated designs such as the UWED \cite{ainla2018} achieved portability by moving processing and display to a phone over \ac{BLE}, but this ties the hardware to a companion app that must be maintained across operating system updates.
+CheapStat \cite{rowe2011} showed that basic analytical electrochemistry was achievable with a \ac{BOM} under \$100. DStat \cite{dryden2015} closed much of the performance gap, reaching near-commercial sensitivity with a discrete analog front-end and supporting CV, SWV, DPV and CA through a Python \ac{GUI}. However, it depends on a USB-connected PC for power and control, which rules out field use. Smartphone-integrated designs such as the UWED \cite{ainla2018} achieved portability by moving processing and display to a phone over \ac{BLE}, but this ties the hardware to a companion app that must be maintained across operating system updates.
 
 \mysubsection{AFE-Based and Web-Hosted Designs}{AFE-Based and Web-Hosted Designs}
 \label{sec:eis_afe_designs}
 \label{sec:selfhosted_webinterface}
 
-Integrated mixed-signal \acp{AFE} have largely replaced discrete op-amp circuits in recent designs \cite{jenkins2019}. Systems such as ABE-Stat, HunStat and HunStat2 characterise this generation: using \acp{SoC} such as the AD5941, they support techniques up to \ac{EIS} with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2024,hunstat2_2025}. However, configuring the \ac{AFE} requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022}, DM-Stat \cite{dmstat2024} and SaxStat \cite{saxstat2025} host an embedded web server. Any browser on any platform can then control the instrument without installed software, at the cost of \ac{MCU} memory \cite{lee2022}.
+Integrated mixed-signal \acp{AFE} have largely replaced discrete op-amp circuits in recent designs. Systems such as ABE-Stat \cite{jenkins2019}, HunStat \cite{hunstat2024} and HunStat2 \cite{hunstat2_2025} characterise this generation: using \acp{SoC} such as the AD5941, they support techniques up to \ac{EIS} with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2024,hunstat2_2025}. However, configuring the \ac{AFE} requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022}, DM-Stat \cite{dmstat2024} and SaxStat \cite{saxstat2025} host an embedded web server. Any browser on any platform can then control the instrument without installed software, at the cost of \ac{MCU} memory \cite{lee2022}.
 
 These web-hosted designs are nevertheless headless and cannot be operated without a second device. Early designs such as CheapStat included a basic display, but none of the surveyed systems combines an integrated \ac{AFE}, a browser interface and a standalone onboard display. Such a dual-interface instrument would allow quick standalone measurements in the field while retaining web-based data access, and this is the gap addressed by this project.

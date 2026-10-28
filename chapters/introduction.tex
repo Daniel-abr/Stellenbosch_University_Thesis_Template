@@ -2,13 +2,17 @@
 \label{chap:introduction}
 
 \section{Background and Motivation}
+\label{sec:bg_and_info}
 The global landscape of analytical chemistry is currently experiencing a significant shift towards point-of-care medical diagnostics and on-site environmental testing. In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiretroviral and other antiviral medication, in local water systems \cite{schoeman2017efavirenz,Wood2015}. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity \cite{Uslu2011}. DPV superimposes small pulses of potential onto a linear potential ramp or staircase. By measuring the current difference before and near the end of each pulse, the technique reduces background charging current and achieves high sensitivity \cite{IUPAC_DPV}. This makes DPV a foundational technique for isolating the minute Faradaic currents required to detect trace pharmaceuticals outside of a laboratory environment \cite{Hanrahan2004}.
 
 
 \section{Problem Statement}
+\label{sec:prob_statement}
 The primary barrier when testing water in South Africa is challenging because of the tools required to perform accurate voltammetric analysis are costly and lack in portability \cite{ainla2018,rowe2011}. The current commercially available potentiostat, such as the PalmSens4, systems serve as the gold standard for electrochemical analysis. However, these instruments are cost-prohibitive, and operate as closed-source devices \cite{dryden2015}. Consequently, it is difficult to integrate them deeply into custom, low-cost or Internet of Things (IoT) architectures \cite{ainla2018}. While various open-source alternatives have been developed over the years, many remain tethered to external computers \cite{ainla2018} for power and data processing, or rely on proprietary applications that can become obsolete. This presents a distinct need for a smart, autonomous, wireless, and low-cost potentiostat alternative capable of conducting highly sensitive DPV measurements independently in the field \cite{Hanrahan2004}.
 
 \section{Project Aim, Objectives and Scope}
+\label{sec:project_aim_obj_scope}
+
 The primary aim of this project is to design and develop an open-source, low-cost, wireless potentiostat tailored specifically for the DPV detection of antiviral medications in water. The scope of this project encompasses the following hardware and software implementations:
 \begin{itemize}[label=\textbullet]
     \item \textbf{Hardware Architecture:} The design uses the AD5941 SoC AFE, which offers a compact physical footprint and ultra-low power consumption for portable electrochemical and impedance-based sensing systems.
@@ -20,5 +24,6 @@ The primary aim of this project is to design and develop an open-source, low-cos
 \end{itemize}
  
 \section{Scope Exclusions}
+\label{sec:scope_exclusions}
 
 The scope of this project focuses on the design, development and analytical validation of the potentiostat hardware and firmware. To validate the DPV measurement performance, laboratory-prepared standard solutions of salt and ferricyanide in a supporting electrolyte were used. These solutions served as benchmarks for the developed potentiostat against commercial instruments such as the PalmSens4. The detection of these compounds in real-world water samples is outside the scope of this project. Including this in the scope would require additional sample preparation, extraction, purification steps to isolate the target analytes and adding a supporting electrolyte \cite{Temgoua2023}. This would introduce additional matrix-interference characterisation and independent analytical confirmation (e.g. via chromatography) that fall beyond the hardware-development engineering focus of this work. The system's performance on real water matrices is identified as a direction for future work.

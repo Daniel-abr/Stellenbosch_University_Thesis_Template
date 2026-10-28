@@ -1,0 +1,237 @@
+\chapter{Graduate Attributes}
+\label{app:outcomes}
+
+This appendix describes how each graduate attribute (GA) was achieved through
+the project, and refers to the sections of the report that contain the supporting evidence.
+
+% =====================================================================
+\section{Complex Engineering Problem}
+\label{app:complex}
+
+Designing a portable DPV potentiostat (Sections~\ref{sec:bg_and_info} and~\ref{sec:project_aim_obj_scope}) is a complex
+engineering problem because first-principles were required to build solitions 
+and knowledge of electrochemistry, mixed-signal
+electronics and embedded software was required. The instrument must
+resolve nanoampere currents while a Wi-Fi radio, display and SD card share the same supply and ground. The electrochemical cell forms part of its feedback loops, so the
+behaviour of the electronics depends on what is connected to it
+(Section~\ref{sec:stability}). It draws on specialist knowledge speficically regarding integrated electrochemical front-ends and the current literature
+on open-source potentiostats (Chapter~\ref{chap:literature}), and on established practice for
+mixed-signal design (Section~\ref{sec:hw_ground}).
+
+The problem also shows several further characteristics of a complex engineering problem.
+It involves conflicting requirements, trading sensitivity against cost, size
+and battery life, within an environmental and public-health problem that has
+no regulatory framework (Section~\ref{sec:dpv_applications}). There is no obvious solution to this problem, aspects such as the
+architecture, the amplifier and the timing scheme each had to be chosen from
+alternatives (Table~\ref{tab:afe_approaches}, Sections~\ref{sec:hstia_lptia} and~\ref{sec:sw_sampling}). The dual-interface
+instrument is not offered by any surveyed design (Section~\ref{sec:selfhosted_webinterface}), and no
+standard prescribes how such an instrument should be validated, so the test
+method of Chapter~\ref{chap:testing} had to be devised. The work crosses into analytical
+chemistry and depends on operating conditions set by an electrochemistry
+research group (Section~\ref{sec:requirements}). Finally, it is a system problem, with the
+front-end, power, user interface, firmware and web dashboard designed together
+(Figure~\ref{fig:signal_chain},Chapters~\ref{chap:hardware_design} and~\ref{chap:software_design}).
+
+% =====================================================================
+\section{Problem Solving (GA~1)}
+\label{app:ga1}
+
+Trace-level monitoring of antiretroviral residues in South African water requires sensitive voltammetric instruments, but these are either costly and closed-source. Open-source options are often tethered to a computer or phone, so no low-cost, standalone instrument exists for DPV measurements in the field. The problem was identified in Sections~\ref{sec:bg_and_info}
+and~\ref{sec:prob_statement} and formulated as an aim, scope and exclusions in Sections~\ref{sec:project_aim_obj_scope}
+and~\ref{sec:scope_exclusions}. It was then turned into measurable requirements in Tables~\ref{tab:req_dpv}
+and~\ref{tab:requirements_whole_sys}, so that the design could later be tested against them.
+
+The literature was researched in Chapter~\ref{chap:literature}, first to build an understanding about electrochemical designs that depend on Section~\ref{sec:electrochemical_background} and then to survey existing instruments and locate the gap that the project fills (Section~\ref{sec:survey_designs},
+Table~\ref{tab:design_comparison}). The problem was analysed from first principles rather than by
+adopting a reference design. The sampling scheme follows from the decay of the
+capacitive and faradaic currents (Section~\ref{sec:dpv_theory}), the stability of the
+front-end from a feedback model of the cell and amplifier (Section~\ref{sec:stability}), and
+the supply filtering, power chain and input filters from circuit analysis
+(Sections~\ref{sec:hw_afe} to~\ref{sec:hw_power}). The conclusions made in Chapter~\ref{chap:conclusion} are based on the measurements
+of Chapter~\ref{chap:testing}. When a result was unexpected, its cause was reasoned out from the data before a conclusion was drawn (Sections~\ref{sec:rtia_cal} and~\ref{sec:fc_shift}) as well as sources of deviation discussed in Section~\ref{sec:fc_deviation}.
+
+Sustainable development was considered holistically. The problem itself is a
+sustainability problem, the pollution of water by pharmaceutical residues
+(Section~\ref{sec:dpv_applications}), and Chapter~\ref{sec:environmental} weighs the benefit of cheaper monitoring
+against the device's own footprint. Social sciences played a small role. South Africa runs a large antiretroviral treatment programme but has no monitoring programme or regulatory limit for these residues (Section~\ref{sec:dpv_applications}).
+
+% =====================================================================
+\section{Application of Scientific and Engineering Knowledge (GA~2)}
+\label{app:ga2}
+
+GA~2 was achieved by applying mathematics, natural science, computing, engineering fundamentals and an engineering specialisation, each to a specific part of the solution. Mathematics was applied in the transfer
+functions and phase-margin analysis of Section~\ref{sec:stability} and
+Appendix~\ref{app:modeling}, the ferrite bead analysis (Section~\ref{sec:hw_ferrite}), the
+quantisation of the DAC (Section~\ref{sec:sw_potential}), and statistics in the calibration fit and the instrument comparisons of Chapter~\ref{chap:testing}. Natural science, in the form of
+electrochemistry, was applied to explain how DPV separates faradaic from
+capacitive current (Sections~\ref{sec:voltammetry_family} to~\ref{sec:dpv_theory}) and to interpret the drift in the
+ferricyanide results (Section~\ref{sec:fc_deviation}). Computing was applied in the firmware
+of Chapter~\ref{chap:software_design} and to the digital filtering of Section~\ref{sec:sw_window}.  Engineering fundamentals and the electronic instrumentation
+specialisation were applied to the amplifier, decoupling, grounding and power
+design of Chapters~\ref{chap:modeling} and~\ref{chap:hardware_design}.
+
+Mathematics, natural science and engineering science were applied in two
+ways, formal analysis and modelling, and reasoning about engineering
+problems. Formal analysis and modelling
+appear in the cell and stability model (Table~\ref{tab:pm}) and the power-chain
+estimates (Section~\ref{sec:hw_power}). Reasoning about engineering problems appears in the
+interpretation of results, for example in attributing a common gain error on
+all ranges to the shared conversion chain (Section~\ref{sec:rtia_cal}).
+
+% =====================================================================
+\section{Engineering Design (GA~3)}
+\label{app:ga3}
+
+GA~3 was achieved through the design of the OpenStat as a complete system to
+meet the needs captured in Tables~\ref{tab:req_dpv} and~\ref{tab:requirements_whole_sys}. The creative element was expressed in
+dual interface. An onboard display for standalone field use alongside a
+browser dashboard, served from one sweep engine, which addresses the gap found
+in Section~\ref{sec:selfhosted_webinterface} (Section~\ref{sec:sw_overview}). Designing the GUI for each interface allowed for a form of creative expression as well as the case design. The hardware is designed in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}. At each
+major decision, the alternatives were compared before one was chosen, for
+example the choice of front-end (Table~\ref{tab:afe_approaches}), the TIA (Section~\ref{sec:hstia_lptia}) and how
+the scan is timed (Section~\ref{sec:hw_regulation}). The design was verified against its requirements in
+Chapter~\ref{chap:testing}, and its weaknesses are acknowledged in Sections~\ref{sec:hw_regulation} and~\ref{sec:future_work}.
+
+ Considerations made of public health and safety were that the device runs below \SI{5}{\volt}, and the lithium-polymer cell, is managed by the charger, the protection IC
+and the regulator's low-voltage cut-off (Section~\ref{sec:hw_power}). Potassium ferricyanide releases cyanide in light
+(Section~\ref{sec:fc_deviation}) and in contact with strong acid, so its solutions and waste
+must be kept from acids and light and handled with gloves and eye protection.
+Because a false negative could give false reassurance about water safety, the
+OpenStat is intended as a screening tool whose positive results are confirmed
+by an accredited laboratory.
+
+Whole-life cost and net zero carbon were considered in the BOM. The component cost
+(Appendix~\ref{app:bom}) is a small fraction of that of a commercial
+instrument, the electrodes were reused to reduce running cost, and operating
+emissions are negligible, with the power chain identified as the main
+improvement (Chapter~\ref{sec:environmental}).
+
+Resources, culture and society considerations revolved around the electrodes as they are the main consumable and their
+reuse is discussed in Section~\ref{app:sustainability}. The onboard display means that no smartphone
+or computer is needed, the dashboard runs in any browser, and the open-source
+design allows local repair. The interface is in English only, icon-based menus
+or other South African languages are a natural extension.
+
+% =====================================================================
+\section{Investigations, Experiments and Data Analysis (GA~4)}
+\label{app:ga4}
+
+GA~4 was achieved through the validation in Chapter~\ref{chap:testing}, an objective investigation where the aim was to gain insight into the performance of the OpenStat against a commercial instrument. The experiments were designed as five progressive
+tests, each adding one element of a real measurement and comparing it with a
+suitable reference, so that a new deviation can be traced to the element just
+added (introduction to Chapter~\ref{chap:testing}, Table~\ref{tab:test_conditions}). The data were analysed
+quantitatively (Tables~\ref{tab:waveform} to~\ref{tab:salt}) and interpreted with reference to the
+literature where the electronics could not explain them
+(Section~\ref{sec:fc_deviation}).
+
+Critical thinking was applied in choosing how to judge the agreement of measurements. Relying on correlation alone was not accepted as evidence, the reference instrument was not treated
+as the true value once its own repeatability was measured, and the difference
+between instruments was judged against that repeatability
+(Section~\ref{sec:fc_height}). The investigation concluded that the
+instrument is not the limiting factor.
+
+% =====================================================================
+\section{Use of Engineering Tools (GA~5)}
+\label{app:ga5}
+
+GA~5 was achieved by creating, selecting, applying tools, and by stating
+their limitations where they affected a result. The tools created were the
+project-specific AD5941 driver and automatic range selection (Sections~\ref{sec:sw_overview}
+and~\ref{sec:sw_ranging}), the firmware averaging window that replaces the on-chip notch
+filter (Section~\ref{sec:sw_window}), the serial commands used for calibration
+(Figure~\ref{fig:architecture}), additional Randles dummy cells (Section~\ref{sec:randles_test}) and the analysis
+scripts used to compare instruments (Sections~\ref{sec:salt_test} and~\ref{sec:fc_test}). The tools selected
+and applied were: KiCad and JLCPCB for the board, PlatformIO and established
+libraries in C++ for the firmware (Section~\ref{sec:sw_overview}), the IPC-2221 calculator for trace width calculations 
+(Section~\ref{sec:hw_trace_widths}), the laboratory instruments of Chapter~\ref{chap:testing} and \LaTeX{} for the
+report. 
+
+The limitations of each tool were recognised where they affected a result.
+The accuracy of the measuring instruments limited how precisely the run time
+and waveform could be verified (Sections~\ref{sec:waveform_amplitude}). Where
+the datasheet was incomplete or inconsistent, conservative values were
+assumed (Section~\ref{sec:stability}, Table~\ref{tab:hw_caps}). The integrated front-end limits the
+compliance voltage and current ranges (Table~\ref{tab:afe_approaches}, Section~\ref{sec:sw_ranges}), and even
+the reference instrument has its own scan-to-scan variation
+(Section~\ref{sec:fc_height}).
+
+% =====================================================================
+\section[Professional and Technical Communication (GA~6)]{Professional and Technical\\ Communication (GA~6)}
+\label{app:ga6}
+
+GA~6 is achieved in writing through the report, which follows the structure of
+the module framework and the conventions of the discipline: requirements
+tables, signal-chain and flow diagrams, schematic and PCB drawings, a bill of
+materials, numbered equations and IEEE referencing. Results are summarised in
+tables for readers who need only the outcome (Tables~\ref{tab:testing_summary} and~\ref{tab:env_lifecycle}).
+
+To communicate inclusively, the report explains chemical terms where they first
+appear and provides lists of acronyms and definitions, since many readers will
+not be electrochemists, and the summary is given in English and Afrikaans. 
+
+% =====================================================================
+\section{Individual Work (GA~8)}
+\label{app:ga8}
+
+GA~8 was achieved by carrying out every stage of the project individually,
+from the literature review and requirements to the PCB design, assembly,
+firmware, laboratory testing, analysis and report, with guidance from Dr T Ebrahim in weekly meetings. Time was managed with the schedule in
+Appendix~\ref{app:plan_schedule}, which overlapped firmware development with board fabrication and
+built in a buffer for delays.
+
+The project crossed a disciplinary boundary into analytical chemistry,
+working to operating conditions set by an electrochemistry research group
+(Section~\ref{sec:requirements}) and carrying out laboratory measurements with chemical
+solutions (Chapter~\ref{chap:testing}). Professional responsibility is reflected in reporting
+unfavourable results and design oversights openly (Sections~\ref{sec:hw_regulation}, \ref{sec:sw_ranges}
+and~\ref{sec:fc_shift}) and in stating the limits of what the instrument can claim
+(Sections~\ref{sec:scope_exclusions} and~\ref{sec:testing_summary}).
+
+% =====================================================================
+\section{Independent Learning Ability (GA~9)}
+\label{app:ga9}
+
+GA~9 was achieved by learning the required knowledge the project needed independently 
+outside the electronic engineering curriculum. Topics studied independently include: electrochemistry and pulse
+voltammetry (Section~\ref{sec:electrochemical_background}), register-level configuration of the AD5941 from its
+datasheet (Sections~\ref{sec:tia_choice} and~\ref{sec:sw_sampling}), mixed-signal grounding and decoupling
+(Section~\ref{sec:hw_afe}), and measurement practice (Chapter~\ref{chap:testing}). Adaptability to new
+technologies is shown by the adoption of an integrated front-end and a
+self-hosted web interface (Section~\ref{app:emerging}).
+
+From the developmental considerations listed in GA~9, there were three that were particularly impactful. Openness to feedback, feedback on content written provided a professional outlook on the work completed. Coping with
+uncertainty, the ferricyanide results varied widely even on the reference
+instrument, and rather than force a conclusion, the causes were sought in the
+chemistry literature (Section~\ref{sec:fc_deviation}). Asking for help,  as electrochemistry lies
+outside the Electrical and Electronic Engineering field, guidance was sought from Dr T Ebrahim. On reflection, what was learnt was sufficient to
+design and validate the instrument on standard solutions (Sections~\ref{sec:scope_exclusions} and~\ref{sec:future_work}).
+% =====================================================================
+\section{Sustainable Development}
+\label{app:sustainability}
+
+The purpose of the project is itself sustainable development. A low-cost
+instrument lowers the cost barrier to monitoring pharmaceutical pollution in
+water (Section~\ref{sec:dpv_applications}, Chapter~\ref{sec:environmental}). Efficient resource use comes mainly from the
+integrated front-end, which keeps the board small and the part count low. Environmental
+impact and net zero carbon are assessed in Chapter~\ref{sec:environmental}, where operating
+emissions are found to be negligible and the power chain is identified as the
+main improvement. Whole-life cost is kept low by the component cost
+(Appendix~\ref{app:bom}) and by updatable open-source firmware. Electrodes were cleaned and reused, but Section~\ref{sec:fc_deviation} shows the limit of
+this, as ferricyanide slowly etches gold, so reuse trades material savings
+against repeatability.
+% =====================================================================
+\section{Critical Thinking}
+\label{app:critical}
+
+Critical thinking played a crucial part in design, judging results and in setting
+the scope. In design, the obvious option was not always taken, for example both
+amplifiers of the AD5941 were weighed (Section~\ref{sec:hstia_lptia}). In judging results, agreement was measured against the reference instrument's own repeatability (Section~\ref{sec:fc_height}), and
+systematic errors were traced from the pattern in the data rather than corrected blindly (Sections~\ref{sec:rtia_cal} and~\ref{sec:fc_shift}). In setting the scope, real water samples were excluded because a credible result would need independent
+confirmation (Section~\ref{sec:scope_exclusions}).
+
+% =====================================================================
+\section{Emerging Technologies}
+\label{app:emerging}
+
+Three emerging technologies were evaluated. Integrated electrochemical
+front-ends were compared with discrete designs in Table~\ref{tab:afe_approaches} and adopted, and their limitations were then evaluated (Sections~\ref{sec:sw_ranges} and~\ref{sec:rtia_cal}). Web-hosted instruments were compared with smartphone-app designs in Sections~\ref{sec:early_opensource} and~\ref{sec:selfhosted_webinterface}; the web-hosted approach was adopted and extended with an onboard display.

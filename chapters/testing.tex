@@ -91,6 +91,7 @@ and Table~\ref{tab:waveform}.
 
 
 \subsection{Amplitude}
+\label{sec:waveform_amplitude}
 
 Every step is either \SI{4.82}{\milli\volt} or \SI{5.37}{\milli\volt} and never
 deviates as illustrated in Figure~\ref{fig:waveform}c. These are 9 and
@@ -107,6 +108,7 @@ potential is therefore correct to within LSB. A \SI{0.54}{\milli\volt} resolutio
 about \SI{90}{\milli\volt} wide \cite{bard2001}.
 
 \subsection{Timing}
+\label{sec:waveform_timing}
 
 The edges settle in less than \SI{0.1}{\milli\second}, which is negligible
 against the \SI{50}{\milli\second} pulse. The pulse width alternates between
@@ -293,16 +295,8 @@ it a physical Randles cell with a very large charge-transfer resistance
 \devname{} is judged against the PalmSens4 measuring the same solution with the
 same waveform parameters.
 
-Five pairs of salt were compared, Salt~1 to~5, each consisting of one scan on The \devname{} and the PalmSens4. The comparison starts at \SI{0.40}{\volt}
+Five pairs of salt were compared, Salt~1 to~5 as seen in Figure~\ref{fig:salt_pairs}, each consisting of one scan on the \devname{} and the PalmSens4. Table~\ref{tab:salt} compares each pair quantitatively, using the mean current, the RMS difference and the correlation between the two voltammograms. The comparison starts at \SI{0.40}{\volt}
 and finishes at \SI{-0.20}{\volt}. So that the peak for the ferricyanide test of Section~\ref{sec:fc_test} would be in the window.
-
-With no analyte present the current measured varies from \SIrange{-185}{-210}{\nano\ampere} on the PalmSens4 and
-\SIrange{-192}{-200}{\nano\ampere} on the \devname{} as shown in Figure~\ref{fig:salt_pairs} and 
-Table~\ref{tab:salt}. The mean deviation per measured pair ranges from
-\SI{-7.4}{\percent} to \SI{+4.1}{\percent} and the RMS difference from
-\SIrange{4.5}{16.8}{\nano\ampere}. This is larger than in the Randles test, but is of similar size as the variation of the cell itself. This is shown from scan to scan where
-the PalmSens4 measurement has a standard deviation of
-\SI{10.4}{\nano\ampere}, and the \devname{} \SI{3.5}{\nano\ampere}.
 
 \begin{figure}[H]
 \caption{Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$ used for the calibration line of Section~\ref{sec:salt_line}.}
@@ -314,7 +308,7 @@ the PalmSens4 measurement has a standard deviation of
 \begin{table}[H]
   \centering
   \small
-\caption{Salt test, $\SI{0.40}{\volt}$ to $\SI{-0.20}{\volt}$, all scans on the OpenStat used the
+\caption{Salt test, all scans on the OpenStat used the
   $\SI{80}{\kilo\ohm}$ range. $r$ is the correlation coefficient between the PS4 and
   OpenStat voltammograms of each pair.}
     \label{tab:salt}
@@ -337,27 +331,13 @@ the PalmSens4 measurement has a standard deviation of
 \end{table}
 
 
-\subsection{Calibration Line at a Fixed Potential}
-\label{sec:salt_line}
- 
-An attempt was also made to calibrate the \devname{} against the PalmSens4 using the salt scans. The potential $E^* = \SI{0.10}{\volt}$ was selected because this is where the ferricyanide peak
-appears, the \devname{} current is displayed on the $x$-axis, and the PalmSens4 current
-on the $y$-axis. A line $y = ax + b$ was fitted as close as possible to the five points using orthogonal regression and applied at every other potential. The points span
-only \SI{4.8}{\nano\ampere} on the \devname{} axis against
-\SI{30}{\nano\ampere} on the PalmSens4 axis, so the line is almost vertical
-(slope 18.1) and the points at the other potentials do not follow it
-(Figure~\ref{fig:salt_line}). It raises the RMS error from
-\SIrange{10.8}{225}{\nano\ampere}, and is worse than no correction for almost
-every choice of $E^*$. 
- 
-\begin{figure}[!htbp]
-  \caption{Calibration line through the five salt points at $E^* = \SI{0.10}{\volt}$, with the points at all other potentials.}
-  \label{fig:salt_line}
-  \centering
-  \includegraphics[width=0.5\textwidth]{figures/Testing/salt_line_fit.pdf}
-\end{figure}
-
-Calibration curves are reliable only across their measured range as seen in Section~\ref{sec:randles_test}, and the salt measurements display too little variation to construct one. Section~\ref{sec:fc_lines} instead evaluates the calibration against the ferricyanide peaks.
+With no analyte present the current measured varies from \SIrange{-185}{-210}{\nano\ampere} on the PalmSens4 and
+\SIrange{-192}{-200}{\nano\ampere} on the \devname{} as shown in Figure~\ref{fig:salt_pairs} and 
+Table~\ref{tab:salt}. The mean deviation per measured pair ranges from
+\SI{-7.4}{\percent} to \SI{+4.1}{\percent} and the RMS difference from
+\SIrange{4.5}{16.8}{\nano\ampere}. This is larger than in the Randles test, but is of similar size as the variation of the cell itself. This is shown from scan to scan where
+the PalmSens4 measurement has a standard deviation of
+\SI{10.4}{\nano\ampere}, and the \devname{} \SI{3.5}{\nano\ampere}.
 
 \section{Ferricyanide Test}
 \label{sec:fc_test}
@@ -413,17 +393,9 @@ while the peak more than doubles from FC~1 to FC~3
 size must be corrected in firmware before peak potentials are compared with published values. As future work, the offset should also be measured with solutions that
 fall on other ranges.
  
-\subsection{Effect of a Calibration Line}
-\label{sec:fc_lines}
- 
-In Section~\ref{sec:fc_lines} the possibility of making the \devname{} match the PalmSens4 more closely was explored by applying a calibration line fitted to the salt scans. Applied to the three pairs of Figure~\ref{fig:fc_pairs}, the salt line of Section~\ref{sec:salt_line} multiplies every peak by about 18 (its slope), and the
-gain-only version changes the mean peak error by less than one percentage
-point (\SI{21.8}{\percent} to \SI{22.0}{\percent}). Even a line fitted to the
-ferricyanide drops themselves, which span \SIrange{6}{30}{\micro\ampere}. No amplitude calibration therefore improves the
-ferricyanide results, the only correction the data supports is the potential
-offset.
  
 \subsection{Sources of Deviation}
+\label{sec:fc_deviation}
  
 The remaining differences between measurements come from the solution and the testing environment as both instruments see a similar drift. During testing because the two instruments never measure the same drop at the same
 moment, this drift enters in every comparison, some likely causes are:
@@ -434,51 +406,36 @@ moment, this drift enters in every comparison, some likely causes are:
   \item \textbf{Evaporation.} A small drop loses water within minutes, which
     raises its concentration and explains why repeat scans on one drop grow in peak height rather than shrink.
 \end{itemize}
-The comparison would improve by using a fresh electrode and drop for each pair,
+The comparison would improve by using a fresh electrode for each pair,
 shielding the drop from light, and starting each scan at a fixed time after the
 drop is placed. 
  
 \section{Summary}
 \label{sec:testing_summary}
  
-Table~\ref{tab:testing_summary} summarises the five tests and their open points.
- 
-\begin{table}[!htbp]
+Table~\ref{tab:testing_summary} summarises the five tests and the key findings.
+
+ \begin{table}[!htbp]
   \caption{Summary of the tests.}
   \label{tab:testing_summary}
   \centering
   \footnotesize
-  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X
-      >{\raggedright\arraybackslash}X@{}}
+  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
     \toprule
-    \textbf{Test} & \textbf{Reference} & \textbf{Result} & \textbf{Open point} \\
+    \textbf{Test} & \textbf{Reference} & \textbf{Result} \\
     \midrule
     Waveform & Oscilloscope & Steps and pulses within one DAC code
-      (\SI{0.54}{\milli\volt}), timing within \SI{3}{\percent}
-      & Compensate the short pulse and period in firmware \\
+      (\SI{0.54}{\milli\volt}), timing within \SI{3}{\percent} \\
     Resistors & DMM & All ranges within \SI{0.44}{\percent} at an independent
-      check point (\SIrange{9}{12}{\percent} before)
-      & Check linearity with more check points per range \\
+      check point \\
     Randles & Ideal values, PS4 & Within \SI{2.1}{\percent}, charging current
-      rejected
-      & Offset of \SIrange{5}{9}{\nano\ampere}, repeat with five scans each \\
+      rejected \\
     Salt & PS4 & Background within $\pm$\SI{8}{\percent}, inside the
-      scan-to-scan variation, the salt line cannot calibrate
-      & Match the start-of-scan hold to the PalmSens4 \\
+      scan-to-scan variation \\
     Ferricyanide & PS4 & Peak heights within the reference's own
-      repeatability, potential offset of about \SI{25}{\milli\volt}
-      & Trace the potential offset in firmware, repeat on the
-        \SIlist{10;80}{\kilo\ohm} ranges \\
+      repeatability (offset of \SI{25}{\milli\volt}) \\
     \bottomrule
   \end{tabularx}
 \end{table}
  
-The bench tests, which rely on  isolated electronics show that the instrument itself is accurate. The
-applied waveform is within one DAC code (\SI{0.54}{\milli\volt}) of its set value. Additionaly, every current
-range is within \SI{0.44}{\percent} after calibration, and the Randles dummy cell is reproduced
-to within \SI{2.1}{\percent} of its ideal values. The salt and ferricyanide tests go a step
-further. They were added as an extra check that the device performs adequetly in real electrochemistry applications. The results of these tests depend on the electrode, the solution and the scan-to-scan variation of the
-reference as much as on the potentiostat. The deviations in these tests therefore do not reflect
-the performance of the electronics. Taking these conditions into account, the device matches the PalmSens4 to within the
-reference's own repeatability, apart from a potential offset of about \SI{25}{\milli\volt} that
-can be corrected in firmware.
+The bench tests isolate the electronics and show that the instrument itself is accurate. The applied waveform is within one DAC code (0.54~mV) of its set value, every current range reads within 0.44\,\% after calibration, and the Randles dummy cells are reproduced to within 2.1\,\% of their ideal values. The salt and ferricyanide tests were added as an extra check of the OpenStats performance in real electrochemistry, and the results depend as much on the electrode, the solution and the scan-to-scan variation of the reference as on the potentiostat. The deviations in these tests therefore do not reflect the performance of the electronics. Even under these conditions the OpenStat matches the PalmSens4 to within the reference's own repeatability, apart from a potential offset of about 25~mV that can be corrected in firmware.
