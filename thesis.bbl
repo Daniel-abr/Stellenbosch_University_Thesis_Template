@@ -33,9 +33,6 @@ B.~Uslu and S.~A. Ozkan, ``Electroanalytical methods for the determination of ph
 \bibitem[{IUPAC}()]{IUPAC_DPV}
 {IUPAC}, ``Differential pulse voltammetry,'' Compendium of Chemical Terminology (the ``Gold Book''), \url{https://goldbook.iupac.org/terms/view/09136}, accessed 19 October 2026.
 
-\bibitem[Hanrahan et~al.(2004)Hanrahan, Patil, and Wang]{Hanrahan2004}
-G.~Hanrahan, D.~G. Patil, and J.~Wang, ``Electrochemical sensors for environmental monitoring: Design, development and applications,'' \emph{Journal of Environmental Monitoring}, vol.~6, no.~8, pp. 657--664, 2004.
-
 \bibitem[Ainla et~al.(2018)Ainla, Mousavi, Tsaloglou, et~al.]{ainla2018}
 A.~Ainla, M.~Mousavi, M.~N. Tsaloglou \emph{et~al.}, ``Open-source potentiostat for wireless electrochemical detection with smartphones,'' \emph{Analytical Chemistry}, vol.~90, no.~10, pp. 6240--6246, Apr. 2018.
 
@@ -45,11 +42,14 @@ A.~A. Rowe, A.~J. Bonham, R.~J. White \emph{et~al.}, ``{CheapStat}: An open-sour
 \bibitem[Dryden and Wheeler(2015)]{dryden2015}
 M.~D. Dryden and A.~R. Wheeler, ``{DStat}: A versatile, open-source potentiostat for electroanalysis and integration,'' \emph{PLoS One}, vol.~10, no.~10, p. e0140349, Oct. 2015.
 
+\bibitem[Hanrahan et~al.(2004)Hanrahan, Patil, and Wang]{Hanrahan2004}
+G.~Hanrahan, D.~G. Patil, and J.~Wang, ``Electrochemical sensors for environmental monitoring: Design, development and applications,'' \emph{Journal of Environmental Monitoring}, vol.~6, no.~8, pp. 657--664, 2004.
+
+\bibitem[{PalmSens BV}(2026{\natexlab{a}})]{PalmSens4}
+{PalmSens BV}, ``Palmsens4 - compact, versatile and powerful (bi)potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/palmsens4/}, 2026, accessed: 2026-09-16.
+
 \bibitem[Temgoua et~al.(2023)Temgoua, Jiokeng, Tajeu, Deffo, Vomo, Dontsi, Njanja, and Tonlé]{Temgoua2023}
 R.~C.~T. Temgoua, S.~L.~Z. Jiokeng, K.~Y. Tajeu, G.~Deffo, L.~A. Vomo, F.~T. Dontsi, E.~Njanja, and I.~K. Tonlé, ``Perspective chapter: Sample preparation techniques for electrochemical analysis of pesticides and heavy metals in environmental and food samples,'' in \emph{Soil Contamination - Recent Advances and Future Perspectives}, A.~Mustafa and M.~Naveed, Eds.\hskip 1em plus 0.5em minus 0.4em\relax IntechOpen, sep 2023, \url{https://www.intechopen.com/chapters/87844}.
-
-\bibitem[{PalmSens BV}(2023)]{palmsens2023}
-{PalmSens BV}, ``Emstat4s potentiostat/galvanostat technical specifications,'' PalmSens BV, Houten, The Netherlands, Tech. Rep., 2023, \url{https://www.palmsens.com}.
 
 \bibitem[Lodh et~al.(2023)Lodh, Paul, Sun, Song, Sch{\"o}fberger, and Roy]{lodh2023}
 J.~Lodh, S.~Paul, H.~Sun, L.~Song, W.~Sch{\"o}fberger, and S.~Roy, ``Electrochemical organic reactions: A tutorial review,'' \emph{Frontiers in Chemistry}, vol.~10, p. 956502, 2023.
@@ -111,17 +111,17 @@ I.~Vamos and V.~Kertesz, ``{HunStat} -- a simple and low-cost potentiostat for a
 \bibitem[Vamos et~al.(2025)Vamos, Morrison, Michaletzky, and Kertesz]{hunstat2_2025}
 I.~Vamos, R.~Morrison, S.~Michaletzky, and V.~Kertesz, ``{HunStat2} -- a simple and low-cost potentiostat with electrochemical impedance spectroscopy capability,'' \emph{Analytical Methods}, vol.~17, no.~46, pp. 9494--9499, 2025.
 
-\bibitem[{PalmSens BV}(2026{\natexlab{a}})]{MultiEmStat4}
+\bibitem[{PalmSens BV}(2026{\natexlab{b}})]{MultiEmStat4}
 {PalmSens BV}, ``Multiemstat4 - multi-channel potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/multi-emstat4/}, 2026, accessed: 2026-09-16.
 
 \bibitem[Lee and Burke(2022)]{lee2022}
 S.~C.-H. Lee and P.~J. Burke, ``{NanoStat}: An open source, fully wireless potentiostat,'' \emph{Electrochimica Acta}, vol. 422, p. 140481, May 2022.
 
-\bibitem[{PalmSens BV}(2026{\natexlab{b}})]{PalmSens4}
-{PalmSens BV}, ``Palmsens4 - compact, versatile and powerful (bi)potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/palmsens4/}, 2026, accessed: 2026-09-16.
-
 \bibitem[{Metrohm Autolab B.V.}(2026)]{MetrohmAutolab}
 {Metrohm Autolab B.V.}, ``Metrohm autolab: Leading electrochemical instruments for research,'' \url{https://www.metrohm-autolab.com/}, 2026, accessed: 2026-09-16.
+
+\bibitem[{PalmSens BV}(2023)]{palmsens2023}
+{PalmSens BV}, ``Emstat4s potentiostat/galvanostat technical specifications,'' PalmSens BV, Houten, The Netherlands, Tech. Rep., 2023, \url{https://www.palmsens.com}.
 
 \bibitem[Jenkins et~al.(2019)Jenkins, Lee, Jun, Reyes-De-Corcuera, and McLamore]{jenkins2019}
 D.~M. Jenkins, B.~E. Lee, S.~Jun, J.~Reyes-De-Corcuera, and E.~S. McLamore, ``{ABE-Stat}, a fully open-source and versatile wireless potentiostat project including electrochemical impedance spectroscopy,'' \emph{Journal of The Electrochemical Society}, vol. 166, no.~9, pp. B3056--B3065, 2019.
@@ -156,8 +156,8 @@ L.~D. Smith, R.~E. Anderson, D.~W. Forehand, T.~J. Pelc, and T.~Roy, ``Power dis
 \bibitem[Rinc{\'o}n-Mora(2009)]{rinconmora2009ldo}
 G.~A. Rinc{\'o}n-Mora, \emph{Analog {IC} Design with Low-Dropout Regulators}.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: McGraw-Hill, 2009.
 
-\bibitem[{Murata Manufacturing}()]{murata_blm18ag}
-{Murata Manufacturing}, \emph{{BLM18AG601SN1D} Chip Ferrite Bead ({BLM18AG} Series)}, Murata Manufacturing Co., Ltd., data sheet.
+\bibitem[{W\"urth Elektronik eiSos}()]{wurth74279204}
+{W\"urth Elektronik eiSos}, \emph{74279204: {WE-CBF} {SMT} {EMI} Suppression Ferrite Bead}, W\"urth Elektronik eiSos GmbH \& Co. KG, data sheet. \url{https://www.we-online.com/components/products/datasheet/74279204.pdf}.
 
 \bibitem[Kester et~al.(2008)Kester, Bryant, and Byrne]{adi_mt031}
 W.~Kester, J.~Bryant, and M.~Byrne, ``{MT-031}: Grounding data converters and solving the mystery of ``{AGND}'' and ``{DGND}'','' Analog Devices, Inc., Tutorial MT-031, Rev. A, 2008, \url{https://www.analog.com/media/en/training-seminars/tutorials/MT-031.pdf}.

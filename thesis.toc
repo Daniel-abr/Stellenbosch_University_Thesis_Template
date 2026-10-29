@@ -1,5 +1,6 @@
 \acswitchoff 
 \babel@toc {afrikaans}{}\relax 
+\contentsline {chapter}{Plagiarism Declaration}{ii}{chapter*.2}%
 \contentsline {chapter}{Abstract}{iii}{chapter*.3}%
 \contentsline {chapter}{Uittreksel}{iv}{chapter*.4}%
 \babel@toc {english}{}\relax 
@@ -7,115 +8,116 @@
 \contentsline {chapter}{List of Figures}{x}{chapter*.5}%
 \contentsline {chapter}{List of Tables}{xi}{chapter*.6}%
 \contentsline {chapter}{Nomenclature}{xiv}{chapter*.8}%
-\contentsline {section}{Acronyms and Abbreviations}{xiv}{section*.9}%
-\contentsline {section}{Definitions}{xvi}{section*.10}%
+\contentsline {section}{List of Symbols}{xiv}{section*.9}%
+\contentsline {section}{Acronyms and Abbreviations}{xvi}{table.0.1}%
+\contentsline {section}{Definitions}{xviii}{section*.10}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background and Motivation}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Project Aim, Objectives and Scope}{2}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Scope Exclusions}{2}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Literature}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Electrochemical Sensing}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Voltammetry as a Family of Techniques}{4}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Equivalent Circuit of the Cell}{4}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Differential Pulse Voltammetry}{5}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Application to Antiviral Drug Residues in Water}{6}{subsection.2.1.4}%
-\contentsline {section}{\numberline {2.2}Potentiostat Fundamentals}{7}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}The Role of a Potentiostat}{7}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Key Performance Parameters}{8}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Analog Front-End Approaches}{8}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Survey of Existing Potentiostat Designs}{9}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Commercial Instruments}{10}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Discrete Open-Source Designs}{10}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}AFE-Based and Web-Hosted Designs}{10}{subsection.2.3.3}%
-\contentsline {chapter}{\numberline {3}System Modeling \& Design}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Signal Chain}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Choice and Operating Limits of the TIA}{12}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}High-Speed or Low-Power TIA}{12}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Stability with a Cell Connected}{12}{subsection.3.2.2}%
-\contentsline {chapter}{\numberline {4}Hardware Design}{14}{chapter.4}%
-\contentsline {section}{\numberline {4.1}AFE Requirements}{14}{section.4.1}%
-\contentsline {section}{\numberline {4.2}System Requirements}{15}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Microcontroller}{15}{section.4.3}%
-\contentsline {section}{\numberline {4.4}PCB Component Placement and Layout}{16}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Capacitor Choices}{16}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Ferrite Bead}{17}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Analog and Digital Ground}{18}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Trace Widths}{18}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Display and SD Card}{19}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Power Management}{19}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Battery}{19}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Charging}{20}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Regulation}{20}{subsection.4.6.3}%
-\contentsline {subsection}{\numberline {4.6.4}Input Decoupling}{21}{subsection.4.6.4}%
-\contentsline {section}{\numberline {4.7}User Interface}{21}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Software Design}{22}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Software Overview}{22}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Top-Level Program Flow}{23}{section.5.2}%
-\contentsline {section}{\numberline {5.3}DPV Measurement Sequence}{23}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Generating the Potential}{24}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Scan Flow}{25}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Pulse Sampling and Timing}{25}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Software Timing}{25}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Averaging Window}{26}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Placing Windows}{26}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Limitations}{27}{subsection.5.4.4}%
-\contentsline {section}{\numberline {5.5}Current Measurement and Ranging}{28}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Ranges and Calibration}{28}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Automatic Range Selection}{29}{subsection.5.5.2}%
-\contentsline {section}{\numberline {5.6}Summary}{29}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Testing and Calibration}{30}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Excitation Waveform}{31}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Amplitude}{31}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Timing}{32}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Resistor Calibration}{32}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Randles Circuit Test}{33}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Salt Solution Test}{35}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Ferricyanide Test}{36}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Peak Height}{36}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Peak Potential}{37}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Sources of Deviation}{37}{subsection.6.5.3}%
-\contentsline {section}{\numberline {6.6}Summary}{38}{section.6.6}%
-\contentsline {chapter}{\numberline {7}Environmental and Sustainability Analysis}{39}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Conclusion and Future Work}{40}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusion}{40}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Future Work}{40}{section.8.2}%
-\contentsline {chapter}{References}{41}{chapter*.41}%
-\contentsline {chapter}{\numberline {A}Project planning schedule}{48}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Graduate Attributes}{49}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Complex Engineering Problem}{49}{appendix.B.1}%
-\contentsline {section}{\numberline {B.2}Problem Solving (GA~1)}{50}{appendix.B.2}%
-\contentsline {section}{\numberline {B.3}Application of Scientific and Engineering Knowledge (GA~2)}{50}{appendix.B.3}%
-\contentsline {section}{\numberline {B.4}Engineering Design (GA~3)}{51}{appendix.B.4}%
-\contentsline {section}{\numberline {B.5}Investigations, Experiments and Data Analysis (GA~4)}{52}{appendix.B.5}%
-\contentsline {section}{\numberline {B.6}Use of Engineering Tools (GA~5)}{52}{appendix.B.6}%
-\contentsline {section}{\numberline {B.7}Professional and Technical Communication (GA~6)}{53}{appendix.B.7}%
-\contentsline {section}{\numberline {B.8}Individual Work (GA~8)}{53}{appendix.B.8}%
-\contentsline {section}{\numberline {B.9}Independent Learning Ability (GA~9)}{53}{appendix.B.9}%
-\contentsline {section}{\numberline {B.10}Sustainable Development}{54}{appendix.B.10}%
-\contentsline {section}{\numberline {B.11}Critical Thinking}{54}{appendix.B.11}%
-\contentsline {section}{\numberline {B.12}Emerging Technologies}{54}{appendix.B.12}%
-\contentsline {chapter}{\numberline {C}Use of Artificial Intelligence Tools}{55}{appendix.C}%
-\contentsline {section}{\numberline {C.1}AI Work Declaration}{55}{appendix.C.1}%
-\contentsline {section}{\numberline {C.2}Own Work Declaration}{57}{appendix.C.2}%
-\contentsline {chapter}{\numberline {D}Additional Content}{58}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Capacitive Current Rejection in DPV}{58}{appendix.D.1}%
-\contentsline {section}{\numberline {D.2}Display and SD Card Specifications}{59}{appendix.D.2}%
-\contentsline {section}{\numberline {D.3}Power Management Subsystem Specifications}{59}{appendix.D.3}%
-\contentsline {section}{\numberline {D.4}Scan Flow and Timing Diagrams}{59}{appendix.D.4}%
-\contentsline {section}{\numberline {D.5}RTIA Calibration Constants and Resistors}{60}{appendix.D.5}%
-\contentsline {section}{\numberline {D.6}Webserver Dashboard}{60}{appendix.D.6}%
-\contentsline {section}{\numberline {D.7}KiCad Schematic}{61}{appendix.D.7}%
-\contentsline {section}{\numberline {D.8}KiCad PCB}{61}{appendix.D.8}%
-\contentsline {section}{\numberline {D.9}Case Render}{62}{appendix.D.9}%
-\contentsline {section}{\numberline {D.10}AD5941 Capacitor Selection}{62}{appendix.D.10}%
-\contentsline {section}{\numberline {D.11}Supply Decoupling: \SI {100}{\nano \farad } and \SI {10}{\micro \farad }}{62}{appendix.D.11}%
-\contentsline {paragraph}{Target impedance.}{62}{paragraph*.51}%
-\contentsline {paragraph}{\SI {10}{\micro \farad }.}{63}{paragraph*.52}%
-\contentsline {paragraph}{\SI {100}{\nano \farad }.}{63}{paragraph*.53}%
-\contentsline {section}{\numberline {D.12}Internal Nodes: \SI {470}{\nano \farad } and \SI {4.7}{\micro \farad }}{63}{appendix.D.12}%
-\contentsline {paragraph}{\SI {470}{\nano \farad }.}{64}{paragraph*.54}%
-\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{64}{paragraph*.55}%
-\contentsline {section}{\numberline {D.13}Bill of Materials}{65}{appendix.D.13}%
-\contentsline {section}{\numberline {D.14}TIA Noise Gain with a Series Cell}{67}{appendix.D.14}%
+\contentsline {section}{\numberline {1.3}Project Aim and Objectives}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Scope and Contributions}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Report Overview}{3}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Literature}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Electrochemical Sensing}{4}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Voltammetry as a Family of Techniques}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Equivalent Circuit of the Cell}{5}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Differential Pulse Voltammetry}{6}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Application to Antiviral Drug Residues in Water}{7}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Potentiostat Fundamentals}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}The Role of a Potentiostat}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Key Performance Parameters}{9}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Analog Front-End Approaches}{9}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Survey of Existing Potentiostat Designs}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Commercial Instruments}{11}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Discrete Open-Source Designs}{11}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}AFE-Based and Web-Hosted Designs}{11}{subsection.2.3.3}%
+\contentsline {chapter}{\numberline {3}System Modeling \& Design}{12}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Signal Chain}{12}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Choice and Operating Limits of the TIA}{13}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}High-Speed or Low-Power TIA}{13}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Stability with a Cell Connected}{13}{subsection.3.2.2}%
+\contentsline {chapter}{\numberline {4}Hardware Design}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}AFE Requirements}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}System Requirements}{16}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Microcontroller}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}PCB Component Placement and Layout}{17}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Capacitor Choices}{17}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Ferrite Bead}{18}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Analog and Digital Ground}{19}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Trace Widths}{19}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Display and SD Card}{20}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Power Management}{20}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Battery}{20}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Charging}{21}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Regulation}{21}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}Input Decoupling}{22}{subsection.4.6.4}%
+\contentsline {section}{\numberline {4.7}User Interface}{22}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Software Design}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Software Overview}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Top-Level Program Flow}{24}{section.5.2}%
+\contentsline {section}{\numberline {5.3}DPV Measurement Sequence}{24}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Generating the Potential}{25}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Scan Flow}{26}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Pulse Sampling and Timing}{26}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Software Timing}{26}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Averaging Window}{27}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Placing Windows}{27}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Limitations}{28}{subsection.5.4.4}%
+\contentsline {section}{\numberline {5.5}Current Measurement and Ranging}{29}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Ranges and Calibration}{29}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Automatic Range Selection}{30}{subsection.5.5.2}%
+\contentsline {section}{\numberline {5.6}Summary}{30}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Testing and Calibration}{31}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Excitation Waveform}{32}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Amplitude}{32}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Timing}{33}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Resistor Calibration}{33}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Randles Circuit Test}{34}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Salt Solution Test}{36}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Ferricyanide Test}{37}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Peak Height}{37}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Peak Potential}{38}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Sources of Deviation}{38}{subsection.6.5.3}%
+\contentsline {section}{\numberline {6.6}Summary}{39}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Environmental and Sustainability Analysis}{40}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusion and Future Work}{41}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusion}{41}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{41}{section.8.2}%
+\contentsline {chapter}{References}{42}{chapter*.41}%
+\contentsline {chapter}{\numberline {A}Project planning schedule}{49}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Graduate Attributes}{50}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Complex Engineering Problem}{50}{appendix.B.1}%
+\contentsline {section}{\numberline {B.2}Problem Solving (GA~1)}{51}{appendix.B.2}%
+\contentsline {section}{\numberline {B.3}Application of Scientific and Engineering Knowledge (GA~2)}{51}{appendix.B.3}%
+\contentsline {section}{\numberline {B.4}Engineering Design (GA~3)}{52}{appendix.B.4}%
+\contentsline {section}{\numberline {B.5}Investigations, Experiments and Data Analysis (GA~4)}{53}{appendix.B.5}%
+\contentsline {section}{\numberline {B.6}Use of Engineering Tools (GA~5)}{53}{appendix.B.6}%
+\contentsline {section}{\numberline {B.7}Professional and Technical Communication (GA~6)}{54}{appendix.B.7}%
+\contentsline {section}{\numberline {B.8}Individual Work (GA~8)}{54}{appendix.B.8}%
+\contentsline {section}{\numberline {B.9}Independent Learning Ability (GA~9)}{54}{appendix.B.9}%
+\contentsline {section}{\numberline {B.10}Sustainable Development}{55}{appendix.B.10}%
+\contentsline {section}{\numberline {B.11}Critical Thinking}{55}{appendix.B.11}%
+\contentsline {section}{\numberline {B.12}Emerging Technologies}{55}{appendix.B.12}%
+\contentsline {chapter}{\numberline {C}Use of Artificial Intelligence Tools}{56}{appendix.C}%
+\contentsline {section}{\numberline {C.1}AI Work Declaration}{56}{appendix.C.1}%
+\contentsline {section}{\numberline {C.2}Own Work Declaration}{58}{appendix.C.2}%
+\contentsline {chapter}{\numberline {D}Additional Content}{59}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Capacitive Current Rejection in DPV}{59}{appendix.D.1}%
+\contentsline {section}{\numberline {D.2}Display and SD Card Specifications}{60}{appendix.D.2}%
+\contentsline {section}{\numberline {D.3}Power Management Subsystem Specifications}{60}{appendix.D.3}%
+\contentsline {section}{\numberline {D.4}Scan Flow and Timing Diagrams}{61}{appendix.D.4}%
+\contentsline {section}{\numberline {D.5}RTIA Calibration Constants and Resistors}{62}{appendix.D.5}%
+\contentsline {section}{\numberline {D.6}KiCad Schematic}{62}{appendix.D.6}%
+\contentsline {section}{\numberline {D.7}KiCad PCB}{63}{appendix.D.7}%
+\contentsline {section}{\numberline {D.8}Case Render}{63}{appendix.D.8}%
+\contentsline {section}{\numberline {D.9}AD5941 Capacitor Selection}{64}{appendix.D.9}%
+\contentsline {section}{\numberline {D.10}Supply Decoupling: \SI {100}{\nano \farad } and \SI {10}{\micro \farad }}{64}{appendix.D.10}%
+\contentsline {paragraph}{Target impedance.}{64}{paragraph*.50}%
+\contentsline {paragraph}{\SI {10}{\micro \farad }.}{64}{paragraph*.51}%
+\contentsline {paragraph}{\SI {100}{\nano \farad }.}{64}{paragraph*.52}%
+\contentsline {section}{\numberline {D.11}Internal Nodes: \SI {470}{\nano \farad } and \SI {4.7}{\micro \farad }}{65}{appendix.D.11}%
+\contentsline {paragraph}{\SI {470}{\nano \farad }.}{65}{paragraph*.53}%
+\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{65}{paragraph*.54}%
+\contentsline {section}{\numberline {D.12}Bill of Materials}{66}{appendix.D.12}%
+\contentsline {section}{\numberline {D.13}TIA Noise Gain with a Series Cell}{68}{appendix.D.13}%
 \contentsfinish 

@@ -2,37 +2,36 @@
 \babel@toc {afrikaans}{}\relax 
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces OpenStat, Screen Printed electrode and Palmsens4 (Image from \cite {palmsens2023}).}}{2}{figure.caption.11}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces The OpenStat developed in this project (Left), Metrohm C220 screen-printed electrode (SPE) (Centre), and PalmSens4 reference potentiostat (Right, Source: \cite {PalmSens4}).}}{2}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The classic 3-operational-amplifier potentiostat topology, showing the control amplifier, RE buffer, and TIA connected to the three electrodes.}}{3}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Randles equivalent circuit modeling the electrochemical cell interface.}}{5}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Waveform profile for DPV. Grey blocks represent the current sampling windows. Adapted from \cite {palmsens2026dpv}.}}{6}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The classic 3-operational-amplifier potentiostat topology, showing the control amplifier, RE buffer, and TIA connected to the three electrodes.}}{4}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Randles equivalent circuit modeling the electrochemical cell interface.}}{6}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Waveform profile for DPV. Grey blocks represent the current sampling windows. Adapted from \cite {palmsens2026dpv}.}}{7}{figure.caption.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency response.}}{11}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency response.}}{12}{figure.caption.17}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces OpenStat user interfaces. (a) Physical interface (b) Digital interface}}{21}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces OpenStat user interfaces. (a) Physical interface, shown connected to the Randles test circuits. (b) Web interface displaying a live voltammogram.}}{22}{figure.caption.23}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Software structure. Arrows show the direction of calls or data.}}{22}{figure.caption.24}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Top-level program flow: start-up sequence (left) and the cooperative main loop (right).}}{24}{figure.caption.25}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces One DPV step with the default timing. Shaded bands show the two averaging windows.}}{27}{figure.caption.27}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Automatic selection of the TIA range before a scan.}}{29}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Software structure. Arrows show the direction of calls or data.}}{23}{figure.caption.24}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Top-level program flow: start-up sequence (left) and the cooperative main loop (right).}}{25}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces One DPV step with the default timing. Shaded bands show the two averaging windows.}}{28}{figure.caption.27}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Automatic selection of the TIA range before a scan.}}{30}{figure.caption.28}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Excitation waveform measured with the oscilloscope. (a) The complete staircase. (b) One cycle with the measured quantities. (c) Height of every step against 9 and 10 LSB of the AD5941 12-bit DAC.}}{31}{figure.caption.30}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces DPV scans of the dummy cell WE~C (left) and Cell~3 (right) from \SIrange {0.8}{1.3}{\volt }.}}{34}{figure.caption.34}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$}}{35}{figure.caption.35}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Ferricyanide DPV scans on the same drop, OpenStat{} run against PalmSens4 run.}}{36}{figure.caption.37}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces The three ferricyanide pairs. (a) Peak height of the OpenStat{} against the PalmSens4. (b) Testing process in picture form}}{37}{figure.caption.38}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces The decidend Gantt chart for the project planning schedule.}}{48}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Excitation waveform measured with the oscilloscope. (a) The complete staircase. (b) One cycle with the measured quantities. (c) Height of every step against 9 and 10 LSB of the AD5941 12-bit DAC.}}{32}{figure.caption.30}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces DPV scans of the dummy cell WE~C (left) and Cell~3 (right) from \SIrange {0.8}{1.3}{\volt }.}}{35}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$}}{36}{figure.caption.35}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Ferricyanide DPV scans on the same drop, OpenStat{} run against PalmSens4 run.}}{37}{figure.caption.37}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces The three ferricyanide pairs. (a) Peak height of the OpenStat{} against the PalmSens4. (b) Openstat testing setup, either solution applied to the SPE by mechanical pipette.}}{38}{figure.caption.38}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Flow of one DPV scan.}}{59}{figure.caption.45}%
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Step routine. $t_\text {b} = T - t_\text {p}$ is the base dwell.}}{59}{figure.caption.45}%
-\contentsline {figure}{\numberline {D.3}{\ignorespaces The webserver dashboard for the potentiostat.}}{60}{figure.caption.47}%
-\contentsline {figure}{\numberline {D.4}{\ignorespaces The KiCad schematic for the potentiostat.}}{61}{figure.caption.48}%
-\contentsline {figure}{\numberline {D.5}{\ignorespaces The KiCad PCB for the potentiostat.}}{61}{figure.caption.49}%
-\contentsline {figure}{\numberline {D.6}{\ignorespaces The case render for the potentiostat.}}{62}{figure.caption.50}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces The decidend Gantt chart for the project planning schedule.}}{49}{figure.caption.42}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Flow of one DPV scan.}}{61}{figure.caption.45}%
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Step routine. $t_\text {b} = T - t_\text {p}$ is the base dwell.}}{61}{figure.caption.45}%
+\contentsline {figure}{\numberline {D.3}{\ignorespaces The KiCad schematic for the potentiostat.}}{62}{figure.caption.47}%
+\contentsline {figure}{\numberline {D.4}{\ignorespaces The KiCad PCB for the potentiostat.}}{63}{figure.caption.48}%
+\contentsline {figure}{\numberline {D.5}{\ignorespaces The case render for the potentiostat.}}{63}{figure.caption.49}%
 \contentsfinish 

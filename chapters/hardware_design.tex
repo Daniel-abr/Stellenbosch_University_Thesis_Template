@@ -6,7 +6,9 @@
 \chapter{Hardware Design}
 \label{chap:hardware_design}
 
-This chapter details the hardware design focused on ensuring that the prototype functions correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions of the ESP32-S3, the display, and reads and writes to the SD card. This was addressed through decoupling, a ferrite bead on the analog supply, and the separation of the analog and digital grounds.
+This chapter details the hardware design focused on ensuring that the prototype functions correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions of the ESP32-S3, the display, and reads and writes to the SD card. This was addressed through decoupling (Section~\ref{sec:caps}), a ferrite bead on
+the analog supply (Section~\ref{sec:ferrite}), and the separation of the analog and
+digital grounds (Section~\ref{sec:grounds}).
 
 \section{AFE Requirements}
 \label{sec:requirements}
@@ -104,7 +106,7 @@ prevents internally generated noise from affecting the rest of the system \cite{
 \subsection{Capacitor Choices}
 \label{sec:hw_caps}
  
-The capacitors around the AD5941 can be separated into two groups, decouping the external supply pins and connecting internal nodes with the IC. The Table~\ref{tab:hw_caps} summarises the capacitors choices for their respective roles. The supply-pin values follow the MT-101
+The capacitors around the AD5941 can be separated into two groups, decoupling the external supply pins and connecting internal nodes with the IC. The Table~\ref{tab:hw_caps} summarises the capacitors choices for their respective roles. The supply-pin values follow the MT-101
 two-tier convention \cite{adi_mt101} and are checked against a target supply
 impedance, while the internal-node values follow the datasheet
 \cite{ad5941_ds}. The full derivations for capacitor choices are given in
@@ -171,58 +173,49 @@ Appendix~\ref{appen:hw_caps}.
 Together, the two tiers of supply capacitors hold AVDD below the
 \SI{1}{\ohm} target from about \SI{16}{\kilo\hertz} to beyond
 \SI{100}{\mega\hertz}, which keeps supply noise below one LSB at the ADC
-reference. 
+reference. Noise arriving from the rest of the board is
+blocked separately by the ferrite bead.
  
 \subsection{Ferrite Bead}
 \label{sec:hw_ferrite}
- 
-AVDD shares the \SI{3.3}{\volt} rail with the ESP32-S3, display and
-SD card. These components place noise on
-the rail from tens of kilohertz to hundreds of megahertz. This noise comes from
-the SPI clocks, regulator ripple and current bursts. A ferrite bead in
-series with AVDD forms a low-pass filter with the AVDD decoupling capacitors,
-and over its resistive band it dissipates this noise as heat instead of
-reflecting it \cite{eco2016ferrite}. A bead was preferred over a separate
-regulator for AVDD because it adds a single small, inexpensive part that is
-most effective at high frequencies.
-The Murata BLM18AG601SN1D was chosen for its high impedance of
-\SI{600}{\ohm} at \SI{100}{\mega\hertz}, with a rated current of
-\SI{500}{\milli\ampere} and a maximum DC resistance $R_\text{DC}$ of
-\SI{0.38}{\ohm} \cite{murata_blm18ag}.
- 
-The bead operates far from the point where DC current degrades its filtering. Impedance curves form the datasheet are measured at zero bias, and under load the core saturates and the inductance falls. Therefore the beads should operate at no
-more than about \SI{20}{\percent} of its rated current
-\cite{eco2016ferrite}. The worst-case AVDD current of about
-\SI{10}{\milli\ampere} is \SI{2}{\percent} of the rating, so the datasheet
-impedance applies. The resulting \SI{3.8}{\milli\volt} drop uses
-\SI{1.3}{\percent} of the \SI{0.3}{\volt} allowed between AVDD and DVDD
-\cite[p.~7]{ad5941_ds}.
- 
-The primary risk with ferrite beads is resonance. Below its crossover frequency the bead is almost purely inductive, and it
-resonates with the decoupling capacitors. An underdamped resonance amplifies
-noise instead of attenuating it, which is called peaking \cite{eco2016ferrite}. For the series RLC filter,
-\begin{equation}
-  f_0 = \frac{1}{2\pi\sqrt{L_\text{bead}C}} \approx \SI{50}{\kilo\hertz},
-  \qquad
-  Q = \frac{1}{R_\text{DC}}\sqrt{\frac{L_\text{bead}}{C}} \approx 0.82,
-  \label{eq:hw_lc}
-\end{equation}
-with $C = \SI{10}{\micro\farad}$ on AVDD and an assumed
-$L_\text{bead} \approx \SI{1}{\micro\henry}$, consistent with the
-\SI{600}{\ohm} rating at \SI{100}{\mega\hertz}. Peaking occurs only for
-$Q > 1/\sqrt{2}$ \cite{c2}.
+AVDD shares the 3.3\,V rail with the ESP32-S3, display and SD card. These components
+place noise on the rail from tens of kilohertz to hundreds of megahertz \cite{eco2016ferrite}. This noise comes
+from the SPI clocks, regulator ripple and current bursts. A ferrite bead in series with
+AVDD forms a low-pass filter with the AVDD decoupling capacitors of
+Section~\ref{sec:hw_caps}, and over its resistive band it dissipates
+this noise as heat instead of reflecting it~\cite{eco2016ferrite}. A bead was
+preferred over a separate regulator for AVDD because it adds a single small, inexpensive
+part that is most effective at high frequencies. The W\"urth Elektronik 74279204 was chosen for its impedance of 600\,$\Omega$ at 100\,MHz, with a rated
+current of 200\,mA and a maximum DC resistance $R_\mathrm{DC}$ of
+0.35\,$\Omega$~\cite{wurth74279204}.
 
-It is the \SI{10}{\micro\farad} bulk capacitor that keeps the resonance
-damped. With only the two \SI{100}{\nano\farad} capacitors, $Q$ would be about
-5.9, and the filter would peak by \SI{15}{\decibel} near
-\SI{360}{\kilo\hertz}. The large capacitor lowers $\sqrt{L/C}$ until the
-bead's own series resistance is sufficient to damp the filter.
- 
-At high frequencies the filter performs as intended. At
-\SI{100}{\mega\hertz} the bead's \SI{600}{\ohm} and the \SI{0.63}{\ohm} of
-the local capacitors (Eq.~\eqref{eq:hw_esl_100mhz}) form a divider that
-attenuates noise by about
-$20\log_{10}(0.63/600) \approx \SI{-60}{\decibel}$.
+The bead operates far from the point where DC current degrades its filtering. Impedance
+curves from the datasheet are measured at zero bias, and under load the core saturates
+and the inductance falls. Therefore the bead should operate at no more than about 20\,\%
+of its rated current~\cite{eco2016ferrite}. The worst-case AVDD current of about
+10\,mA is 5\,\% of the rating, so the datasheet impedance applies. The resulting 3.5\,mV
+drop uses 1.2\,\% of the 0.3\,V allowed between AVDD and DVDD~\cite[p.~7]{ad5941_ds}.
+
+The primary risk with ferrite beads is resonance. Below its crossover frequency the bead
+is almost purely inductive, and it resonates with the decoupling capacitors. An
+underdamped resonance amplifies noise instead of attenuating it, which is called
+peaking~\cite{eco2016ferrite}. For the series RLC filter,
+\begin{equation}
+f_0 = \frac{1}{2\pi\sqrt{L_\mathrm{bead}C}} \approx 50\,\mathrm{kHz}, \qquad
+Q = \frac{1}{R_\mathrm{DC}}\sqrt{\frac{L_\mathrm{bead}}{C}} \approx 0.90,
+\end{equation}
+with $C = 10\,\mu$F, the AVDD bulk capacitor of Table~\ref{tab:hw_caps}, and an assumed
+$L_\mathrm{bead} \approx 1\,\mu$H, consistent with the 600\,$\Omega$ rating at 100\,MHz.
+A second-order filter peaks for $Q > 1/\sqrt{2}$~\cite{c2}, so the response rises by
+about 0.7\,dB near 30\,kHz, which is negligible.
+
+It is the 10\,$\mu$F bulk capacitor that keeps the resonance well damped. The large capacitor lowers $\sqrt{L/C}$ until the bead's own series resistance
+is sufficient to damp the filter, so the bulk capacitor also serves to damp the bead.
+
+At high frequencies the filter performs as intended. At 100\,MHz the bead's 600\,$\Omega$
+and the 0.63\,$\Omega$ of the local 100\,nF capacitors (Eq.~(\ref{eq:hw_esl_100mhz})) form a
+divider that attenuates noise by about
+$20\log_{10}(0.63/600) \approx -60$\,dB.
 
 \subsection{Analog and Digital Ground}
 \label{sec:hw_ground}
@@ -418,12 +411,12 @@ high-frequency noise away from the IC \cite{adi_mt101}.
 
 The interface consists of two push buttons and a rotary encoder with an integrated push button. All are wired in an active-low configuration with 10 k$\Omega$ hardware pull-up resistors. A capacitor on each line forms an RC filter with its pull-up, so on release the pin only reads high once the capacitor has charged past the ESP32-S3 input-high threshold of $0.75 \times V_{DD}$ \cite{esp32s3_ds}. This takes t = RC ln(4) $\approx$ 1.39RC.
 
-The push buttons use 100 nF ($\approx$ 1.4 ms), which is imperceptible to the user but long enough to absorb most contact bounce \cite{allpcb_debounce}. The encoder lines use 10 nF ($\approx$ 0.14 ms), because the filter must not smear the quadrature edges during fast rotation. The EC11E bounces for up to 2 ms \cite{alps_ec11}, which is longer than the edge spacing allows even at moderate speeds. A hardware-only debounce is therefore not strictly possible, but was done for good practice. The RC filter suppresses short spikes, and the quadrature decoder rejects the remaining bounce in software.
+The push buttons use 100 nF ($\approx$ 1.4 ms), which is imperceptible to the user but long enough to absorb most contact bounce \cite{allpcb_debounce}. The encoder lines use 10 nF ($\approx$ 0.14 ms), because the filter must not smear the quadrature edges during fast rotation. The EC11E bounces for up to 2 ms \cite{alps_ec11}, which is longer than the edge spacing allows even at moderate speeds. A hardware-only debounce is therefore not strictly possible, but was done for good practice. The RC filter suppresses short spikes, and the quadrature decoder rejects the remaining bounce in software. The OpenStat has two user interfaces, shown in Figure \ref{fig:interface}
 
 \begin{figure}[htbp]
   \centering
-  \caption{OpenStat user interfaces. (a) Physical interface (b) Digital interface}
-  \label{fig:pair}
+  \caption{OpenStat user interfaces. (a) Physical interface, shown connected to the Randles test circuits. (b) Web interface displaying a live voltammogram.}
+  \label{fig:interface}
   \begin{minipage}[b]{0.38\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/sweep_136_lab.jpg}\\

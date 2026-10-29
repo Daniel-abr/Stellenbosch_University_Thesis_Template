@@ -356,7 +356,7 @@ current.
 \subsection{Averaging Window}
 \label{sec:sw_window}
 
-The AD5941 has an analog path that has to be wide so that the cell current is converted faithfully as it changes at each pulse edge. The HSTIA is specified  for signals up to \SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}. Before the ADC of the AD5941 transmits the measruements to the ESP32-S3 its output
+The AD5941 has an analog path that has to be wide so that the cell current is converted faithfully as it changes at each pulse edge. The HSTIA is specified  for signals up to \SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}. Before the ADC of the AD5941 transmits the measurements to the ESP32-S3 its output
 passes through two digital filters inside the device, a sinc3 filter
 followed by a sinc2 filter \cite[p.~57]{ad5941_ds}. A sinc filter is a
 low-pass filter that averages a block of consecutive samples and outputs
@@ -364,7 +364,7 @@ one result per block, so it both suppresses noise and lowers the data rate.
 The number of samples per output is the oversampling ratio. In the
 configuration used, the sinc3 filter reduces the raw \SI{800}{\kilo\hertz}
 ADC rate by a factor of 5 to \SI{160}{\kilo\hertz}, and the sinc2 filter
-reduces it further by a factor of 178 \cite[p.~59]{ad5941_ds}, resulting in an effective sampling freqency of \SI{900}{\hertz}. The digital bandwidths of the sinc3 filter is about \SI{42}{\kilo\hertz} and the sinc2 filter is \SI{290}{\hertz} The device also offers a
+reduces it further by a factor of 178 \cite[p.~59]{ad5941_ds}, resulting in an effective sampling frequency of \SI{900}{\hertz}. The digital bandwidths of the sinc3 filter is about \SI{42}{\kilo\hertz} and the sinc2 filter is \SI{290}{\hertz} The device also offers a
 \SI{50}{\hertz}/\SI{60}{\hertz} notch filter after the sinc2 filter, but with
 it enabled the settling time after a step is \SI{37}{\milli\second}, against
 \SI{2.245}{\milli\second} without it \cite[p.~17]{ad5941_ds}. A
@@ -378,7 +378,7 @@ $N_\text{w} = 18$ consecutive sinc2 results. The window length is
   \label{eq:sw_window}
 \end{equation}
 which is one period of the \SI{50}{\hertz} mains to within
-\SI{0.13}{\percent}. This places zeros at mutiples of 49.95Hz creating an effective filter. The window is defined by a sample count and not by a
+\SI{0.13}{\percent}. This places zeros at multiples of 49.95Hz creating an effective filter. The window is defined by a sample count and not by a
 duration, so every window in a scan has exactly the same length, and the ADC
 runs continuously for the whole scan so that the filters are never restarted
 between windows.

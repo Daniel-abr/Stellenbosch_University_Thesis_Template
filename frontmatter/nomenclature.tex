@@ -9,6 +9,71 @@
 %\printnomenclature
 %\input{frontmatter/variables_and_functions}
 
+\section*{List of Symbols}
+\addcontentsline{toc}{section}{List of Symbols}
+
+\begin{longtable}{@{}p{0.16\textwidth}p{0.62\textwidth}p{0.14\textwidth}@{}}
+	\textbf{Symbol} & \textbf{Description} & \textbf{Unit} \\
+	\midrule
+	\endhead
+	\multicolumn{3}{@{}l}{\textit{Electrochemical cell}} \\
+	$R_s$ & Solution resistance & \si{\ohm} \\
+	$R_u$ & Uncompensated resistance between the RE and WE & \si{\ohm} \\
+	$C_{dl}$ & Double-layer capacitance & \si{\farad} \\
+	$R_{ct}$ & Charge-transfer resistance & \si{\ohm} \\
+	$Z_W$ & Warburg (diffusion) impedance & \si{\ohm} \\
+	$I_c$ & Capacitive (charging) current & \si{\ampere} \\
+	$I_f$ & Faradaic current & \si{\ampere} \\
+	$n$ & Number of electrons transferred & -- \\
+	$F$ & Faraday constant & \si{\coulomb\per\mol} \\
+	$A$ & Electrode area & \si{\centi\metre\squared} \\
+	$D$ & Diffusion coefficient & \si{\centi\metre\squared\per\second} \\
+	$C^*$ & Bulk analyte concentration & \si{\mol\per\centi\metre\cubed} \\
+	$t$ & Time & \si{\second} \\[1ex]
+	\multicolumn{3}{@{}l}{\textit{Transimpedance amplifier and stability}} \\
+	$R_\mathrm{TIA}$ & Transimpedance (gain) resistor & \si{\ohm} \\
+	$C_f$ & Feedback capacitor across $R_\mathrm{TIA}$ & \si{\farad} \\
+	$R_L$ & Internal HSTIA load resistor & \si{\ohm} \\
+	$R_\Sigma$ & Total series resistance to the solution, $R_u + R_L$ & \si{\ohm} \\
+	$Z_f$, $Z_c$ & Feedback and cell impedance & \si{\ohm} \\
+	$A(s)$ & Open-loop gain of the amplifier & -- \\
+	$NG(s)$ & Noise gain & -- \\
+	$\mathrm{GBW}$ & Gain-bandwidth product & \si{\hertz} \\
+	$f_z$ & Noise-gain zero frequency & \si{\hertz} \\
+	$f_p$ & Noise-gain pole frequency & \si{\hertz} \\
+	$f_c$ & Loop-gain crossover frequency & \si{\hertz} \\
+	$\phi_\mathrm{PM}$ & Phase margin & \si{\degree} \\
+	$V_\mathrm{BIAS}$ & LPDAC bias voltage (sets the RE potential) & \si{\volt} \\
+	$V_\mathrm{ZERO}$ & LPDAC zero voltage (sets the WE potential) & \si{\volt} \\
+	$V_\mathrm{TIA}$ & TIA output voltage & \si{\volt} \\
+	$D_{12}$ & 12-bit LPDAC code & -- \\[1ex]
+	\multicolumn{3}{@{}l}{\textit{DPV waveform and measurement}} \\
+	$E$ & Cell potential, $V_\mathrm{ZERO} - V_\mathrm{BIAS}$ & \si{\volt} \\
+	$E_\text{start}$, $E_\text{end}$ & Start and end potential of the scan & \si{\volt} \\
+	$\Delta E$ & Potential step & \si{\volt} \\
+	$\Delta E_\text{s}$ & Step potential & \si{\volt} \\
+	$\Delta E_\text{p}$ & Pulse amplitude & \si{\volt} \\
+	$t_\text{p}$ & Pulse width & \si{\second} \\
+	$t_\text{b}$ & Base dwell, $T - t_\text{p}$ & \si{\second} \\
+	$T$ & Pulse period & \si{\second} \\
+	$N$ & Number of steps in a scan & -- \\
+	$T_\text{s}$ & ADC (sinc2) output period & \si{\second} \\
+	$N_\text{w}$ & Number of samples averaged per window & -- \\
+	$T_\text{w}$ & Averaging window length, $N_\text{w}T_\text{s}$ & \si{\second} \\
+	$\Delta I$ & Differential current, $I_\text{end} - I_\text{before}$ & \si{\ampere} \\
+	$I_\text{raw}$ & Uncalibrated current & \si{\ampere} \\
+	$G_k$ & Calibration gain for current range $k$ & -- \\
+	$O_k$ & Calibration offset for current range $k$ & \si{\ampere} \\[1ex]
+	\multicolumn{3}{@{}l}{\textit{Hardware}} \\
+	$L_\mathrm{bead}$ & Ferrite bead inductance & \si{\henry} \\
+	$R_\mathrm{DC}$ & Ferrite bead DC resistance & \si{\ohm} \\
+	$f_0$ & Filter resonant frequency & \si{\hertz} \\
+	$Q$ & Filter quality factor & -- \\
+	$T_\text{rise}$ & Allowed trace temperature rise & \si{\celsius} \\
+	$W$ & Trace width & mil \\
+\end{longtable}
+
+\newpage
 \section*{Acronyms and Abbreviations}
 \addcontentsline{toc}{section}{Acronyms and Abbreviations}
 

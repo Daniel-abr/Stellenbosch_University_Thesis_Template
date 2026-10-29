@@ -31,18 +31,20 @@ originate from the instrument. To isolate error
 sources, the validation follows a sequence of five progressive tests. Each stage
 introduces an additional component of a complete electrochemical measurement
 and benchmarks it against the best available reference standard, allowing any
-observed deviation to be traced directly to the newly introduced variable:
+observed deviation to be traced directly to the newly introduced variable. Each test is listed with the key performance parameter of Section~\ref{sec:key_performance_parameters} that it evaluates:
 \begin{enumerate}
-  \item \textbf{Excitation waveform:} The potential steps, pulses and timing
-    output by the AFE (Section~\ref{sec:waveform}).
-  \item \textbf{Resistors:} The current measurement, compared with a
-    digital multimeter (Section~\ref{sec:rtia_cal}).
-  \item \textbf{Randles circuits:} Dummy cells made from known components and
-    compared against a commercial or laboratory grade instrument, like the PalmSens4 \cite{PalmSens4}
-    (Section~\ref{sec:randles_test}).
-  \item \textbf{Salt solution:} A commercial or laboratory grade electrode without a redox reaction, against the PalmSens4 (Section~\ref{sec:salt_test}).
-  \item \textbf{Ferricyanide:} An active redox peak, against the PalmSens4
-    (Section~\ref{sec:fc_test}).
+  \item \textbf{Excitation waveform (bandwidth, technique support):} The potential
+    steps, pulses and timing output by the AFE (Section~\ref{sec:waveform}).
+  \item \textbf{Resistors (current range and resolution):} The current measurement,
+    compared with a digital multimeter (Section~\ref{sec:rtia_cal}).
+  \item \textbf{Randles circuits (noise floor):} Dummy cells made from known
+    components and compared against a commercial or laboratory grade instrument,
+    like the PalmSens4 \cite{PalmSens4} (Section~\ref{sec:randles_test}).
+  \item \textbf{Salt solution (noise floor):} A commercial or laboratory grade
+    electrode without a redox reaction, against the PalmSens4
+    (Section~\ref{sec:salt_test}).
+  \item \textbf{Ferricyanide (technique support):} An active redox peak, against
+    the PalmSens4 (Section~\ref{sec:fc_test}).
 \end{enumerate}
 
 \begin{table}[H]
@@ -179,7 +181,7 @@ Before calibration, $I_\text{meas}$ exceeded $I_\text{true}$ by \SIrange{9}{12}{
 eight ranges (Table~\ref{tab:rtia_cal_tbl}). An error of the same size and sign on ranges with
 different resistors points to a cause shared by the conversion chain, such as
 the assumed ADC reference or PGA gain, rather than to resistor tolerance. After
-correction the maxiumum error is \SI{0.44}{\percent}.
+correction the maximum error is \SI{0.44}{\percent}.
 
 \begin{table}[!htbp]
   \centering
@@ -291,7 +293,7 @@ The fourth test replaces the passive circuit with a real electrode. A drop of
 \SI{0.1}{\Molar} KCl on the SPE has a solution resistance and a
 double-layer capacitance, but no redox reaction in the scan window, which makes
 it a physical Randles cell with a very large charge-transfer resistance
-\cite{bard2001}. It should give a smooth background without a peak. The
+\cite{bard2001}. Figure \ref{fig:pair} shows the setup used for the salt blank tests. It should give a smooth background without a peak. The
 \devname{} is judged against the PalmSens4 measuring the same solution with the
 same waveform parameters.
 
@@ -380,7 +382,7 @@ Figure~\ref{fig:fc_compare}.
 \begin{figure}[htbp]
   \centering
   \caption{The three ferricyanide pairs. (a) Peak height of the \devname{}
-    against the PalmSens4. (b) Testing process in picture form}
+    against the PalmSens4. (b) Openstat testing setup, either solution applied to the SPE by mechanical pipette.}
   \label{fig:pair}
   \begin{minipage}[b]{0.38\textwidth}
     \centering
@@ -403,7 +405,7 @@ The \devname{} overestimates peak height by \SI{26}{\percent} on FC~1 and undere
  
 The potential offset was found by sliding the \devname{} curve of each pair
 along the potential axis until it matched the
-PalmSens4 curve most closely. The offset ranges from \SIrange{20}{27.5}{\milli\volt}, where \SI{24}{\milli\volt} is the average. By shifiting the \devname{} curve reduces the difference between the curves by up to a third. All the \devname{} ferricyanide scans used the \SI{1}{\kilo\ohm} range, therefore the offset
+PalmSens4 curve most closely. The offset ranges from \SIrange{20}{27.5}{\milli\volt}, where \SI{24}{\milli\volt} is the average. By shifting the \devname{} curve reduces the difference between the curves by up to a third. All the \devname{} ferricyanide scans used the \SI{1}{\kilo\ohm} range, therefore the offset
 could potentially come from the specific range or its calibration. The calibration
 cannot cause it, as it only rescales the current. A range-dependent cause would act through a voltage drop proportional to the
 current, so the offset would grow with the peak, instead it stays the same

@@ -1,4 +1,4 @@
-\chapter{Use of Artificial Intelligence Tools}
+  \chapter{Use of Artificial Intelligence Tools}
 \label{app:ai}
 
 % =====================================================================
@@ -7,29 +7,26 @@
 
 Three AI tools were used in this project, each for a different purpose:
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Claude (Anthropic)} used for logical and complex tasks:
-    troubleshooting, code review, data-processing scripts, planning and
-    converting Word documents into \LaTeX{}.
+  \item \textbf{Claude (Anthropic)} used for logical and complex tasks such as troubleshooting, code review, data-processing scripts and planning.
   \item \textbf{GitHub Copilot}, within VS Code, used for autocompletion of
     spelling and citations while writing.
   \item \textbf{Gemini (Google)} used for restructuring language in the report.
 \end{itemize}
 I used AI as a tool to support my own work, not to replace it.
-Every output was reviewed, tested or checked by me before it was
-used.
+Every output was reviewed, tested or checked by me before it was used.
 
 In the project work, AI was used for the following:
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Troubleshooting.} Diagnosing hardware and firmware problems
+  \item \textbf{Troubleshooting:} Diagnosing hardware and firmware problems
     during bring-up and testing, by discussing symptoms and suggesting likely
     causes and checks, which I then carried out on the hardware.
-  \item \textbf{Exploring solutions.} Suggesting and comparing alternative
+  \item \textbf{Exploring solutions:} Used as an improved search engine, suggesting and comparing alternative
     approaches to design problems. I then made the choice between them, for the reasons given in the report.
   \item \textbf{Code review and improvement.} Restructuring weak or repetitive
     sections of the firmware, checking the code for loopholes and edge cases,
     and adding safety measures such as input limits, time-outs and overload
     handling (Section~5.5.2).
-  \item \textbf{Data-comparison scripts.} Setting up Python scripts to
+  \item \textbf{Data-comparison scripts.} Help setting up Python scripts to
     process and compare the data measured on the OpenStat and the PalmSens4
     (Chapter~6).
   \item \textbf{Planning.} Helping to plan the project schedule
@@ -40,20 +37,17 @@ In the project work, AI was used for the following:
 In writing the report, AI was used for the following:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Software chapter.} For Chapter~5 (Software Design), Claude
-    was given sections of firmware code, from which it drew the flow
-    diagrams were drafted. I then checked the diagrams against the code and the behaviour of the device, and corrected them where they did not match.
+    was given rough drafts of flow diagrams writen in \LaTeX{} (TikZ). I then checked the diagrams against the code and the behaviour of the device, and corrected them where they did not match.
   \item \textbf{Drafting.} Text in Chapter~6 (Testing and Calibration),
     Chapter~7 (Environmental and Sustainability Analysis), Chapter~8
     (Conclusion and Future Work) and Appendix~B (Graduate Attributes) was
     improved with Claude, which flagged incomplete sentences and
-    inconsistencies. The content was reviewed, corrected, edited, and checked against  measured data and the cited sources.
+    inconsistencies. The content was reviewed, corrected, edited, and checked.
   \item \textbf{Conversion to \LaTeX{}.} Chapter~4 (Hardware Design) was
-    written by the student as a rough draft in Word and converted into
+    written by me as a rough draft in Word and converted into
     \LaTeX{} with Claude, which also flagged incomplete sentences and
-    inconsistencies for the student to resolve.
+    inconsistencies for me to resolve.
   \item \textbf{Language editing.} In Chapters~1 to~3, AI was used only to improve structure, clarity and flow, mainly with Gemini.
-  \item \textbf{Diagrams.} Drawing figures in \LaTeX{} (TikZ), including the
-    software flow diagrams of Chapter~5.
   \item \textbf{\LaTeX{} support.} Finding and fixing compilation errors,
     and checking that all figures, tables, equations and sections are
     correctly referenced.
@@ -65,19 +59,20 @@ All AI outputs were verified before use. Firmware changes were compiled, flashed
 and run on the OpenStat, and their behaviour was checked against the serial
 output. An oscilloscope was used to confirm that the code produced the
 correct DPV excitation waveform (Section~6.1). Not all
-AI-suggested code worked: parts of the display, web dashboard and SD card
+AI-suggested code worked, parts of the display, web dashboard and SD card
 code, and of the range-selection and calibration code, failed on the
 hardware and had to be debugged and corrected by me before they
-behaved as intended. The layout of the graphical interface and the way the user interacts with the device were designed by me.
+behaved as intended.
 
 AI was not used to generate or alter any measured data. All results and
 conclusions in this report are based on measurements made during testing.
 
-% =====================================================================
+
+\newpage
 \section{Own Work Declaration}
 \label{app:own_work}
 
-The following was done by the student:
+The following was done by me:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Project definition.} Defining the aim, scope and
     requirements of the project with the supervisor (Chapter~1,

@@ -53,8 +53,7 @@ half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
 \section{Display and SD Card Specifications}
 \label{app:display_sd_specs}
 
-
-\begin{table}[htbp]
+\begin{table}[H]
   \centering
   \caption{Key specifications of the DFRobot DFR0928 display
     \cite{dfrobot_dfr0928}.}
@@ -75,7 +74,7 @@ half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
 \section{Power Management Subsystem Specifications}
 \label{app:power_specs}
 
-\begin{table}[htbp]
+\begin{table}[H]
   \centering
   \caption{Main specifications of the power subsystem components.}
   \label{tab:hw_power_specs}
@@ -216,17 +215,6 @@ half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
   \end{tabular}
 \end{table}
 
-\section{Webserver Dashboard}
-\label{app:webserver_dashboard}
-
-\begin{figure}[H]
-    \caption{The webserver dashboard for the potentiostat.}
-    \label{fig:dashboard}
-    \centering
-    \includegraphics[width=0.7\linewidth]{figures/dashboard.png}
-\end{figure}
-
-
 \section{KiCad Schematic}
 \label{app:kicad_schematic}
 \begin{figure}[H]
@@ -331,7 +319,7 @@ that it is adequate for this design.
 Every capacitor resonates with its own equivalent series inductance (ESL) at
 its self-resonant frequency, above which it behaves as an inductor. With a
 typical ESL of about \SI{1}{\nano\henry} for the 0805 package used on this
-board \hwtodo{reference for 0805 ESL}:
+board:
 \begin{equation}
   f_\text{SRF} = \frac{1}{2\pi\sqrt{L_\text{ESL}\,C}}:
   \qquad
