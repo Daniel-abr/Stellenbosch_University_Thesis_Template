@@ -419,3 +419,20 @@ high-frequency noise away from the IC \cite{adi_mt101}.
 The interface consists of two push buttons and a rotary encoder with an integrated push button. All are wired in an active-low configuration with 10 k$\Omega$ hardware pull-up resistors. A capacitor on each line forms an RC filter with its pull-up, so on release the pin only reads high once the capacitor has charged past the ESP32-S3 input-high threshold of $0.75 \times V_{DD}$ \cite{esp32s3_ds}. This takes t = RC ln(4) $\approx$ 1.39RC.
 
 The push buttons use 100 nF ($\approx$ 1.4 ms), which is imperceptible to the user but long enough to absorb most contact bounce \cite{allpcb_debounce}. The encoder lines use 10 nF ($\approx$ 0.14 ms), because the filter must not smear the quadrature edges during fast rotation. The EC11E bounces for up to 2 ms \cite{alps_ec11}, which is longer than the edge spacing allows even at moderate speeds. A hardware-only debounce is therefore not strictly possible, but was done for good practice. The RC filter suppresses short spikes, and the quadrature decoder rejects the remaining bounce in software.
+
+\begin{figure}[htbp]
+  \centering
+  \caption{OpenStat user interfaces. (a) Physical interface (b) Digital interface}
+  \label{fig:pair}
+  \begin{minipage}[b]{0.38\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/sweep_136_lab.jpg}\\
+    (a)
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.58\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/sweep136.png}\\
+    (b)
+  \end{minipage}
+\end{figure}

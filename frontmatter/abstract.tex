@@ -2,12 +2,54 @@
 \addcontentsline{toc}{chapter}{Abstract}
 \makeatletter\@mkboth{}{\scshape Abstract}\makeatother
 
+Pharmaceutical residues, including antiretroviral drugs, are increasingly
+found in surface and waste water, but measuring them relies on laboratory
+instruments that are expensive and not portable. This project presents the
+OpenStat, an open-source, battery-powered potentiostat for differential pulse
+voltammetry (DPV), designed towards the detection of efavirenz and oseltamivir
+in water. The device combines an AD5941 analog front-end with an ESP32-S3
+microcontroller and can be operated on its own through a display, push buttons and
+a rotary encoder, or remotely through a web interface over Wi-Fi. Custom
+firmware is used to control the DPV pulse
+timing directly and to auto-range the current measurement across eight
+transimpedance gain settings. Testing showed that the generated waveform is
+accurate to within one DAC code and that, after calibration, all eight current
+ranges read within 0.44\% of a reference multimeter. On dummy cells the
+measured responses agreed with the expected values to within 2.1\%. DPV scans
+of a 0.1M salt blank and 5~mM potassium ferricyanide on gold screen-printed
+electrodes matched a commercial PalmSens4 to within that instrument's own
+scan-to-scan repeatability, apart from a potential offset of about 25~mV. The
+results show that the OpenStat performs comparably to a commercial instrument
+for DPV, with the detection limit set by the electrode rather than the
+electronics.
+
 
 \newpage
-\selectlanguage{afrikaans}
 
 \chapter*{Uittreksel}
 \addcontentsline{toc}{chapter}{Uittreksel}
 \makeatletter\@mkboth{}{\scshape Uittreksel}\makeatother
+
+Farmaseutiese residue, insluitend antiretrovirale middels, word toenemend in
+oppervlak- en afvalwater aangetref, maar die meting daarvan steun op
+laboratoriuminstrumente wat duur en nie draagbaar is nie. Hierdie projek bied
+die OpenStat aan, 'n oopbron-, batterygedrewe potensiostaat vir differensiële
+pulsvoltammetrie (DPV), ontwerp met die oog op die opsporing van efavirenz en
+oseltamivir in water. Die toestel kombineer 'n AD5941 analoë voorkant met 'n
+ESP32-S3-mikrobeheerder en kan selfstandig deur middel van 'n skerm, knoppies
+en 'n draai-enkodeerder, of op afstand deur 'n webkoppelvlak oor Wi-Fi, beheer
+word. Pasgemaakte fermware vervang die vervaardiger se sagtewarebiblioteek om
+die DPV-pulstydsberekening direk te beheer en die stroommeting outomaties
+tussen agt transimpedansie-versterkingsinstellings te laat wissel. Toetse het
+getoon dat die gegenereerde golfvorm akkuraat is tot binne een DAC-kode en dat,
+ná kalibrasie, al agt stroombereike binne 0,44\% van 'n verwysingsmultimeter
+lees. Op nagebootste selle het die gemete reaksies tot binne 2,1\% met die
+verwagte waardes ooreengestem. DPV-skanderings van 'n 0.1M soutblanko en 5~mM
+kaliumferrisianied op skermgedrukte goudelektrodes het tot binne die
+skandering-tot-skandering-herhaalbaarheid van 'n kommersiële PalmSens4 daarmee
+ooreengestem, behalwe vir 'n potensiaalverskuiwing van ongeveer 25~mV. Die
+resultate toon dat die OpenStat vir DPV vergelykbaar met 'n kommersiële
+instrument presteer, en dat die opsporingsgrens deur die elektrode eerder as
+die elektronika bepaal word. 
 
 \selectlanguage{english}

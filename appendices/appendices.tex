@@ -14,6 +14,41 @@
 \chapter{Additional Content}
 \label{app:add_content}
 
+\section{Capacitive Current Rejection in DPV}
+\label{app:dpv}
+
+After a potential step, the total current at the electrode is the sum of the
+Faradaic and capacitive components,
+\begin{equation}
+  I_\text{total}(t) = I_f(t) + I_c(t),
+\end{equation}
+with $I_c$ and $I_f$ given by Equations~\eqref{eq:ic}
+and~\eqref{eq:cottrell}. Expanding the two DPV samples into these components
+gives
+\begin{equation}
+  \Delta I = I_\text{end} - I_\text{before}
+    = \left(I_{f,\text{end}} + I_{c,\text{end}}\right)
+    - \left(I_{f,\text{before}} + I_{c,\text{before}}\right).
+  \label{eq:app_delta_i_expanded}
+\end{equation}
+$I_\text{before}$ is sampled after the electrode has been held at the
+baseline potential for long enough that the previous capacitive transient
+has decayed, so $I_{c,\text{before}} \approx 0$. $I_\text{end}$ is sampled at
+the end of a pulse that is long compared with $R_sC_{dl}$, so the transient
+caused by the pulse has also decayed and $I_{c,\text{end}} \approx 0$.
+Equation~\eqref{eq:app_delta_i_expanded} therefore reduces to
+Equation~\eqref{eq:delta_if}, leaving only the Faradaic signal.
+
+Because $\Delta I$ is the change in Faradaic current caused by a small
+potential change $\Delta E$, it approximates the derivative of the
+current--potential curve:
+\begin{equation}
+  \Delta I \approx \frac{\mathrm{d}I_f}{\mathrm{d}E}\,\Delta E.
+\end{equation}
+For a reversible system governed by the Nernst equation, the current--potential
+curve is sigmoidal, and its derivative is a peak centred close to the
+half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
+\cite{bard2001, Laborda2014}.
 
 \section{Display and SD Card Specifications}
 \label{app:display_sd_specs}
@@ -452,6 +487,8 @@ from a PCBWay online quote of US\$30.89 for five boards at R16.59/US\$
   \multicolumn{5}{@{}l}{\textbf{Total (incl.\ VAT)}} & \textbf{2\,226.45} \\
 \end{xltabular}
 }
+
+\newpage
 
 \section{TIA Noise Gain with a Series Cell}
 \label{app:tia}

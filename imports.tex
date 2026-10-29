@@ -153,7 +153,7 @@
 }
 \NewAcroTemplate[list]{styleabbrev}{%
 	\normalsize
-	\AcroNeedPackage{array}%
+	\AcroNeedPackage{array,longtable}%
 	\acronymsmapF{
 		\AcroAddRow{
 			\vspace{1.0ex}\par
@@ -170,9 +170,9 @@
 	%    \acroheading
 	\acropreamble
 	\par\noindent
-	\begin{tabular}{>{\bfseries}lp{.7\linewidth}}
+	\begin{longtable}[l]{>{\bfseries}lp{.7\linewidth}}
 		\AcronymTable
-	\end{tabular}
+	\end{longtable}
 }
 
 \acsetup{
@@ -585,3 +585,5 @@
 
 \usepackage[none]{hyphenat}
 \usepackage{xltabular}
+\usepackage{subcaption}
+\usepackage{notoccite}

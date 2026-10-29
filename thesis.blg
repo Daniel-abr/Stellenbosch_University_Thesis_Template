@@ -15,46 +15,49 @@ Database file #1: mybib.bib
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Warning--edition ordinal word "Version 1.7" may be too high (or improper) for conversion in esp32s3_wroom2_ds
+Warning--edition ordinal word "Version 2.2" may be too high (or improper) for conversion in esp32s3_ds
 
 Done.
-You've used 73 entries,
+You've used 72 entries,
             4855 wiz_defined-function locations,
-            1322 strings with 21210 characters,
-and the built_in function-call counts, 49273 in all, are:
-= -- 4676
-> -- 1162
-< -- 249
-+ -- 599
-- -- 284
-* -- 2465
-:= -- 8062
-add.period$ -- 139
-call.type$ -- 73
-change.case$ -- 176
-chr.to.int$ -- 473
+            1336 strings with 21807 characters,
+and the built_in function-call counts, 53280 in all, are:
+= -- 5008
+> -- 1335
+< -- 323
++ -- 675
+- -- 306
+* -- 2735
+:= -- 8498
+add.period$ -- 138
+call.type$ -- 72
+change.case$ -- 175
+chr.to.int$ -- 663
 cite$ -- 74
-duplicate$ -- 3561
-empty$ -- 3599
-format.name$ -- 398
-if$ -- 10927
-int.to.chr$ -- 6
-int.to.str$ -- 74
-missing$ -- 617
-newline$ -- 249
-num.names$ -- 215
-pop$ -- 1602
+duplicate$ -- 3748
+empty$ -- 3790
+format.name$ -- 431
+if$ -- 11901
+int.to.chr$ -- 4
+int.to.str$ -- 73
+missing$ -- 636
+newline$ -- 246
+num.names$ -- 217
+pop$ -- 1612
 preamble$ -- 1
-purify$ -- 73
-quote$ -- 2
-skip$ -- 3705
+purify$ -- 72
+quote$ -- 6
+skip$ -- 4013
 stack$ -- 0
-substring$ -- 1278
-swap$ -- 2332
-text.length$ -- 62
+substring$ -- 1672
+swap$ -- 2616
+text.length$ -- 76
 text.prefix$ -- 1
 top$ -- 6
-type$ -- 1089
-warning$ -- 0
-while$ -- 208
+type$ -- 1075
+warning$ -- 2
+while$ -- 237
 width$ -- 0
-write$ -- 836
+write$ -- 843
+(There were 2 warnings)

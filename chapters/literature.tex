@@ -104,7 +104,7 @@ where $n$ is the number of electrons transferred, $F$ is Faraday's constant, $A$
 \end{equation}
 The full expansion is given in Appendix~\ref{app:dpv}. In practice this sets a minimum pulse width, since sampling at $t = 5R_sC_{dl}$ leaves less than \SI{1}{\percent} of the initial capacitive current ($e^{-5} \approx 0.007$). Because $\Delta I$ approximates the derivative of the Faradaic current--potential curve, the voltammogram forms a peak which, for a reversible system, lies half a pulse amplitude away from the half-wave potential $E_{1/2}$ \cite{bard2001}.
 
-In continuous sweeps such as CV and LSV, by contrast, charging current is present throughout the measurement. The \ac{DPV} signal is therefore dominated by Faradaic current, which gives a much higher \ac{SNR} and lower limits of detection. The cost is reduced time resolution \cite{sciencedirect1993dpv}.
+In continuous sweeps such as CV and LSV, by contrast, charging current is present throughout the measurement. The \ac{DPV} signal is therefore dominated by Faradaic current, which gives a much higher \ac{SNR} and lower limits of detection. The cost is reduced time resolution \cite{alyamni2024}.
 
 \begin{figure}[htbp]
 \centering
@@ -207,7 +207,7 @@ This section establishes the criteria used to evaluate the effectiveness of the 
 
     \item \textbf{Bandwidth / scan rate limits:} This is the maximum speed at which the potentiostat can alter the applied potential. Fast techniques such as \ac{SWV} require high-bandwidth operational amplifiers to avoid signal distortion \cite{bard2001}.
 
-    \item \textbf{Technique support:} A system's ability to run CV, DPV, or \ac{EIS} depends on its \ac{DAC} resolution and internal waveform generators \cite{cruz2020}.
+    \item \textbf{Technique support:} A system's ability to run CV, DPV, or \ac{EIS} is set by its \ac{DAC} and any on-chip signal generator, and on its measurement chain bandwidth \cite{hunstat2024,hunstat2_2025}.
 \end{itemize}
 
 \mysubsection{Analog Front-End Approaches}{Analog Front-End Approaches}
@@ -288,6 +288,6 @@ CheapStat \cite{rowe2011} showed that basic analytical electrochemistry was achi
 \label{sec:eis_afe_designs}
 \label{sec:selfhosted_webinterface}
 
-Integrated mixed-signal \acp{AFE} have largely replaced discrete op-amp circuits in recent designs. Systems such as ABE-Stat \cite{jenkins2019}, HunStat \cite{hunstat2024} and HunStat2 \cite{hunstat2_2025} characterise this generation: using \acp{SoC} such as the AD5941, they support techniques up to \ac{EIS} with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2024,hunstat2_2025}. However, configuring the \ac{AFE} requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022}, DM-Stat \cite{dmstat2024} and SaxStat \cite{saxstat2025} host an embedded web server. Any browser on any platform can then control the instrument without installed software, at the cost of \ac{MCU} memory \cite{lee2022}.
+Integrated mixed-signal \acp{AFE} have largely replaced discrete op-amp circuits in recent designs. Systems such as ABE-Stat \cite{jenkins2019} and HunStat2 \cite{hunstat2_2025} characterise this generation by using \acp{SoC} such as the AD5941, they support techniques up to \ac{EIS} with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2_2025}. HunStat2 replaced its predecessor HunStat \cite{hunstat2024}, which generated the waveform with the microcontroller's own 10-bit \ac{DAC} and was limited to DC techniques. However, configuring the \ac{AFE} requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022} and DM-Stat \cite{dmstat2024} host an embedded web server. Not every ESP32 design does this for example, the SaxStat \cite{saxstat2025} uses the ESP32 only as a USB serial bridge to a desktop application.
 
-These web-hosted designs are nevertheless headless and cannot be operated without a second device. Early designs such as CheapStat included a basic display, but none of the surveyed systems combines an integrated \ac{AFE}, a browser interface and a standalone onboard display. Such a dual-interface instrument would allow quick standalone measurements in the field while retaining web-based data access, and this is the gap addressed by this project.
+These web-hosted designs are headless and cannot be operated without a second device. Early designs such as CheapStat included a basic display, but none of the surveyed systems combines an integrated \ac{AFE}, a browser interface and a standalone onboard display. Such a dual-interface instrument would allow quick standalone measurements in the field while retaining web-based data access, and this is the gap addressed by this project.

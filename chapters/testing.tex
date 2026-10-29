@@ -299,7 +299,7 @@ Five pairs of salt were compared, Salt~1 to~5 as seen in Figure~\ref{fig:salt_pa
 and finishes at \SI{-0.20}{\volt}. So that the peak for the ferricyanide test of Section~\ref{sec:fc_test} would be in the window.
 
 \begin{figure}[H]
-\caption{Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$ used for the calibration line of Section~\ref{sec:salt_line}.}
+\caption{Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$}
   \label{fig:salt_pairs}
   \centering
   \includegraphics[width=0.7\textwidth]{figures/Testing/salt_pairs}
@@ -368,14 +368,33 @@ at a more negative potential (shifted to the right).
 The peak heights and potential offsets of the three pairs are plotted in
 Figure~\ref{fig:fc_compare}.
  
-\begin{figure}[!htbp]
-  \caption{The three ferricyanide pairs. (a) Peak height of the \devname{}
-    against the PalmSens4. (b) Potential offset of the \devname{} curve
-    against the peak current.}
-  \label{fig:fc_compare}
+%\begin{figure}[!htbp]
+  %\caption{The three ferricyanide pairs. (a) Peak height of the %\devname{}
+    %against the PalmSens4. (b) Potential offset of the \devname{} curve
+  %  against the peak current.}
+  %\label{fig:fc_compare}
+  %\centering
+  %\includegraphics[width=0.85\textwidth]{figures/Testing/fc_compare.%pdf}
+%\end{figure}
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{figures/Testing/fc_compare.pdf}
+  \caption{The three ferricyanide pairs. (a) Peak height of the \devname{}
+    against the PalmSens4. (b) Testing process in picture form}
+  \label{fig:pair}
+  \begin{minipage}[b]{0.38\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/testing/fc_compare_a.png}\\
+    (a)
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/testing_steps.jpg}\\
+    (b)
+  \end{minipage}
 \end{figure}
+
  
 The \devname{} overestimates peak height by \SI{26}{\percent} on FC~1 and underestimates it by approximately \SI{20}{\percent} on FC~2 and~3, indicating bidirectional deviation rather than regular bias. Crucially, this discrepancy between each devices repeatability must be evaluated. Consecutive PalmSens4 scans of the same droplet were taken to verify this, and they vary by \SIrange{8}{52}{\percent}, while consecutive \devname{} scans vary by \SIrange{3}{33}{\percent}. Because the mean difference between the different instruments is \SI{22}{\percent} which falls within the repeat-measurement variability of the reference device itself, the \devname{} records peak heights very similarly to the PalmSens4 within experimental resolution.
  
