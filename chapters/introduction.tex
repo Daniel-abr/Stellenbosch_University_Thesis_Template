@@ -4,12 +4,12 @@
 \section{Background and Motivation}
 \label{sec:bg_and_info}
 
-In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiretroviral and other antiviral medication, in local water systems, where they have been measured at concentrations from nanograms to micrograms per litre \cite{schoeman2017efavirenz,Wood2015}. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. The established method, liquid chromatography–mass spectrometry (LCMS), is laboratory-based and costly, and South Africa has no monitoring programme or regulatory limit for these compounds \cite{schoeman2017efavirenz}. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity \cite{Uslu2011}. DPV methods have been reported for two such compounds, the antiretroviral efavirenz and the influenza antiviral oseltamivir \cite{dogantopal2009,pop2012}, which are the target compounds of this project. % KEYS: use yours for refs [21] and [22]
+In South Africa, a critical public health and environmental challenge is the accumulation of active pharmaceutical ingredients, specifically antiretroviral and other antiviral medication, in local water systems. The amount of pharmaceutical compounds has been measured at concentrations from nanograms to micrograms per litre \cite{schoeman2017efavirenz,Wood2015}. Monitoring these specific pharmaceutical compounds at trace levels requires highly sensitive analytical techniques. The established method, liquid chromatography–mass spectrometry (LCMS), is laboratory-based and costly. South Africa currently has no monitoring programme or regulatory limit for these compounds \cite{schoeman2017efavirenz}. Differential Pulse Voltammetry (DPV) was selected as a technique to detect these pharmaceutical compounds in the water due to its high sensitivity \cite{Uslu2011}. DPV methods have been reported for two such compounds, the antiretroviral efavirenz and the influenza antiviral oseltamivir \cite{dogantopal2009efavirenz,pop2012oseltamivir}, which are the target compounds of this project.
 DPV superimposes small pulses of potential onto a staircase potential ramp. By measuring the current difference before and near the end of each pulse, the technique reduces background charging current and achieves high sensitivity \cite{IUPAC_DPV}.
 
 \section{Problem Statement}
 \label{sec:prob_statement}
-The primary barrier to testing water in South Africa is that the tools required to perform accurate voltammetric analysis are costly and lack portability \cite{ainla2018,rowe2011}. Commercially available potentiostats, such as the PalmSens4 seen in Figure~\ref{fig:openstat_spe_ps}, serve as the gold standard for electrochemical analysis. However, these instruments are cost-prohibitive and operate as closed-source devices \cite{dryden2015}. While various open-source alternatives have been developed over the years, many remain tethered to external computers \cite{ainla2018} for power and data processing, or rely on proprietary applications that can become obsolete. Web-hosted designs remove this dependence but have no interface of their own, and none of the designs surveyed in Chapter~2 combines an integrated electrochemical front end with both an onboard display and a browser interface. This presents a distinct need for an autonomous, wireless and low-cost potentiostat capable of conducting sensitive DPV measurements independently in the field \cite{Hanrahan2004}.
+The primary barrier to testing water in South Africa is that the tools required to perform accurate voltammetric analysis are costly and lack portability \cite{ainla2018,rowe2011}. Commercially available potentiostats, such as the PalmSens4 seen in Figure~\ref{fig:openstat_spe_ps}, serve as the golden standard for electrochemical analysis. However, these instruments are cost-prohibitive and operate as closed-source devices \cite{dryden2015}. While various open-source alternatives have been developed over the years, many remain tethered to external computers \cite{ainla2018} for power and data processing, or rely on proprietary applications that can become obsolete. Web-hosted designs remove this dependence but have no interface of their own, and none of the designs surveyed in Chapter~\ref{chap:literature} combines an integrated electrochemical front end with both an onboard display and a browser interface. This presents a distinct need for an autonomous, wireless and low-cost potentiostat capable of conducting sensitive DPV measurements independently in the field \cite{Hanrahan2004}.
 
 \begin{figure}[H]
     \caption{The OpenStat developed in this project (Left), Metrohm C220 screen-printed electrode (SPE) (Centre), and PalmSens4 reference potentiostat (Right, Source: \cite{PalmSens4}).}
@@ -27,7 +27,7 @@ To meet this aim, the device must satisfy the following objectives, each of
 which is verified in Chapter~\ref{chap:testing}:
 \begin{enumerate}
   \item Apply the DPV waveform specified for the target compounds
-    (Table~4.1) with a potential resolution of \SI{1}{\milli\volt} or better,
+    (Table~\ref{tab:req_dpv}) with a potential resolution of \SI{1}{\milli\volt} or better,
     pulses of \SI{25}{\milli\volt} $\pm$ \SI{1}{\milli\volt} and a step period within
     \SI{\pm1}{\percent}.
   \item Measure currents up to \SI{\pm750}{\micro\ampere} with
@@ -39,32 +39,30 @@ which is verified in Chapter~\ref{chap:testing}:
   \item Operate standalone through an onboard display and controls, and
     remotely from a web browser over Wi-Fi.
   \item Run from an internal battery for at least one eight-hour working day.
-  \item Report the component cost of the prototype and compare it with a
-    commercial instrument.
+  \item Keep the cost of the prototype below one tenth of the cost of a commercial portable potentiostat, the PalmSens4, listed at approximately US\$3340~\cite{PalmSens4_price}.
 \end{enumerate}
 
 Objectives 1 to 3 ensure that the measurements can be trusted against a laboratory instrument, objectives 4 and 5 allow the device to be used in the field without a computer or mains power, and objective 6 addresses the cost barrier identified in Section~\ref{sec:prob_statement}.
 
-The approach taken, justified in Chapters 2 to 5, combines an AD5941 analogue front end (AFE) with an ESP32-S3 microcontroller with native Wi-Fi, an onboard display, two push buttons and a rotary encoder, a three-electrode interface for screen-printed electrodes or crocodile clips, and C++ firmware that runs the measurement, the local interface and a web server.
+The approach taken, justified in Chapters~\ref{chap:literature} to~\ref{chap:software_design}, combines an AD5941 analogue front end (AFE), specified at the start of the project, with an ESP32-S3 microcontroller with native Wi-Fi, an onboard display, two push buttons and a rotary encoder, a three-electrode interface for screen-printed electrodes, and C++ firmware that runs the measurement, the local interface and a web server.
 
 \section{Scope and Contributions}
 \label{sec:scope_exclusions}
 
-The scope of this project focuses on the design, development and analytical validation of the potentiostat hardware and firmware. To validate the DPV measurement performance, the scope was restricted to laboratory-prepared standard solutions of salt and ferricyanide in a supporting electrolyte, measured on both the OpenStat and a commercial PalmSens4. The detection of efavirenz and oseltamivir in real-world water samples is outside the scope of this project, as it would require additional sample preparation, extraction and purification steps to isolate the target analytes and the addition of a supporting electrolyte \cite{Temgoua2023}. Standard solutions of efavirenz and oseltamivir were also not measured, because access to these compounds was limited; ferricyanide was used instead as a well-characterised redox probe.
+The scope of this project focuses on the design, development and analytical validation of the potentiostat hardware and firmware. To validate the DPV measurement performance, the scope was restricted to laboratory-prepared standard solutions of salt and ferricyanide in a supporting electrolyte, measured on both the OpenStat and a PalmSens4. The detection of efavirenz and oseltamivir in real-world water samples is outside the scope of this project, as it would require additional sample preparation, extraction and purification steps to isolate the target analytes and the addition of a supporting electrolyte \cite{Temgoua2023}. Standard solutions of efavirenz and oseltamivir were also not measured, because access to these compounds was limited, ferricyanide was used instead as a well-characterised redox probe.
 
-
-The main contributions of this project are an AD5941-based potentiostat that can be operated both from its own display and from a web browser, a combination not found in the designs surveyed in Chapter~2; firmware-timed DPV with a sampling window chosen to reject mains interference (Section~5.4); and a stepwise validation of the device against ideal loads and a PalmSens4 (Chapter~6).
+The main contributions of this project are an AD5941-based potentiostat that can be operated both from its own display and from a web browser, firmware-timed DPV for sensitive measurements and a stepwise validation of the device against ideal loads and a PalmSens4 (Chapter~\ref{chap:testing}).
 
 \section{Report Overview}
 \label{sec:intro_overview}
 
-Chapter~2 reviews the electrochemistry of DPV, the circuit principles of a
+Chapter~\ref{chap:literature} reviews the electrochemistry of DPV, the circuit principles of a
 potentiostat and existing commercial and open-source designs, and identifies
-the gap this project addresses. Chapter~3 models the measurement signal chain
+the gap this project addresses. Chapter~\ref{chap:modeling} models the measurement signal chain
 and analyses the choice and stability of the current amplifier.
-Chapter~4 sets out the requirements and describes the hardware that meets
-them, and Chapter~5 describes the firmware, focusing on pulse timing, current
-sampling and range selection. Chapter~6 tests the device in five steps, from
+Chapter~\ref{chap:hardware_design} sets out the requirements and describes the hardware that meets
+them. Chapter~\ref{chap:software_design} describes the firmware, focusing on pulse timing, current
+sampling and range selection. Chapter~\ref{chap:testing} tests the device in five steps, from
 the excitation waveform alone to a redox probe on a real electrode, and
-compares it with the PalmSens4. Chapter~7 assesses the environmental impact
-and cost of the device, and Chapter~8 concludes and recommends future work.
+compares it with the PalmSens4. Chapter~\ref{chap:environmental} assesses the environmental impact
+and cost of the device, and Chapter~\ref{chap:conclusion} concludes and recommends future work.

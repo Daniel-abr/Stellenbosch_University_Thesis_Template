@@ -33,7 +33,7 @@ introduces an additional component of a complete electrochemical measurement
 and benchmarks it against the best available reference standard, allowing any
 observed deviation to be traced directly to the newly introduced variable. Each test is listed with the key performance parameter of Section~\ref{sec:key_performance_parameters} that it evaluates:
 \begin{enumerate}
-  \item \textbf{Excitation waveform (bandwidth, technique support):} The potential
+  \item \textbf{Excitation waveform (technique support):} The potential
     steps, pulses and timing output by the AFE (Section~\ref{sec:waveform}).
   \item \textbf{Resistors (current range and resolution):} The current measurement,
     compared with a digital multimeter (Section~\ref{sec:rtia_cal}).
@@ -55,7 +55,7 @@ observed deviation to be traced directly to the newly introduced variable. Each 
   \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
     \toprule
     Electrode & Metrohm DropSens C220AT SPE: \SI{4}{\milli\metre} gold working electrode, gold counter, silver
-      pseudo-reference \cite{metrohm_c220at} \\
+      pseudo-reference \cite{metrohm_c220at}; reused after rinsing with ethanol \\
     Solutions & Blank: \SI{0.1}{\Molar} KCl. Probe: \SI{5}{\milli\Molar}
       K$_3$[Fe(CN)$_6$] in \SI{0.1}{\Molar} KCl. One drop covering all three
       electrodes \\
@@ -65,7 +65,7 @@ observed deviation to be traced directly to the newly introduced variable. Each 
     DPV (salt, FC) & \SI{0.6}{\volt} to \SI{-0.2}{\volt} (KCL) or
       \SI{-0.35}{\volt} (K$_3$[Fe(CN)$_6$]), step \SI{5}{\milli\volt}, pulse
       \SI{50}{\milli\volt}, \SI{50}{\milli\second}, interval
-      \SI{0.2}{\second} \\
+      \SI{0.2}{\second}; all tests \SI{10}{\second} equilibration on both instruments \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -106,7 +106,7 @@ and measures \SI{25.17}{\milli\volt}. The difference between the two step
 sizes, \SI{0.545}{\milli\volt}, matches the LSB to within the
 \SI{\pm 3}{\percent} gain accuracy of the oscilloscope \cite{siglent_sds1000xe},
 which limits how precisely the amplitudes can be verified. The applied
-potential is therefore correct to within LSB. A \SI{0.54}{\milli\volt} resolution is more than enough for DPV, where a peak is normally
+potential is therefore correct to within one LSB. A \SI{0.54}{\milli\volt} resolution is more than enough for DPV, where a peak is normally
 about \SI{90}{\milli\volt} wide \cite{bard2001}.
 
 \subsection{Timing}
@@ -180,7 +180,7 @@ used in the fit.
 Before calibration, $I_\text{meas}$ exceeded $I_\text{true}$ by \SIrange{9}{12}{\percent} on all
 eight ranges (Table~\ref{tab:rtia_cal_tbl}). An error of the same size and sign on ranges with
 different resistors points to a cause shared by the conversion chain, such as
-the assumed ADC reference or PGA gain, rather than to resistor tolerance. After
+the assumed ADC reference or PGA gain, rather than to the tolerance of the external resistors, although the internal gain resistors of the AD5941 may also share a common process error. After
 correction the maximum error is \SI{0.44}{\percent}.
 
 \begin{table}[!htbp]
@@ -190,7 +190,7 @@ correction the maximum error is \SI{0.44}{\percent}.
   \setlength{\belowrulesep}{0pt}
   \renewcommand{\arraystretch}{1.2}
   \caption{Two-point calibration of the high-speed TIA ranges, recomputed from
-    the recorded readings. Errors are at the $+\SI{0.25}{\volt}$ check point.}
+    the recorded readings. Errors are measured at $+\SI{0.25}{\volt}$.}
   \label{tab:rtia_cal_tbl}
   \begin{tabular}{@{}l r r | r | r r@{}}
     \toprule
@@ -210,8 +210,8 @@ correction the maximum error is \SI{0.44}{\percent}.
 \end{table}
 
 With the gain of every range corrected and checked against an independent
-reference, the current scale of the device is known to within
-\SI{0.5}{\percent}. This is crucial from an application perspective because the drug concentration is calculated
+reference, the current scale of the device is known to within about
+$\pm$\SI{1}{\percent}, limited by the multimeter used as the reference. This is crucial from an application perspective because the drug concentration is calculated
 directly from the peak current. The next test uses Randles circuits and adds a capacitive load to the system.
 
 % =====================================================================
@@ -262,12 +262,10 @@ all of them except Cell~4, by \SIrange{0.4}{0.6}{\percent} on the
 \SI{260}{\nano\ampere} networks. The
 blocking networks WE~A and Cell~2 read below \SI{0.25}{\nano\ampere} on both
 instruments, so the charging current is rejected and there is no DC leakage
-path. This is the property for which DPV was chosen in this project, and the
-noise of \SIrange{0.07}{0.8}{\nano\ampere} on the low-current networks is the
-floor below which the instrument itself cannot resolve a Faradaic current.
+path. The noise on these two networks, \SIrange{0.07}{0.09}{\nano\ampere}, is the floor of the instrument itself; with the estimate of Section~\ref{sec:dpv_applications}, its $3\sigma$ of about \SI{0.25}{\nano\ampere} corresponds to roughly \SIrange{1}{5}{\micro\gram\per\litre} of efavirenz.
 
 \begin{figure}[H]
-  \caption{DPV scans of the dummy cell WE~C (left) and Cell~3 (right) from \SIrange{0.8}{1.3}{\volt}.}
+  \caption{DPV scans of the dummy cell WE~C (Left) and Cell~3 (Right) from \SIrange{0.8}{1.3}{\volt}.}
   \label{fig:randles_curves}
   \centering
   \begin{minipage}[t]{0.49\textwidth}
@@ -280,7 +278,6 @@ floor below which the instrument itself cannot resolve a Faradaic current.
   \end{minipage}
 \end{figure}
 
-When comparing both potentiostats to the ideal circuit behaviour, the \devname{} matches the expected values and the PalmSens4 to within about \SI{2}{\percent}.
 The next two tests replace the known load with a real electrode. From this
 point the true value is no longer known, so the PalmSens4 becomes the
 reference, and its own scan-to-scan variation becomes a variable.
@@ -293,15 +290,14 @@ The fourth test replaces the passive circuit with a real electrode. A drop of
 \SI{0.1}{\Molar} KCl on the SPE has a solution resistance and a
 double-layer capacitance, but no redox reaction in the scan window, which makes
 it a physical Randles cell with a very large charge-transfer resistance
-\cite{bard2001}. Figure \ref{fig:pair} shows the setup used for the salt blank tests. It should give a smooth background without a peak. The
+\cite{bard2001}. Figure~\ref{fig:pair}b shows the setup used for the salt blank tests. It should give a smooth background without a peak. The
 \devname{} is judged against the PalmSens4 measuring the same solution with the
 same waveform parameters.
 
-Five pairs of salt were compared, Salt~1 to~5 as seen in Figure~\ref{fig:salt_pairs}, each consisting of one scan on the \devname{} and the PalmSens4. Table~\ref{tab:salt} compares each pair quantitatively, using the mean current, the RMS difference and the correlation between the two voltammograms. The comparison starts at \SI{0.40}{\volt}
-and finishes at \SI{-0.20}{\volt}. So that the peak for the ferricyanide test of Section~\ref{sec:fc_test} would be in the window.
+Five pairs of salt were compared, Salt~1 to~5 as seen in Figure~\ref{fig:salt_pairs}, each consisting of one scan on the \devname{} and the PalmSens4. Table~\ref{tab:salt} compares each pair quantitatively, using the mean current, the RMS difference and the correlation between the two voltammograms. The comparison runs from \SI{0.40}{\volt} to \SI{-0.20}{\volt}, so that the ferricyanide peak of Section~\ref{sec:fc_test} lies in the window.
 
 \begin{figure}[H]
-\caption{Salt solution measured by each potentiostat. The dotted line marks the potential $E^*$}
+\caption{Salt solution measured by each potentiostat.}
   \label{fig:salt_pairs}
   \centering
   \includegraphics[width=0.7\textwidth]{figures/Testing/salt_pairs}
@@ -361,14 +357,14 @@ on the same drop as seen in Figure~\ref{fig:fc_pairs}.
 \end{figure}
  
 The \devname{} produces a peak similar in shape to the PalmSens4 shown in its correlation $r \geq 0.956$ for
-all three pairs. However there are two differences visible, the peak heights differ by up to $\pm$\SI{26}{\percent} and the \devname{} peak lies
+all three pairs. However, there are two visible differences: the peak heights differ by up to $\pm$\SI{26}{\percent} and the \devname{} peak lies
 at a more negative potential (shifted to the right).
  
 \subsection{Peak Height}
 \label{sec:fc_height}
  
-The peak heights and potential offsets of the three pairs are plotted in
-Figure~\ref{fig:fc_compare}.
+The peak heights of the three pairs are plotted in
+Figure~\ref{fig:pair}a.
  
 %\begin{figure}[!htbp]
   %\caption{The three ferricyanide pairs. (a) Peak height of the %\devname{}
@@ -382,7 +378,7 @@ Figure~\ref{fig:fc_compare}.
 \begin{figure}[htbp]
   \centering
   \caption{The three ferricyanide pairs. (a) Peak height of the \devname{}
-    against the PalmSens4. (b) Openstat testing setup, either solution applied to the SPE by mechanical pipette.}
+    against the PalmSens4. (b) \devname{} testing setup, either solution applied to the SPE by mechanical pipette.}
   \label{fig:pair}
   \begin{minipage}[b]{0.38\textwidth}
     \centering
@@ -398,28 +394,25 @@ Figure~\ref{fig:fc_compare}.
 \end{figure}
 
  
-The \devname{} overestimates peak height by \SI{26}{\percent} on FC~1 and underestimates it by approximately \SI{20}{\percent} on FC~2 and~3, indicating bidirectional deviation rather than regular bias. Crucially, this discrepancy between each devices repeatability must be evaluated. Consecutive PalmSens4 scans of the same droplet were taken to verify this, and they vary by \SIrange{8}{52}{\percent}, while consecutive \devname{} scans vary by \SIrange{3}{33}{\percent}. Because the mean difference between the different instruments is \SI{22}{\percent} which falls within the repeat-measurement variability of the reference device itself, the \devname{} records peak heights very similarly to the PalmSens4 within experimental resolution.
+The \devname{} overestimates peak height by \SI{26}{\percent} on FC~1 and underestimates it by approximately \SI{20}{\percent} on FC~2 and~3, indicating bidirectional deviation rather than regular bias. Crucially, this discrepancy between each device's repeatability must be evaluated. Consecutive PalmSens4 scans of the same droplet were taken to verify this, and they vary by \SIrange{8}{52}{\percent}, while consecutive \devname{} scans vary by \SIrange{3}{33}{\percent}. The mean difference between the instruments, \SI{22}{\percent}, falls within the repeatability of the reference itself, so the test shows no instrument difference larger than the variation of the electrode, but cannot detect a smaller one. Because evaporation raises the peak over time, the second scan of each pair is expected to read higher.
  
 \subsection{Peak Potential}
 \label{sec:fc_shift}
  
 The potential offset was found by sliding the \devname{} curve of each pair
 along the potential axis until it matched the
-PalmSens4 curve most closely. The offset ranges from \SIrange{20}{27.5}{\milli\volt}, where \SI{24}{\milli\volt} is the average. By shifting the \devname{} curve reduces the difference between the curves by up to a third. All the \devname{} ferricyanide scans used the \SI{1}{\kilo\ohm} range, therefore the offset
+PalmSens4 curve most closely. The offset ranges from \SIrange{20}{27.5}{\milli\volt}, where \SI{24}{\milli\volt} is the average. Shifting the \devname{} curve reduces the difference between the curves by up to a third. All the \devname{} ferricyanide scans used the \SI{1}{\kilo\ohm} range, therefore the offset
 could potentially come from the specific range or its calibration. The calibration
 cannot cause it, as it only rescales the current. A range-dependent cause would act through a voltage drop proportional to the
 current, so the offset would grow with the peak, instead it stays the same
 while the peak more than doubles from FC~1 to FC~3
-(Figure~\ref{fig:fc_compare}b). Since a peak is about \SI{90}{\milli\volt} wide, an offset of this
-size must be corrected in firmware before peak potentials are compared with published values. As future work, the offset should also be measured with solutions that
-fall on other ranges.
+(Figure~\ref{fig:fc_pairs}). The \devname{} records each point at its base potential (Section~\ref{sec:sw_scan_flow}), and the offset is close to half of the \SI{50}{\milli\volt} pulse, which suggests that the instruments report the potential of a point at different positions within the step. Repeating a scan with a \SI{25}{\milli\volt} pulse would test this, as the offset should then halve. Until the cause is confirmed, the offset must be corrected before peak potentials are compared with published values.
  
  
 \subsection{Sources of Deviation}
 \label{sec:fc_deviation}
  
-The remaining differences between measurements come from the solution and the testing environment as both instruments see a similar drift. During testing because the two instruments never measure the same drop at the same
-moment, this drift enters in every comparison, some likely causes are:
+The remaining differences come from the solution and the testing environment, which drift between scans. Because the two instruments never measure the same drop at the same moment, this drift enters every comparison. Likely causes are:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Adsorption.} Gold is not inert in ferricyanide, when cyanide is 
     released from the complex adsorbs on the gold, it is slowly etched. This results in the active area and electron-transfer rate to change from scan to scan \cite{vogt2016,lazar2016}. This could explain the low and varying peak currents and the movement of the peak potential.
@@ -434,29 +427,31 @@ drop is placed.
 \section{Summary}
 \label{sec:testing_summary}
  
-Table~\ref{tab:testing_summary} summarises the five tests and the key findings.
+Table~\ref{tab:testing_summary} checks each objective of Section~\ref{sec:project_aim_obj_scope} against its target.
 
- \begin{table}[!htbp]
-  \caption{Summary of the tests.}
+\begin{table}[!htbp]
+  \caption{Verification of the project objectives.}
   \label{tab:testing_summary}
   \centering
   \footnotesize
-  \begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X l@{}}
     \toprule
-    \textbf{Test} & \textbf{Reference} & \textbf{Result} \\
+    \textbf{Objective} & \textbf{Target} & \textbf{Result} & \textbf{Status} \\
     \midrule
-    Waveform & Oscilloscope & Steps and pulses within one DAC code
-      (\SI{0.54}{\milli\volt}), timing within \SI{3}{\percent} \\
-    Resistors & DMM & All ranges within \SI{0.44}{\percent} at an independent
-      check point \\
-    Randles & Ideal values, PS4 & Within \SI{2.1}{\percent}, charging current
-      rejected \\
-    Salt & PS4 & Background within $\pm$\SI{8}{\percent}, inside the
-      scan-to-scan variation \\
-    Ferricyanide & PS4 & Peak heights within the reference's own
-      repeatability (offset of \SI{25}{\milli\volt}) \\
+    1 Waveform   & LSB $\leq$ \SI{1}{\milli\volt}; pulse \SI{25}{\milli\volt} $\pm$ \SI{1}{\milli\volt}; period $\pm$\SI{1}{\percent}
+                 & LSB \SI{0.54}{\milli\volt}; pulse \SI{25.17}{\milli\volt}; period \SI{-0.7}{\percent}; width \SI{-3}{\percent} (about \SI{1.5}{\percent} in current) & Met \\
+    2 Current    & $\pm$\SI{750}{\micro\ampere}; sub-nA resolution; gain error $\leq$ \SI{1}{\percent}
+                 & \SI{0.23}{\nano\ampere} per code; $\leq$ \SI{0.44}{\percent} after calibration (reference $\pm$\SI{1}{\percent}); overload at \SI{720}{\micro\ampere} & Partly met \\
+    3 Agreement  & Dummy cells; PalmSens4 within its repeatability
+                 & Dummy cells within \SI{1.9}{\percent}; salt and ferricyanide within PalmSens4 repeatability; \SI{24}{\milli\volt} offset & Partly met \\
+    4 Interfaces & Standalone and web browser operation
+                 & Both demonstrated (Figure~\ref{fig:interface}, Section~\ref{sec:sw_scan_flow}) & Met \\
+    5 Battery    & At least \SI{8}{\hour}
+                 & \SIrange{18}{24}{\hour}, estimated from measured current (Section~\ref{sec:hw_battery}) & Met (estimate) \\
+    6 Cost       & Report and compare
+                 & R2\,226 incl.\ VAT (Appendix~\ref{app:bom}), against US\$3340 for the PalmSens4 & Met \\
     \bottomrule
   \end{tabularx}
 \end{table}
- 
-The bench tests isolate the electronics and show that the instrument itself is accurate. The applied waveform is within one DAC code (0.54~mV) of its set value, every current range reads within 0.44\,\% after calibration, and the Randles dummy cells are reproduced to within 2.1\,\% of their ideal values. The salt and ferricyanide tests were added as an extra check of the OpenStats performance in real electrochemistry, and the results depend as much on the electrode, the solution and the scan-to-scan variation of the reference as on the potentiostat. The deviations in these tests therefore do not reflect the performance of the electronics. Even under these conditions the OpenStat matches the PalmSens4 to within the reference's own repeatability, apart from a potential offset of about 25~mV that can be corrected in firmware.
+
+The bench tests confirm the electronics. The electrochemical comparisons were limited by the repeatability of the electrode rather than the instrument, and the \SI{24}{\milli\volt} offset remains to be explained.

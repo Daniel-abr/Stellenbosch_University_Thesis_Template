@@ -1,16 +1,14 @@
-\chapter{System Modeling \& Design}
+\chapter{System Modelling and Design}
 \label{chap:modeling}
 
-This chapter models the measurement path of the OpenStat, the device this project aims to develop, and derives the requirements it places on the hardware. These requirements describe the choice between the high-speed TIA (HSTIA) and the low-power TIA
-(LPTIA) of the AD5941, and the conditions under which the chosen amplifier
-remains stable with an electrode connected. 
+This chapter models the measurement path of the OpenStat and uses the model to choose between the high-speed TIA (HSTIA) and the low-power TIA (LPTIA) of the AD5941. The conditions under which the chosen amplifier remains stable with an electrode connected is also discussed.
 
 
 \section{Signal Chain}
 \label{sec:signal_chain}
 
 Figure~\ref{fig:signal_chain} shows the measurement path of the OpenStat.
-The low-power DAC (LPDAC) of the AD5941 sets $V_\mathrm{BIAS}$ and the potentiostat amplifier which drives the CE until the RE reaches the same
+The low-power DAC (LPDAC) of the AD5941 sets $V_\mathrm{BIAS}$, and the potentiostat amplifier drives the CE until the RE reaches the same
 potential. The HSTIA holds the WE at $V_\mathrm{ZERO}$ and
 converts the cell current to a voltage, which is amplified, digitised and
 filtered before the ESP32-S3 averages it into $I_\mathrm{before}$ and
@@ -18,8 +16,8 @@ $I_\mathrm{end}$ (Section~\ref{sec:sw_sampling}).
 
 \begin{figure}[H]
   \centering
-  \caption{Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency
-    response.}
+  \caption{Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE, $Z_W$ is omitted because it only affects the low-frequency
+    response. Figure derrived from \cite{ad5941_ds}}
   \label{fig:signal_chain}
 \begin{circuitikz}[
     font=\footnotesize,
@@ -107,7 +105,7 @@ $I_\mathrm{end}$ (Section~\ref{sec:sw_sampling}).
   \draw[->] (PGA) -- (ADC);
   \draw[->] (ADC) -- (FLT);
   \node[note, anchor=north] at (ADC.south) {};
-  \node[note, anchor=north] at (FLT.south) {Sec.~\ref{eq:sw_window}};
+  \node[note, anchor=north] at (FLT.south) {Sec.~\ref{sec:sw_sampling}};
 
   % ================= ESP32-S3 ==========================================
   \node[blk, text width=2.45cm, minimum height=2.0cm] (MCU) at (14.75,-1.3)
@@ -123,46 +121,43 @@ $I_\mathrm{end}$ (Section~\ref{sec:sw_sampling}).
 
 \end{figure}
 
-In the feedback loop there are two aspects that need to be taken into consideration, the fixed internal load resistor $R_L \approx \SI{110}{\ohm}$ \cite[pp.~10, 50]{ad5941_ds}, and the capacitor $C_f$ across the gain resistor $R_\mathrm{TIA}$ which is programmable from \SIrange{1}{63}{\pico\farad} \cite[p.~52]{ad5941_ds}. 
+In the feedback loop two aspects need to be considered, the fixed internal load resistor $R_L \approx \SI{110}{\ohm}$ \cite[pp.~10, 50]{ad5941_ds}, and the capacitor $C_f$ across the gain resistor $R_\mathrm{TIA}$, which is programmable from \SIrange{1}{63}{\pico\farad} \cite[p.~52]{ad5941_ds}. 
 
 \section{Choice and Operating Limits of the TIA}
 \label{sec:tia_choice}
 
 The AD5941 has two TIAs that can measure the WE current. The LPTIA is
 intended for continuous, low-power sensing and offers gain resistors up to \SI{512}{\kilo\ohm} \cite[p.~10]{ad5941_ds},
-whcih allows for smaller currents to be amplification. The HSTIA is specified for signals up
-to \SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}, and the datasheet notes that
-it is the path for high-bandwidth measurements such as ramps and cyclic
-voltammetry \cite[p.~30]{ad5941_ds}.
+which allows smaller currents to be amplified. 
 
 \subsection{High-Speed or Low-Power TIA}
 \label{sec:hstia_lptia}
 
-According to the datasheet the recommended configuration for voltammetry is to use the  High Speed TIA. This drives the CE from the LPDAC through the potentiostat loop,
+According to the datasheet, the recommended configuration for voltammetry is to use the HSTIA. This drives the CE from the LPDAC through the potentiostat loop,
 disconnects the output capacitors so that the potential can
 step quickly, and measures the WE current on the HSTIA
 \cite[Table~21, p.~38]{ad5941_ds}. The OpenStat follows this configuration.
 
-The LPTIA was not ruled out on speed advantages would be that with a small feedback capacitor it can
-also follow a \SI{50}{\milli\second} pulse, and it has the larger gain resistors. The HSTIA has more practical advantages. Its
+The LPTIA was not ruled out on speed: with a small feedback capacitor it can
+also follow a \SI{50}{\milli\second} pulse, and its larger gain resistors would give about three times finer current resolution (\SI{512}{\kilo\ohm} against \SI{160}{\kilo\ohm}). The HSTIA was nevertheless preferred for practical reasons. Its
 feedback capacitor $C_f$ is set in firmware \cite[p.~52]{ad5941_ds}, whereas
 the LPTIA uses an external capacitor fixed at assembly, so the compensation
 can be changed without modifying the board. Its bandwidth also covers
 impedance measurement up to \SI{200}{\kilo\hertz}, against
 \SI{300}{\hertz} for the low-bandwidth loop \cite[p.~9]{ad5941_ds}, which
-leaves impedance spectroscopy open as future work.
+leaves impedance spectroscopy open as future work. On its most sensitive range the HSTIA resolves \SI{0.23}{\nano\ampere} per ADC code (Table~\ref{tab:sw_ranges}), and averaging 18 samples improves this further (Section~\ref{sec:sw_sampling}). This meets Objective~2, but the LPTIA would be the better choice if the device were extended to sub-\textmu g/L concentrations without preconcentration.
 
 \subsection{Stability with a Cell Connected}
 \label{sec:stability}
 
 The AD5941 applies a voltage to the connected cell through feedback. The potentiostat amplifier drives the CE until the RE equals $V_\mathrm{BIAS}$, the HSTIA holds the WE at $V_\mathrm{ZERO}$, and the
 current is whatever the cell draws at that potential, up to
-\SI{750}{\micro\ampere} \cite[p.~9]{ad5941_ds}. The cell’s electrical properties affect how both amplifiers behave. In the control loop, $R_u$ and $C_{dl}$ add a pole at
-$1/(2\pi R_uC_{dl})$, its gain-bandwidth product is fixed in
+\SI{750}{\micro\ampere} \cite[p.~9]{ad5941_ds}. The cell's electrical properties affect how both amplifiers behave. In the control loop, $R_u$ and $C_{dl}$ add a pole at
+$1/(2\pi R_uC_{dl})$. The gain-bandwidth product of this amplifier is fixed in
 the AD5941, so this loop cannot be compensated and instead limits the cells
 that can be driven \cite{bard2001}. 
 
-The TIA loop can be shaped through $C_f$. The working electrode is seen from the inverting input of the HSTIA, the cell is $C_{dl}$ in series
+The TIA loop can be shaped through $C_f$. Seen from the inverting input of the HSTIA, the cell is $C_{dl}$ in series
 with $R_\Sigma = R_u + R_L$ to the solution, which the control loop holds at
 a fixed potential. Without $C_f$ the noise gain is
 \begin{equation}
@@ -177,7 +172,7 @@ model for this circuit \cite{graeme1996photodiode}, whose noise gain keeps
 rising, $R_\Sigma$ isolates $C_{dl}$ at high frequency. The loop crosses over
 where the open-loop gain of the amplifier, $\mathrm{GBW}/f$, has fallen to the
 noise gain. With no cell connected the noise gain is 1 and the crossover is at
-the full GBW, with the electrode connected the crossover moves down to the
+the full GBW; with the electrode connected the crossover moves down to the
 plateau,
 $f_c \approx \mathrm{GBW}\cdot R_\Sigma/(R_\mathrm{TIA}+R_\Sigma)$. For a
 single-pole amplifier with $f_c \gg f_z$, the phase margin is
@@ -193,13 +188,8 @@ so a margin of at least \SI{45}{\degree} requires $f_c \geq f_p$, or
 \end{equation}
 The margin is smallest on the largest gain resistor with the smallest series
 resistance. The datasheet does not give the GBW of the HSTIA, so a
-conservative \SI{1}{\mega\hertz} is assumed, a larger value only increases the
-margins. On the \SI{160}{\kilo\ohm} range the high-frequency noise gain is
-$1 + R_\mathrm{TIA}/R_\Sigma \approx 1450$, which places the crossover near
-\SI{1}{\mega\hertz}$/1450 \approx \SI{700}{\hertz}$, on the
-\SI{1}{\kilo\ohm} range crossover is near
-\SI{100}{\kilo\hertz}.
-Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range, computed from the full loop gain. See Appendix (Appendix~\ref{app:tia}) for the full derivation.
+conservative \SI{1}{\mega\hertz} is assumed; a larger value only increases the
+margins. Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range, computed from the full loop gain. The full derivation is given in Appendix~\ref{app:tia}.
 
 \begin{table}[htbp]
   \centering
@@ -219,11 +209,4 @@ Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range, computed f
   \end{tabular}
 \end{table}
 
-With the $C_f = \SI{31}{\pico\farad}$ used on every range, the C220AT has a
-margin of at least \SI{44}{\degree} with no solution resistance and
-\SI{70}{\degree} with $R_u = \SI{100}{\ohm}$, and the dummy cell WE~A
-(\SI{560}{\ohm} + \SI{33}{\nano\farad}) of Section~6.3 has \SI{53}{\degree},
-consistent with its stable readings. Margins below \SI{20}{\degree} arise
-only for capacitances near \SI{100}{\nano\farad} on the sensitive ranges, although the loop remains stable, the TIA rings briefly after each step but settles to
-within \SI{1}{\percent} in about \SI{2}{\milli\second}, before the averaging
-window opens, so the ringing adds noise rather than error. Raising $C_f$ to \SI{63}{\pico\farad} on these ranges would improve the margin and requires only a firmware change.
+With $C_f = \SI{31}{\pico\farad}$ on every range, the C220AT ($C_{dl} \approx \SIrange{1.3}{5}{\micro\farad}$, estimated from a typical \SIrange{10}{40}{\micro\farad\per\centi\metre\squared} \cite[Sec.~1.2]{bard2001} over its \SI{0.126}{\centi\metre\squared} working electrode) has a margin of at least \SI{44}{\degree} with no solution resistance and \SI{70}{\degree} with $R_u = \SI{100}{\ohm}$, and the dummy cell WE~A of Section~\ref{sec:randles_test} has \SI{53}{\degree}, consistent with its stable readings. Margins below \SI{20}{\degree} arise only near \SI{100}{\nano\farad} on the sensitive ranges, where the TIA rings briefly after each step. With $\zeta \approx \phi_\mathrm{PM}/100$ and $t_s \approx 4.6/(\zeta \cdot 2\pi f_c)$ \cite{c2}, the worst case settles to within \SI{1}{\percent} in about \SIrange{1}{2}{\milli\second}, long before the averaging window opens at least \SI{29}{\milli\second} after each edge at the default timing (Section~\ref{sec:sw_sampling}). Raising $C_f$ to \SI{63}{\pico\farad} would improve these margins with only a firmware change and is recommended as future work (Section~\ref{sec:future_work}).

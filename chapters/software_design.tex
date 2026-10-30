@@ -30,36 +30,6 @@
 
 \providecommand{\swtodo}[1]{\textbf{[TODO: #1]}}
 
-\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, fit, patterns}
-
-\tikzset{
-  swbase/.style={draw, align=center, font=\footnotesize, inner sep=3pt,
-                 line width=0.5pt,
-                 execute at begin node={\hyphenpenalty=10000\relax\exhyphenpenalty=10000\relax}},
-  swproc/.style={swbase, rectangle, minimum height=7mm, text width=#1},
-  swproc/.default=34mm,
-  swterm/.style={swbase, rectangle, rounded corners=3.4mm,
-                 minimum height=7mm, text width=#1},
-  swterm/.default=30mm,
-  swdec/.style={swbase, diamond, aspect=2.4, inner sep=0.5pt, text width=#1},
-  swdec/.default=24mm,
-  % predefined process (detailed in another figure): box with side bars
-  swsub/.style={swproc=#1, inner xsep=4.5mm,
-    path picture={
-      \draw[line width=0.5pt]
-        ([xshift=1.6mm]path picture bounding box.north west) --
-        ([xshift=1.6mm]path picture bounding box.south west)
-        ([xshift=-1.6mm]path picture bounding box.north east) --
-        ([xshift=-1.6mm]path picture bounding box.south east);}},
-  swsub/.default=30mm,
-  swarr/.style={-{Latex[length=2mm]}, line width=0.5pt},
-  swdbl/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, line width=0.5pt},
-  swlbl/.style={font=\scriptsize, inner sep=1.5pt},
-  swhw/.style={swbase, rectangle, minimum height=8mm, text width=#1,
-               fill=black!10},
-  swhw/.default=26mm,
-}
-
 \chapter{Software Design}
 \label{chap:software_design}
 
@@ -69,7 +39,6 @@ firmware that turns these two features into a useful measurement.
 This chapter describes the structure of the firmware and the logic of how a measurement is performed.
 
 % The firmware has four tasks; to generate the DPV waveform, to sample and convert the cell current, to store the result, and to present it to the user.
-
 
 \begin{figure}[H]
   \centering
@@ -134,8 +103,7 @@ The firmware is written in C++ on the Arduino framework for the ESP32-S3 and
 is built with PlatformIO. Third-party libraries like Adafruit GFX and ST7735 are used for the display, ESPAsyncWebServer and AsyncTCP for
 the web server and ArduinoJson for JSON encoding.
 
-
-There were three design decisions shaped the structure of the software:
+Three design decisions shaped the structure of the software:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Project-specific AD5941 driver.} Analog Devices
     supplies a general-purpose software library for the AFE, which covers every measurement mode of the device. The driver for this project was adapted from this library and was written around the needs of this project. This gives
@@ -147,81 +115,21 @@ There were three design decisions shaped the structure of the software:
     the web dashboard both start, stop and observe a measurement through the
     same sweep engine, so a scan behaves identically regardless of the interface that started the sweep.
   \item \textbf{A dedicated SPI bus for the AFE.} The display and the SD card
-    share an SPI bus so
+    share the second SPI bus (Section~\ref{sec:hw_display}), so
     display and storage traffic never occupies the bus used for the
     measurement.
 \end{itemize}
-
-
-% \begin{figure}[H]
-%   \centering
-%   \begin{tikzpicture}[x=1cm, y=1cm]
-%     % --- external, top
-%     \node[swhw=30mm] (browser) at (7.6, 6.9) {Browser dashboard};
-%     \node[swhw=26mm] (pc)      at (12.8, 6.9) {Serial terminal};
-%     % --- row A
-%     \node[swproc=36mm] (screens) at (2.3, 5.0) {Screens and screen\\state machine};
-%     \node[swproc=34mm] (web)     at (7.6, 5.0) {Web server\\(HTTP, WebSocket)};
-%     \node[swproc=26mm] (serial)  at (12.8, 5.0) {Serial bench\\commands};
-%     % --- row B
-%     \node[swproc=16mm] (input)  at (0.5, 3.0) {Input\\manager};
-%     \node[swproc=46mm, minimum height=10mm] (engine) at (7.6, 3.0)
-%       {\textbf{Sweep engine}\\result buffer and storage};
-%     \node[swproc=26mm] (params) at (12.8, 3.0) {Scan parameters\\(saved in NVS)};
-%     % --- row C
-%     \node[swproc=22mm] (render) at (3.1, 1.0) {Renderer};
-%     \node[swproc=26mm] (driver) at (12.0, 1.0) {AD5941 driver};
-%     % --- firmware boundary
-%     \node[draw, dashed, line width=0.5pt, inner sep=3mm,
-%           fit=(screens)(serial)(input)(render)(driver)(params)] (fw) {};
-%     \node[swlbl, anchor=south west, font=\footnotesize\itshape]
-%       at ([yshift=0.3mm]fw.north west) {ESP32-S3 firmware};
-%     % --- hardware, bottom
-%     \node[swhw=16mm] (enc)  at (0.5, -1.9) {Encoder,\\buttons};
-%     \node[swhw=22mm] (tft)  at (3.1, -1.9) {TFT display};
-%     \node[swhw=24mm] (sd)   at (7.6, -1.9) {microSD card};
-%     \node[swhw=26mm] (afe)  at (12.0, -1.9) {AD5941 AFE};
-%     % --- connections
-%     \draw[swdbl] (browser) -- node[swlbl, right] {Wi-Fi} (web);
-%     \draw[swdbl] (pc) -- node[swlbl, right] {USB} (serial);
-%     \draw[swarr] (enc) -- node[swlbl, right, align=left, pos=0.2] {GPIO,\\interrupts} (input);
-%     \draw[swarr] (input.north) -- node[swlbl, left] {events}
-%       (input.north |- screens.south);
-%     \draw[swarr] ([xshift=-4mm]render.north |- screens.south) --
-%       node[swlbl, left, pos=0.3] {draw} ([xshift=-4mm]render.north);
-%     \draw[swdbl] ([xshift=16mm]screens.south) |-
-%       node[swlbl, right, pos=0.22] {callbacks} (engine.west);
-%     \draw[swarr] ([xshift=-17mm]engine.south) |-
-%       node[swlbl, above, pos=0.75] {live trace} (render.east);
-%     \draw[swdbl] (web) -- node[swlbl, left] {commands, points} (engine);
-%     \draw[swarr] (serial.south) -- ++(0,-0.5) -| ([xshift=17mm]engine.north);
-%     \draw[swdbl] (params) -- (engine);
-%     \draw[swarr] ([xshift=17mm]engine.south) |- (driver.west);
-%     \draw[swarr] (render) -- node[swlbl, right, pos=0.72] {SPI (HSPI)} (tft);
-%     \draw[swdbl] (engine) -- node[swlbl, right, pos=0.86] {SPI (HSPI)} (sd);
-%     \draw[swdbl] (driver) --
-%       node[swlbl, right, align=left, pos=0.72] {SPI (FSPI),\\\SI{4}{\mega\hertz}} (afe);
-%   \end{tikzpicture}
-%   \caption{Software architecture.
-%     Arrows show the direction of calls or data.}
-%   \label{fig:sw_architecture}
-% \end{figure}
-
-The dedicated bus keeps display and storage traffic away from the measurement
-in hardware, but all of these modules still share the processor's time. How
-that time is divided, and when the measurement takes priority, is set by the
-top-level program flow.
 
 \section{Top-Level Program Flow}  
 \label{sec:sw_toplevel}
 
 All project code runs from a single loop, shown in
-Figure~\ref{fig:sw_toplevel}. During boot-up the device does a check to see if the WiFi, SD card  and AD5941 is working correctly, after these checks are done the user is taken into the home display. The state of the device is stored in three places, the active screen, a flag that records whether a scan is running, and the phase of the DPV step inside the AFE driver. The loop services each of these in turn on
+Figure~\ref{fig:sw_toplevel}. During start-up the device checks that the AD5941 and SD card are working and connects to Wi-Fi, starting its own access point if no known network is found, before opening the home screen. The state of the device is stored in three places: the active screen, a flag that records whether a scan is running, and the phase of the DPV step inside the AFE driver. The loop services each of these in turn on
 every pass and none of them blocks the loop, except when the device is sampling which is discussed in Section~\ref{sec:sw_sampling}.
 
 \begin{figure}[!htb]
   \centering
-  \caption{Top-level program flow: start-up sequence (left) and the
+  \caption{Top-level program flow, start-up sequence (left) and the
     cooperative main loop (right).}
   \label{fig:sw_toplevel}
   \begin{tikzpicture}[node distance=4.5mm and 12mm]
@@ -259,10 +167,10 @@ every pass and none of them blocks the loop, except when the device is sampling 
 \section{DPV Measurement Sequence}
 \label{sec:sw_dpv}
 
-A scan is defined by the parameters required in Table~\ref{tab:sw_params}. They are
-stored in non-volatile storage (NVS), a partition of the ESP's flash memory, edited on the device and restricted to the limits seen in Table~\ref{tab:sw_ranges} whenever they are loaded or edited to protect the hardware. The scan rate is not set directly and is found by dividing the number of steps by the period.
+A scan is defined by the parameters in Table~\ref{tab:sw_params}. They are
+stored in non-volatile storage (NVS), a partition of the ESP32-S3's flash memory, edited on the device and clamped to these limits whenever they are loaded or edited, to protect the hardware. The start potential may lie above or below the end potential: the firmware takes the direction of the staircase from their order, so both the ascending scans of Section~\ref{sec:randles_test} and the descending scans of Sections~\ref{sec:salt_test} and~\ref{sec:fc_test} are supported. The scan rate is not set directly; it is $\Delta E_\text{s}/T$, which is \SI{10}{\milli\volt\per\second} for the default values.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \caption{DPV scan parameters, their default values and permitted ranges.}
@@ -271,12 +179,13 @@ stored in non-volatile storage (NVS), a partition of the ESP's flash memory, edi
     \toprule
     \textbf{Parameter} & \textbf{Symbol} & \textbf{Default} & \textbf{Permitted range} \\
     \midrule
-    Start potential   & $E_\text{start}$    & \SI{0.80}{\volt}        & \SI{-0.35}{\volt} to $E_\text{end} - \Delta E_\text{s}$ \\
-    End potential     & $E_\text{end}$      & \SI{1.30}{\volt}        & $E_\text{start} + \Delta E_\text{s}$ to \SI{1.30}{\volt} \\
+    Start potential   & $E_\text{start}$    & \SI{0.80}{\volt}        & \SIrange{-0.35}{1.30}{\volt} \\
+    End potential     & $E_\text{end}$      & \SI{1.30}{\volt}        & \SIrange{-0.35}{1.30}{\volt} \\
     Step              & $\Delta E_\text{s}$ & \SI{5}{\milli\volt}     & \SIrange{1}{50}{\milli\volt} \\
     Pulse amplitude   & $\Delta E_\text{p}$ & \SI{25}{\milli\volt}    & \SIrange{-100}{100}{\milli\volt} \\
-    Pulse width       & $t_\text{p}$        & \SI{50}{\milli\second}  & \SIrange{10}{500}{\milli\second} \\
+    Pulse width       & $t_\text{p}$        & \SI{50}{\milli\second}  & \SIrange{25}{500}{\milli\second} \\
     Pulse period      & $T$                 & \SI{500}{\milli\second} & \SIrange{50}{5000}{\milli\second} \\
+    Equilibration time & $t_\text{eq}$      & \SI{10}{\second}        & configurable \\
     TIA range         & $R_\text{TIA}$      & automatic               & automatic, or one of eight fixed values \\
     \bottomrule
   \end{tabular}
@@ -290,32 +199,31 @@ AD5941. The 6-bit output $V_\text{ZERO}$ biases the high-speed transimpedance
 amplifier (TIA), which holds the working electrode at that voltage, and is
 fixed at \SI{1.7125}{\volt}. The 12-bit output $V_\text{BIAS}$ drives
 the reference electrode through the potentiostat amplifier and carries the
-staircase and the pulses. 
-
-The applied potential is therefore
+staircase and the pulses. The applied potential is therefore
 \begin{equation}
-  E = V_\text{ZERO} - V_\text{BIAS}, where
+  E = V_\text{ZERO} - V_\text{BIAS},
   \qquad
   V_\text{BIAS} = \SI{0.2}{\volt} + D_{12}\times\frac{\SI{2.2}{\volt}}{4095},
   \label{eq:sw_potential}
 \end{equation}
-and $D_{12}$ is the 12-bit code and one code is \SI{537.2}{\micro\volt} which represents the voltage change per code. With
+where $D_{12}$ is the 12-bit code; one code is \SI{537.2}{\micro\volt}. With
 $V_\text{ZERO}$ fixed at this value, the permitted range of $E$ in
 Table~\ref{tab:sw_params} keeps $V_\text{BIAS}$ between \SI{0.41}{\volt} and
 \SI{2.06}{\volt}, inside the \SIrange{0.2}{2.4}{\volt} output range of the DAC.
 
 \subsection{Scan Flow}
+\label{sec:sw_scan_flow}
 
 Before any timing starts, the TIA range is selected (Section~\ref{sec:sw_ranging}) and the requested timing is checked against the minimum that the sampling scheme can support
-(Section~\ref{sec:sw_sampling}), a scan that fails this check is stopped. The scan consists of
+(Section~\ref{sec:sw_sampling}); a scan that fails this check is refused. The cell is then held at $E_\text{start}$ for the equilibration time $t_\text{eq}$ before the first step, so that the charging transient of the large initial step from \SI{0}{\volt} decays; the same \SI{10}{\second} was used on the PalmSens4 in Chapter~\ref{chap:testing}. The scan consists of
 \begin{equation}
-  N = \left\lfloor \frac{E_\text{end} - E_\text{start}}{\Delta E_\text{s}} \right\rfloor
+  N = \left\lfloor \frac{\left|E_\text{end} - E_\text{start}\right|}{\Delta E_\text{s}} \right\rfloor
   \label{eq:sw_npoints}
 \end{equation}
 % CHECK: for the defaults this is 100 on paper, but the firmware evaluates it
 % in single-precision floating point and (by the summary's arithmetic) gets
 % 99. Confirm against the serial line "Sweep state: RUNNING (DPV, N points".
-points, and the end potential itself is not applied as a base level. Each
+points, and the end potential itself is not applied as a base level. Each point is recorded at its base potential, calculated from the DAC code actually written rather than the requested value. Each
 point is produced by the step routine in Figure~\ref{fig:sw_step}, which the
 main loop calls on every pass. The routine returns immediately unless a
 sampling window is due, so the user interface stays responsive during the
@@ -326,8 +234,9 @@ single file only once the scan has stopped, so that card activity cannot
 disturb the measurement. Every way of leaving a scan, whether completion, a
 stop request or an overload, passes through the same stop routine, which stops
 the ADC, returns the cell to $E = \SI{0}{\volt}$ and saves the points captured
-so far. For more detail Figure~\ref{fig:sw_scan} in Appendix~\ref{app:scan_flow_timing} shows the process of how one scan is run. 
+so far. Figure~\ref{fig:sw_scan} (Appendix~\ref{app:scan_flow_timing}) shows the flow of one scan.
 
+Each scan is saved as a comma-separated file with one row per point ($E$, $I_\text{before}$, $I_\text{end}$, $\Delta I$, range code and time stamp), and an index file lists the saved scans. The dashboard exchanges JSON messages with the firmware over a WebSocket, so points are plotted as they are measured, and saved files are downloaded over HTTP.
 
 \section{Pulse Sampling and Timing}
 \label{sec:sw_sampling}
@@ -341,22 +250,22 @@ $\Delta I$.
 \subsection{Software Timing}
 \label{sec:sw_timing}
 
-All DAC updates and ADC conversions are done on the microcontroller. The staircase and the pulses are individual DAC writes over SPI, scheduled by the ESP32-S3 against its millisecond clock, and data-ready is detected by polling the interrupt flag register of the AD5941. This was a deliberate choice: timing the measurement in firmware gives the ESP32-S3 full control over when every operation in the system takes place, so the measurement can be scheduled around the display, storage and network activity instead of running alongside it.
+The AD5941 contains a programmable sequencer that can apply DAC updates and start ADC conversions from its own clock, without the microcontroller \cite{ad5941_ds}. It was not used. Instead, the staircase and the pulses are individual DAC writes over SPI, scheduled by the ESP32-S3 against its millisecond clock, and data-ready is detected by polling the interrupt flag register of the AD5941. This was a deliberate trade-off, the sequencer would time each pulse more precisely, but timing the measurement in firmware gives the ESP32-S3 full control over when every operation in the system takes place, so the measurement can be scheduled around the display, storage and network activity instead of running alongside it. The cost is measured in Section~\ref{sec:waveform_timing}: the pulse is on average \SI{3}{\percent} shorter than set, which changes the sampled current by about \SI{1.5}{\percent}, within the \SI{2}{\percent} allowed by Table~\ref{tab:req_dpv}.
 
 That control is used to give the measurement priority over everything else
-while a scan is running. Whenever the current is being sampled, the firmware
+while a scan is running. Whenever the current is being sampled, the main loop
 does nothing but sample: the buttons are not read, the display is not
 updated and nothing is written to the SD card. This keeps the
 digital activity of the device out of the sampling windows, which reduces the
 noise coupled into the measurement and improves its accuracy. The cost is
 that the timing between windows depends on the main loop, and the sampling
 scheme below was designed so that this dependence does not reach the measured
-current.
+current. 
 
 \subsection{Averaging Window}
 \label{sec:sw_window}
 
-The AD5941 has an analog path that has to be wide so that the cell current is converted faithfully as it changes at each pulse edge. The HSTIA is specified  for signals up to \SI{200}{\kilo\hertz} \cite[p.~50]{ad5941_ds}. Before the ADC of the AD5941 transmits the measurements to the ESP32-S3 its output
+Before the ADC of the AD5941 transmits the measurements to the ESP32-S3, its output
 passes through two digital filters inside the device, a sinc3 filter
 followed by a sinc2 filter \cite[p.~57]{ad5941_ds}. A sinc filter is a
 low-pass filter that averages a block of consecutive samples and outputs
@@ -364,7 +273,7 @@ one result per block, so it both suppresses noise and lowers the data rate.
 The number of samples per output is the oversampling ratio. In the
 configuration used, the sinc3 filter reduces the raw \SI{800}{\kilo\hertz}
 ADC rate by a factor of 5 to \SI{160}{\kilo\hertz}, and the sinc2 filter
-reduces it further by a factor of 178 \cite[p.~59]{ad5941_ds}, resulting in an effective sampling frequency of \SI{900}{\hertz}. The digital bandwidths of the sinc3 filter is about \SI{42}{\kilo\hertz} and the sinc2 filter is \SI{290}{\hertz} The device also offers a
+reduces it further by a factor of 178 \cite[p.~59]{ad5941_ds}, resulting in an effective sampling frequency of \SI{900}{\hertz}. The digital bandwidths of the sinc3 and sinc2 filters are about \SI{42}{\kilo\hertz} and \SI{290}{\hertz}. The device also offers a
 \SI{50}{\hertz}/\SI{60}{\hertz} notch filter after the sinc2 filter, but with
 it enabled the settling time after a step is \SI{37}{\milli\second}, against
 \SI{2.245}{\milli\second} without it \cite[p.~17]{ad5941_ds}. A
@@ -378,7 +287,7 @@ $N_\text{w} = 18$ consecutive sinc2 results. The window length is
   \label{eq:sw_window}
 \end{equation}
 which is one period of the \SI{50}{\hertz} mains to within
-\SI{0.13}{\percent}. This places zeros at multiples of 49.95Hz creating an effective filter. The window is defined by a sample count and not by a
+\SI{0.13}{\percent}. The mean has nulls at multiples of $1/T_\text{w} = \SI{49.94}{\hertz}$, so mains interference and its harmonics are rejected. The window is defined by a sample count and not by a
 duration, so every window in a scan has exactly the same length, and the ADC
 runs continuously for the whole scan so that the filters are never restarted
 between windows.
@@ -452,8 +361,8 @@ phase at which the charging current has had the longest time to decay.
 Three properties of this scheme limit the effect of software timing:
 \begin{itemize}[label=\textbullet]
   \item \textbf{During sampling the loop is blocked.} While a window is being
-    sampled, the firmware waits on the data-ready flag of the ADC and does
-    nothing else. This means that the 18 samples are consecutive, and no activity takes place while the current is being sampled.
+    sampled, the main loop waits on the data-ready flag of the ADC and does
+    nothing else. This means that the 18 samples are consecutive, and no display, storage or serial activity takes place while the current is being sampled.
   \item \textbf{Lateness only adds settling time.} If a window starts late, the sampling
     starts later after the edge, so loop delay lengthens the pulse slightly but cannot move a window into the charging transient.
   \item \textbf{Slow work is placed after the step.} The display and the
@@ -470,9 +379,7 @@ time of the filter.
 \subsection{Limitations}
 \label{sec:sw_limitations}
 
-Each phase is timed from the end of the previous window and there is no
-correction against an absolute schedule, so the real step period is slightly
-longer than $T$ and the total scan time is slightly longer than $NT$. The buttons are not read during
+Each window starts \SI{21}{\milli\second} before its nominal edge but lasts only \SI{20.025}{\milli\second}, and the next level is written as soon as the window ends, so every phase ends about \SI{1}{\milli\second} early; the millisecond timer adds up to a further \SI{1}{\milli\second} of truncation, and there is no correction against an absolute schedule. This is consistent with the measured pulse width and period, which are \SI{3.0}{\percent} and \SI{0.7}{\percent} shorter than set (Table~\ref{tab:waveform}). Starting each window \SI{20}{\milli\second} before the edge would reduce this error. The buttons are not read during
 a window, so a stop request can be delayed by up to \SI{20}{\milli\second}.
 Commands from the dashboard are handled in the callback context of the web
 server library and not in the main loop, so their timing relative to a window
@@ -487,7 +394,7 @@ is not controlled.
 \label{sec:sw_current}
 
 The ADC measures the differential output of the high-speed TIA through its
-gain stage, set to a gain of 1.5. The specific gain value was selected as it is the only factory-calibrated gain from the datasheet \cite[p.~56]{ad5941_ds} and is appropriate for this configuration. The mean code $\bar{D}$ of a
+gain stage, set to a gain of 1.5. This is the only factory-calibrated gain \cite[p.~56]{ad5941_ds}. The mean code $\bar{D}$ of a
 window is converted to the TIA output voltage with the transfer function given
 in the datasheet for this gain \cite[p.~56]{ad5941_ds}, and then to a current
 using the nominal value of the selected gain resistor:
@@ -516,7 +423,7 @@ the differential current and only the gain affects the result:
 \subsection{Ranges and Calibration}
 \label{sec:sw_ranges}
 
-The eight gain resistors of the high-speed TIA give the ranges from 200 to 160 k$\Omega$. The full-scale current follows from the
+The eight gain resistors of the high-speed TIA give the ranges from \SI{200}{\ohm} to \SI{160}{\kilo\ohm} in Table~\ref{tab:sw_ranges}. The full-scale current follows from the
 $\pm\SI{0.9}{\volt}$ input range of the ADC at this gain
 \cite[p.~8]{ad5941_ds}, and the resolution is the current that corresponds to
 one ADC code before averaging.
@@ -524,11 +431,10 @@ one ADC code before averaging.
 The potentiostat amplifier that drives the counter electrode
 can source or sink only $\pm\SI{750}{\micro\ampere}$ in its normal mode
 \cite[p.~9]{ad5941_ds}, which is the mode used. The \SI{1}{\kilo\ohm} resistor covers this range up to its overload threshold of \SI{720}{\micro\ampere}
-(Section~\ref{sec:sw_ranging}). The \SI{200}{\ohm} range would only become
+(Section~\ref{sec:sw_ranging}). Currents between 720 and \SI{750}{\micro\ampere} therefore end a scan as overloaded, so the $\pm\SI{750}{\micro\ampere}$ requirement of Table~\ref{tab:req_dpv} is met only to \SI{720}{\micro\ampere}. The \SI{200}{\ohm} range would only become
 useful with the high-current mode of the amplifier enabled.
 
-The AD5941 is calibrated against an external resistor connected
-in place of the cell. The gain and offset constants are compiled into the firmware and are listed as additional information in Appendix~\ref{app:sw_ranges}.
+The AD5941's own RCAL calibration resistor (\SI{220}{\ohm}, \SI{0.1}{\percent}) is fitted but not used; instead, each range is calibrated against an external resistor connected in place of the cell (Section~\ref{sec:rtia_cal}). The gain and offset constants are compiled into the firmware and are listed in Appendix~\ref{app:sw_ranges}.
 
 \subsection{Automatic Range Selection}
 \label{sec:sw_ranging}
@@ -543,7 +449,7 @@ repeated. Successive ranges differ by a factor of five or two, so a signal
 just below the threshold occupies at most \SI{50}{\percent} of full scale on
 the range that is finally chosen. The remainder is headroom for the pulse
 response and the Faradaic peak, which the probe does not see because it
-applies no pulse.
+applies no pulse. Automatic selection therefore uses the seven ranges from \SI{1}{\kilo\ohm} to \SI{160}{\kilo\ohm}; the \SI{200}{\ohm} range can only be chosen manually.
 
 \begin{figure}[H]
   \centering
@@ -573,8 +479,3 @@ of full scale (\SI{0.72}{\volt}) on either sample, the scan is instead
 stopped, the points captured before the overload are saved and the result is
 marked as overloaded. The user can also disable automatic selection and
 choose a fixed range.
-
-\section{Summary}
-\label{sec:sw_summary}
-
-The firmware runs as a single loop in which one sweep engine serves both the on-device interface and the web dashboard. The DPV waveform is generated by direct DAC writes and timed in software, and each current sample is the mean of 18 filtered ADC results spanning one mains period, placed at the end of each phase and collected without interruption. The current is measured on a range chosen before the scan and held throughout, with a per-range gain and offset correction of which only the gain affects the differential result. The timing accuracy, noise and calibration that result from these choices are evaluated in Chapter~\ref{chap:testing}.

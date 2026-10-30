@@ -1,23 +1,23 @@
 \chapter{Environmental and Sustainability Analysis}
-\label{sec:environmental}
+\label{chap:environmental}
 
 An instrument built for environmental monitoring should itself leave a small
-footprint, so this chapter considers both the problem the OpenStat addresses
+footprint, so this chapter considers the problem the OpenStat addresses
 and its impact over its life.
 
-Antiretrovirals such as efavirenz pass largely untreated through South
-African wastewater treatment works and reach surface water at up to
+Antiretrovirals are not fully removed by South African wastewater treatment
+works and reach surface water at up to
 \SI{102}{\micro\gram\per\litre}~\cite{vogt_arv_sa_waters}, far above the
-\si{\nano\gram\per\litre} levels shown to harm fish~\cite{env_robson2017}.
+\si{\nano\gram\per\litre} levels at which efavirenz harms fish~\cite{env_robson2017}.
 Monitoring is limited by the cost of laboratory analysis, which a low-cost
 portable instrument helps to lower. The components for the prototype cost
-about R2\,230 including VAT (Appendix~\ref{app:bom}).
+R2\,226 including VAT (Appendix~\ref{app:bom}).
 
-The largest savings were made in the hardware itself. The AD5941 integrates all the elements discussed in Section \ref{sec:potentiostat_fundamentals} into one
-millimeter-scale package~\cite{ad5941_ds},
+The largest savings were made in the hardware itself. The AD5941 integrates all the elements discussed in Section~\ref{sec:potentiostat_fundamentals} into one
+millimetre-scale package~\cite{ad5941_ds},
 keeping the board small and the part count low. The SPEs, the only
-consumables, were cleaned using ethanol and reused throughout
-testing. Table~\ref{tab:env_lifecycle} lists the remaining measures.
+consumables, were cleaned with ethanol and reused throughout
+testing, which added to the variation seen in Section~\ref{sec:fc_deviation}. Table~\ref{tab:env_lifecycle} lists the remaining measures.
 
 \begin{table}[htbp]
   \caption{Further life-cycle measures.}
@@ -29,43 +29,24 @@ testing. Table~\ref{tab:env_lifecycle} lists the remaining measures.
     \textbf{Stage} & \textbf{Design response} \\
     \midrule
     Energy       & \SI{0.89}{\watt} measured load
-                   (Eq.~\eqref{eq:hw_pbat}) which equates to $\approx 1500$ scans per charge \\
-    Obsolescence & Web interface and display which are open-source and can be updated \\
+                   (Eq.~\eqref{eq:hw_pbat}), about \num{1200} one-minute scans per charge \\
+    Obsolescence & Browser and on-device interfaces, so no companion app can become unsupported \\
     End of life  & Recycling under the EPR Regulations~\cite{env_epr2020} \\
     \bottomrule
   \end{tabularx}
 \end{table}
+% Scans per charge: 21 h run time / (100 points x 0.5 s + 10 s equilibration = 60 s) = about 1260.
 
-A full charge draws about \SI{29}{\watt\hour} (including charging losses) from a grid emitting
+Charging the \SI{18.5}{\watt\hour} cell through the linear charger draws about \SI{29}{\watt\hour} from a grid emitting
 \SI{0.960}{\kilo\gram}~CO$_2$e/\si{\kilo\watt\hour}~\cite{env_dffe_gef2024},
 roughly \SI{28}{\gram} CO$_2$e per charge or \SI{0.02}{\gram} per scan, so
 operating emissions are negligible.
-% CHECK: 29 Wh includes the linear TP4056 (~3.7 V / 5 V) and an ~85 % USB
-%        adapter.
+% 29 Wh: 5 Ah x 3.7 V = 18.5 Wh; linear TP4056 efficiency about 3.7 V / 5 V = 0.74;
+% USB adapter about 0.85 (assumed); 18.5 Wh / (0.74 x 0.85) = about 29 Wh.
 
-The main remaining improvement is in the power chain. Boosting the battery to
-\SI{5}{\volt} and then dropping to \SI{3.3}{\volt} discards about a third of
-the stored energy. By using a \SI{3.3}{\volt} regulator the run time would extend by roughly
+The main remaining improvement is in the power chain: boosting the battery to
+\SI{5}{\volt} and then dropping to \SI{3.3}{\volt} in a linear regulator discards about a third of
+the stored energy, and a \SI{3.3}{\volt} step-up/step-down regulator would extend the run time by roughly
 \SI{50}{\percent} with the same cell. Safety, cost and societal
 considerations are discussed in Appendix~\ref{app:ga3}.
-
-
-% CHECK: 50 % = (5 V x 160 mA / 0.9) / (3.3 V x 160 mA / 0.9) = 1.52.
-
-%5 Ah × 3.7 V = 18.5 Wh
-
-%2. Loss in the TP4056 charger
-
-%The TP4056 is a linear charger. It takes current from the 5 V USB input and passes %the same current into the battery, burning off the voltage difference as heat. Its %efficiency is therefore roughly the ratio of the two voltages:
-
-%η_charger ≈ 3.7 V / 5 V = 0.74
-
-%3. Loss in the USB adapter
-
-%A typical wall adapter is about 85 % efficient. This is the assumption flagged with % CHECK in the file.
-
-%4. Combine the losses
-
-%η_total = 0.74 × 0.85 ≈ 0.63
-
-%Energy from the wall = 18.5 Wh / 0.63 ≈ 29 Wh
+% 50 %: (5 V x 160 mA / 0.9) / (3.3 V x 160 mA / 0.9) = 1.52.

@@ -3,33 +3,34 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of discrete op-amp and integrated AFE IC approaches.}}{10}{table.caption.15}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Comparison of surveyed potentiostat designs.}}{10}{table.caption.16}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of discrete op-amp and integrated AFE IC approaches.}}{10}{table.caption.14}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Comparison of surveyed potentiostat designs.}}{10}{table.caption.15}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Phase margin of the TIA loop on the \SI {160}{\kilo \ohm } range ($R_\Sigma = R_L = \SI {110}{\ohm }$, $R_u = 0$, $\mathrm {GBW} = \SI {1}{\mega \hertz }$).}}{14}{table.caption.18}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Phase margin of the TIA loop on the \SI {160}{\kilo \ohm } range ($R_\Sigma = R_L = \SI {110}{\ohm }$, $R_u = 0$, $\mathrm {GBW} = \SI {1}{\mega \hertz }$).}}{14}{table.caption.17}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Target DPV operating conditions and the requirements they impose.}}{15}{table.caption.19}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces System requirements.}}{16}{table.caption.20}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Capacitors around the AD5941, grouped by the reasoning behind each value.}}{17}{table.caption.21}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Required and chosen trace widths for a \SI {10}{\celsius } temperature rise in 1~oz/ft\textsuperscript {2} external copper.}}{20}{table.caption.22}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Target DPV operating conditions and the requirements they impose.}}{15}{table.caption.18}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces System requirements.}}{16}{table.caption.19}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Capacitors around the AD5941, grouped by the reasoning behind each value.}}{17}{table.caption.20}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces DPV scan parameters, their default values and permitted ranges.}}{25}{table.caption.26}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces DPV scan parameters, their default values and permitted ranges.}}{25}{table.caption.24}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Measurement conditions.}}{31}{table.caption.29}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Measured excitation waveform against the programmed values.}}{33}{table.caption.31}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Two-point calibration of the high-speed TIA ranges, recomputed from the recorded readings. Errors are at the $+\SI {0.25}{\volt }$ check point.}}{34}{table.caption.32}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Randles circuit test, \SIrange {0.8}{1.3}{\volt }}}{35}{table.caption.33}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Salt test, all scans on the OpenStat used the $\SI {80}{\kilo \ohm }$ range. $r$ is the correlation coefficient between the PS4 and OpenStat voltammograms of each pair.}}{36}{table.caption.36}%
-\contentsline {table}{\numberline {6.6}{\ignorespaces Summary of the tests.}}{39}{table.caption.39}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Measurement conditions.}}{31}{table.caption.27}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Measured excitation waveform against the programmed values.}}{33}{table.caption.29}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Two-point calibration of the high-speed TIA ranges, recomputed from the recorded readings. Errors are measured at $+\SI {0.25}{\volt }$.}}{34}{table.caption.30}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Randles circuit test, \SIrange {0.8}{1.3}{\volt }}}{35}{table.caption.31}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Salt test, all scans on the OpenStat used the $\SI {80}{\kilo \ohm }$ range. $r$ is the correlation coefficient between the PS4 and OpenStat voltammograms of each pair.}}{36}{table.caption.34}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Verification of the project objectives.}}{39}{table.caption.37}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {7.1}{\ignorespaces Further life-cycle measures.}}{40}{table.caption.40}%
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Further life-cycle measures.}}{40}{table.caption.38}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {D.1}{\ignorespaces Key specifications of the DFRobot DFR0928 display \cite {dfrobot_dfr0928}.}}{60}{table.caption.43}%
-\contentsline {table}{\numberline {D.2}{\ignorespaces Main specifications of the power subsystem components.}}{60}{table.caption.44}%
-\contentsline {table}{\numberline {D.3}{\ignorespaces Current ranges of the high-speed TIA, the calibration constants held in the firmware and the resistor each range was calibrated against.}}{62}{table.caption.46}%
-\contentsline {table}{\numberline {D.4}{\ignorespaces Bill of materials for the OpenStat prototype.}}{66}{table.D.4}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {D.1}{\ignorespaces Key specifications of the DFRobot DFR0928 display \cite {dfrobot_dfr0928}.}}{60}{table.caption.41}%
+\contentsline {table}{\numberline {D.2}{\ignorespaces Main specifications of the power subsystem components.}}{60}{table.caption.42}%
+\contentsline {table}{\numberline {D.3}{\ignorespaces Current ranges of the high-speed TIA, the calibration constants stored in the firmware and the resistor each range was calibrated against.}}{62}{table.caption.44}%
+\contentsline {table}{\numberline {D.4}{\ignorespaces Bill of materials for the OpenStat prototype.}}{67}{table.D.4}%
+\contentsline {table}{\numberline {D.5}{\ignorespaces Required and chosen trace widths for a \SI {10}{\celsius } temperature rise in 1~oz/ft\textsuperscript {2} external copper.}}{70}{table.caption.53}%
+\contentsline {table}{\numberline {D.6}{\ignorespaces The specified AD5941 compared to alternative analogue front ends.}}{70}{table.caption.54}%
 \contentsfinish 

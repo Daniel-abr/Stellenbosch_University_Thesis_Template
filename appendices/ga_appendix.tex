@@ -9,12 +9,12 @@ the project, and refers to the sections of the report that contain the supportin
 \label{app:complex}
 
 Designing a portable DPV potentiostat (Sections~\ref{sec:bg_and_info} and~\ref{sec:project_aim_obj_scope}) is a complex
-engineering problem because first-principles were required to build solitions 
+engineering problem because first-principles were required to build solutions 
 and knowledge of electrochemistry, mixed-signal
 electronics and embedded software was required. The instrument must
 resolve nanoampere currents while a Wi-Fi radio, display and SD card share the same supply and ground. The electrochemical cell forms part of its feedback loops, so the
 behaviour of the electronics depends on what is connected to it
-(Section~\ref{sec:stability}). It draws on specialist knowledge speficically regarding integrated electrochemical front-ends and the current literature
+(Section~\ref{sec:stability}). It draws on specialist knowledge specifically regarding integrated electrochemical front-ends and the current literature
 on open-source potentiostats (Chapter~\ref{chap:literature}), and on established practice for
 mixed-signal design (Section~\ref{sec:hw_ground}).
 
@@ -36,7 +36,7 @@ front-end, power, user interface, firmware and web dashboard designed together
 \section{Problem Solving (GA~1)}
 \label{app:ga1}
 
-Trace-level monitoring of antiretroviral residues in South African water requires sensitive voltammetric instruments, but these are either costly and closed-source. Open-source options are often tethered to a computer or phone, so no low-cost, standalone instrument exists for DPV measurements in the field. The problem was identified in Sections~\ref{sec:bg_and_info}
+Trace-level monitoring of antiretroviral residues in South African water requires sensitive voltammetric instruments, but these are costly and closed-source. Open-source options are often tethered to a computer or phone, so no low-cost, standalone instrument exists for DPV measurements in the field. The problem was identified in Sections~\ref{sec:bg_and_info}
 and~\ref{sec:prob_statement} and formulated as an aim, scope and exclusions in Sections~\ref{sec:project_aim_obj_scope}
 and~\ref{sec:scope_exclusions}. It was then turned into measurable requirements in Tables~\ref{tab:req_dpv}
 and~\ref{tab:requirements_whole_sys}, so that the design could later be tested against them.
@@ -52,7 +52,7 @@ of Chapter~\ref{chap:testing}. When a result was unexpected, its cause was reaso
 
 Sustainable development was considered holistically. The problem itself is a
 sustainability problem, the pollution of water by pharmaceutical residues
-(Section~\ref{sec:dpv_applications}), and Chapter~\ref{sec:environmental} weighs the benefit of cheaper monitoring
+(Section~\ref{sec:dpv_applications}), and Chapter~\ref{chap:environmental} weighs the benefit of cheaper monitoring
 against the device's own footprint. Social sciences played a small role. South Africa runs a large antiretroviral treatment programme but has no monitoring programme or regulatory limit for these residues (Section~\ref{sec:dpv_applications}).
 
 % =====================================================================
@@ -89,7 +89,7 @@ browser dashboard, served from one sweep engine, which addresses the gap found
 in Section~\ref{sec:selfhosted_webinterface} (Section~\ref{sec:sw_overview}). Designing the GUI for each interface allowed for a form of creative expression as well as the case design. The hardware is designed in Chapter~\ref{chap:hardware_design} and the firmware in Chapter~\ref{chap:software_design}. At each
 major decision, the alternatives were compared before one was chosen, for
 example the choice of front-end (Table~\ref{tab:afe_approaches}), the TIA (Section~\ref{sec:hstia_lptia}) and how
-the scan is timed (Section~\ref{sec:hw_regulation}). The design was verified against its requirements in
+the scan is timed (Section~\ref{sec:waveform_timing}). The design was verified against its requirements in
 Chapter~\ref{chap:testing}, and its weaknesses are acknowledged in Sections~\ref{sec:hw_regulation} and~\ref{sec:future_work}.
 
  Considerations made of public health and safety were that the device runs below \SI{5}{\volt}, and the lithium-polymer cell, is managed by the charger, the protection IC
@@ -100,11 +100,11 @@ Because a false negative could give false reassurance about water safety, the
 OpenStat is intended as a screening tool whose positive results are confirmed
 by an accredited laboratory.
 
-Whole-life cost and net zero carbon were considered in the BOM. The component cost
-(Appendix~\ref{app:bom}) is a small fraction of that of a commercial
-instrument, the electrodes were reused to reduce running cost, and operating
+Whole-life cost and net-zero carbon were considered in the BOM. The component cost
+(Appendix~\ref{app:bom}) is a small fraction (R\,2226.45) of that of a commercial
+instrument (US\$3340) , the electrodes were reused to reduce running cost, and operating
 emissions are negligible, with the power chain identified as the main
-improvement (Chapter~\ref{sec:environmental}).
+improvement (Chapter~\ref{chap:environmental}).
 
 Resources, culture and society considerations revolved around the electrodes as they are the main consumable and their
 reuse is discussed in Section~\ref{app:sustainability}. The onboard display means that no smartphone
@@ -211,9 +211,9 @@ design and validate the instrument on standard solutions (Sections~\ref{sec:scop
 
 The purpose of the project is itself sustainable development. A low-cost
 instrument lowers the cost barrier to monitoring pharmaceutical pollution in
-water (Section~\ref{sec:dpv_applications}, Chapter~\ref{sec:environmental}). Efficient resource use comes mainly from the
+water (Section~\ref{sec:dpv_applications}, Chapter~\ref{chap:environmental}). Efficient resource use comes mainly from the
 integrated front-end, which keeps the board small and the part count low. Environmental
-impact and net zero carbon are assessed in Chapter~\ref{sec:environmental}, where operating
+impact and net-zero carbon are assessed in Chapter~\ref{chap:environmental}, where operating
 emissions are found to be negligible and the power chain is identified as the
 main improvement. Whole-life cost is kept low by the component cost
 (Appendix~\ref{app:bom}) and by updatable open-source firmware. Electrodes were cleaned and reused, but Section~\ref{sec:fc_deviation} shows the limit of

@@ -2,7 +2,7 @@
 \label{app:plan_schedule}
 
 \begin{figure}[H]
-    \caption{The decidend Gantt chart for the project planning schedule.}
+    \caption{Gantt chart for the project planning schedule.}
     \label{fig:gantt_chart}
     \centering
     \includegraphics[angle=0, width=1\linewidth]{figures/gantt_chart.png}
@@ -195,7 +195,7 @@ half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
 \begin{table}[H]
   \centering
   \caption{Current ranges of the high-speed TIA, the calibration constants
-    held in the firmware and the resistor each range was calibrated against.}
+    stored in the firmware and the resistor each range was calibrated against.}
   \label{tab:sw_ranges}
   \small
   \begin{tabular}{@{}cllllll@{}}
@@ -227,10 +227,20 @@ half-wave potential $E_{1/2}$, offset from it by half the pulse amplitude
 \section{KiCad PCB}
 \label{app:kicad_pcb}
 \begin{figure}[H]
-    \caption{The KiCad PCB for the potentiostat.}
+    \caption{The KiCad PCB for the potentiostat. (a) Copper layout. (b) 3D render showing the placed components.}
     \label{fig:kicad_pcb}
     \centering
-    \includegraphics[angle=0, width=0.7\linewidth]{figures/pcbexport.pdf}
+    \begin{minipage}[b]{0.48\textwidth}
+      \centering
+      \includegraphics[trim=265 0 265 0, clip, height=0.55\textheight]{figures/pcbexport.pdf}\\
+      (a)
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\textwidth}
+      \centering
+      \includegraphics[height=0.55\textheight]{figures/pcb_components.png}\\
+      (b)
+    \end{minipage}
 \end{figure}
 
 
@@ -535,3 +545,86 @@ phase lead at the crossover. Because the approximations above lose accuracy
 when $f_c$ lies near $f_p$, the margins in Table~\ref{tab:pm} were computed by
 solving $|A(jf)/NG(jf)| = 1$ numerically with the full expression for
 $NG(s)$, including $C_f$.
+
+
+\section{Trace Widths}
+\label{app:trace_width}
+
+Equation~\eqref{eq:hw_trace_width}:
+\begin{equation}
+  A = \left( \frac{I}{k \, T_\text{rise}^{\,b}} \right)^{1/c}
+  \label{eq:hw_trace_area}
+\end{equation}
+\begin{equation}
+  W = \frac{A}{t \times 1.378}
+  \label{eq:hw_trace_width}
+\end{equation}
+The PCB is a two-layer board, so all traces are on external layers, for which
+$k = 0.048$, $b = 0.44$ and $c = 0.725$ \cite{digikey_tracewidth}. A copper thickness of
+1~oz/ft\textsuperscript{2}, an ambient temperature of \SI{25}{\celsius} and a
+temperature rise of \SI{10}{\celsius} were used. The required and chosen
+widths are given in Table~\ref{tab:hw_trace_widths}.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Required and chosen trace widths for a \SI{10}{\celsius}
+    temperature rise in 1~oz/ft\textsuperscript{2} external copper.}
+  \label{tab:hw_trace_widths}
+  \begin{tabular}{@{}lllll@{}}
+    \toprule
+    \textbf{Net} & \textbf{Design} & \textbf{Required width}
+      & \textbf{Chosen width} & \textbf{Capacity of} \\
+     & \textbf{current} & & & \textbf{chosen width} \\
+    \midrule
+    AD5941  & \SI{10}{\milli\ampere} & \SI{0.0005}{\milli\metre} (0.021~mil)
+      & \SI{0.3}{\milli\metre} (11.8~mil) & \SI{1.00}{\ampere} \\
+    Display & \SI{33}{\milli\ampere} & \SI{0.0027}{\milli\metre} (0.107~mil)
+      & \SI{0.3}{\milli\metre} (11.8~mil) & \SI{1.65}{\ampere} \\
+    % CHECK: a 0.3 mm trace carries 1.00 A (same as the AD5941 row), not 1.65 A.
+    ESP32   & \SI{1}{\ampere}        & \SI{0.3}{\milli\metre} (11.8~mil)
+      & \SI{0.6}{\milli\metre} (23.6~mil) & \SI{1.65}{\ampere} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\section{Suitability of the Specified Analogue Front End}
+\label{app:afe_choice}
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand\tabularxcolumn[1]{p{#1}}
+  \caption{The specified AD5941 compared to alternative analogue front ends.}
+  \label{tab:afe_choice}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Option} & \textbf{\SI{1}{\milli\volt} potential steps (Objective~1)} & \textbf{Sub-nA to \SI{750}{\micro\ampere} current (Objective~2)} & \textbf{Integration and effort} \\
+    \midrule
+    Discrete op-amps, external DAC and ADC
+      & Yes, depending on the DAC chosen
+      & Yes, with suitable gain resistors
+      & Many parts, noise and stability designed from scratch \\
+    TI LMP91000
+      & No
+      & Partly
+      & Small, but needs an external ADC \\
+    ADuCM355
+      & Yes
+      & Yes
+      & AFE and Cortex-M3 in one package \\
+    \textbf{AD5941 (specified)}
+      & Yes: \SI{0.54}{\milli\volt} LSB (Section~\ref{sec:sw_potential})
+      & Yes
+      & Small; register-level driver required \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+
+
+\section{Firmwarem, KiCad and Testing Scripts}
+\label{app:git}
+
+\url{https://github.com/Daniel-abr}

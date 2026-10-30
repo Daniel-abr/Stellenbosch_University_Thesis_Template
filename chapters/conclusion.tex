@@ -3,45 +3,13 @@
 \chapter{Conclusion and Future Work}
 \label{chap:conclusion}
 
-% =====================================================================
-%  Conclusion and Future Work  (one page, as a chapter)
-%
-%  Add with:   \input{conclusion}
-%  Packages: siunitx (already in the preamble).
-%  Labels used from testing_calibration.tex: chap:testing, sec:fc_shift,
-%  sec:rtia_cal.
-%
-%  Checked on A4, 12 pt, 2.5 cm margins: fits on one page incl. heading.
-%  Markers:   % CHECK: ...   something to confirm before submission
-% =====================================================================
-
 \providecommand{\devname}{OpenStat}
 \section{Conclusion}
 \label{sec:conclusion}
 
-This project set out to design an open-source, wireless potentiostat for the
-DPV detection of antiretroviral drugs in water. The \devname{} meets this aim:
-it combines the AD5941 analog front-end with an ESP32-S3, runs from a battery,
-and can be operated either from its own display, buttons and rotary encoder or
-through a web interface over Wi-Fi. The tests of Chapter~\ref{chap:testing}
-showed that the waveform is correct to within one DAC code and that, after
-calibration, all eight current ranges read within \SI{0.44}{\percent}. On dummy cells the device agreed with the expected values to within
-\SI{2.1}{\percent}, and on salt and ferricyanide solutions it matched the
-PalmSens4 to within the reference instrument's own scan-to-scan
-repeatability. The only systematic difference is a potential offset of about
-\SI{25}{\milli\volt}. 
+This project set out to design, build and validate a low-cost, wireless potentiostat for the DPV detection of efavirenz and oseltamivir in water. Against the objectives of Section~\ref{sec:project_aim_obj_scope} (Table~\ref{tab:testing_summary}), the \devname{} applies the DPV waveform to within one DAC code (Objective~1); reads every current range to within \SI{0.44}{\percent} after calibration but overloads above \SI{720}{\micro\ampere} instead of \SI{750}{\micro\ampere} (Objective~2, partly met); agreed with dummy cells to within \SI{1.9}{\percent} and with the PalmSens4 within that instrument's own repeatability, apart from a \SI{24}{\milli\volt} offset (Objective~3, partly met); can be operated on the device or from a web browser (Objective~4) for an estimated \SIrange{18}{24}{\hour} per charge (Objective~5); and costs R2\,226, against more than US\$4\,000 for the PalmSens4 (Objective~6). The electrochemical tests were limited by the repeatability of the electrode, and neither a concentration series nor the target drugs were measured, so the detection limit was not measured, the noise floor suggests roughly \SIrange{1}{5}{\micro\gram\per\litre} for the electronics alone (Section~\ref{sec:randles_test}).
 
 \section{Future Work}
 \label{sec:future_work}
 
-On the hardware side, by adding a high-power mode for
-measurements above \SI{750}{\micro\ampere} would make the \SI{200}{\ohm} range usable (Section~\ref{sec:rtia_cal}). The TP4056 charger has no power-path management, so the device cannot safely run
-while it charges; a charger with power-path control, would solve this issue.
-
-In the firmware, the \devname{} currently returns the voltammogram and leaves
-its interpretation to the user. Automatic baseline correction and peak
-detection would let it report peak height and potential directly, and,
-combined with standard addition on the same electrode, a concentration.
-Beyond this, a machine-learning model trained on voltammograms, removed from the scope of this project, could identify which compounds are present where their peaks overlap, rather than only recording the curve. The \SI{25}{\milli\volt} potential offset (Section~\ref{sec:fc_shift}) should
-be traced in the firmware and confirmed on the \SIlist{10;80}{\kilo\ohm}
-ranges. The firmware should also compensate the measured 3\,\% short pulse and period, match the PalmSens4's start-of-scan hold, and be checked for linearity with more calibration points per range. The device should then be tested with oseltamivir and efavirenz, with preconcentration or a modified electrode to reach nanomolar levels.
+The \SI{24}{\milli\volt} offset should be investigated first, by repeating a ferricyanide scan with a \SI{25}{\milli\volt} pulse (Section~\ref{sec:fc_shift}) and on other current ranges. A ferricyanide concentration series on both instruments would then give the sensitivity and detection limit, and the noise floor should be measured with Wi-Fi on and off. In the firmware, starting each averaging window \SI{20}{\milli\second} before its edge would reduce the timing error (Section~\ref{sec:sw_limitations}), raising $C_f$ to \SI{63}{\pico\farad} would improve the phase margin with small-capacitance electrodes (Section~\ref{sec:stability}), and peak detection would let the device report peak height and potential. The hardware needs a guard trace and a shielded electrode cable (Section~\ref{sec:hw_ground}), the high-power mode of the potentiostat amplifier for the \SI{200}{\ohm} range (Section~\ref{sec:sw_ranges}), and a charger with power-path control so that it can run while charging. The device should then be tested with efavirenz and oseltamivir, using preconcentration or a modified electrode; machine learning, could then separate overlapping peaks.

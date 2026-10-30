@@ -2,22 +2,21 @@
 \babel@toc {afrikaans}{}\relax 
 \contentsline {chapter}{Plagiarism Declaration}{ii}{chapter*.2}%
 \contentsline {chapter}{Abstract}{iii}{chapter*.3}%
-\contentsline {chapter}{Uittreksel}{iv}{chapter*.4}%
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{Table of Contents}{v}{chapter*.4}%
-\contentsline {chapter}{List of Figures}{x}{chapter*.5}%
-\contentsline {chapter}{List of Tables}{xi}{chapter*.6}%
-\contentsline {chapter}{Nomenclature}{xiv}{chapter*.8}%
-\contentsline {section}{List of Symbols}{xiv}{section*.9}%
-\contentsline {section}{Acronyms and Abbreviations}{xvi}{table.0.1}%
-\contentsline {section}{Definitions}{xviii}{section*.10}%
+\contentsline {chapter}{Table of Contents}{iv}{chapter*.3}%
+\contentsline {chapter}{List of Figures}{ix}{chapter*.4}%
+\contentsline {chapter}{List of Tables}{x}{chapter*.5}%
+\contentsline {chapter}{Nomenclature}{xiii}{chapter*.7}%
+\contentsline {section}{List of Symbols}{xiii}{section*.8}%
+\contentsline {section}{Acronyms and Abbreviations}{xv}{table.0.1}%
+\contentsline {section}{Definitions}{xvii}{section*.9}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background and Motivation}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Project Aim and Objectives}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Scope and Contributions}{3}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Report Overview}{3}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Literature}{4}{chapter.2}%
+\contentsline {chapter}{\numberline {2}Literature Review}{4}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Electrochemical Sensing}{4}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Voltammetry as a Family of Techniques}{5}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Equivalent Circuit of the Cell}{5}{subsection.2.1.2}%
@@ -31,7 +30,7 @@
 \contentsline {subsection}{\numberline {2.3.1}Commercial Instruments}{11}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Discrete Open-Source Designs}{11}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}AFE-Based and Web-Hosted Designs}{11}{subsection.2.3.3}%
-\contentsline {chapter}{\numberline {3}System Modeling \& Design}{12}{chapter.3}%
+\contentsline {chapter}{\numberline {3}System Modelling and Design}{12}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Signal Chain}{12}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Choice and Operating Limits of the TIA}{13}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}High-Speed or Low-Power TIA}{13}{subsection.3.2.1}%
@@ -50,30 +49,29 @@
 \contentsline {subsection}{\numberline {4.6.1}Battery}{20}{subsection.4.6.1}%
 \contentsline {subsection}{\numberline {4.6.2}Charging}{21}{subsection.4.6.2}%
 \contentsline {subsection}{\numberline {4.6.3}Regulation}{21}{subsection.4.6.3}%
-\contentsline {subsection}{\numberline {4.6.4}Input Decoupling}{22}{subsection.4.6.4}%
+\contentsline {subsection}{\numberline {4.6.4}Input Decoupling}{21}{subsection.4.6.4}%
 \contentsline {section}{\numberline {4.7}User Interface}{22}{section.4.7}%
 \contentsline {chapter}{\numberline {5}Software Design}{23}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Software Overview}{23}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Top-Level Program Flow}{24}{section.5.2}%
 \contentsline {section}{\numberline {5.3}DPV Measurement Sequence}{24}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Generating the Potential}{25}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.1}Generating the Potential}{24}{subsection.5.3.1}%
 \contentsline {subsection}{\numberline {5.3.2}Scan Flow}{26}{subsection.5.3.2}%
 \contentsline {section}{\numberline {5.4}Pulse Sampling and Timing}{26}{section.5.4}%
 \contentsline {subsection}{\numberline {5.4.1}Software Timing}{26}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Averaging Window}{27}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Placing Windows}{27}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Limitations}{28}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.3}Placing Windows}{28}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Limitations}{29}{subsection.5.4.4}%
 \contentsline {section}{\numberline {5.5}Current Measurement and Ranging}{29}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Ranges and Calibration}{29}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Automatic Range Selection}{30}{subsection.5.5.2}%
-\contentsline {section}{\numberline {5.6}Summary}{30}{section.5.6}%
 \contentsline {chapter}{\numberline {6}Testing and Calibration}{31}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Excitation Waveform}{32}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}Amplitude}{32}{subsection.6.1.1}%
 \contentsline {subsection}{\numberline {6.1.2}Timing}{33}{subsection.6.1.2}%
 \contentsline {section}{\numberline {6.2}Resistor Calibration}{33}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Randles Circuit Test}{34}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Salt Solution Test}{36}{section.6.4}%
+\contentsline {section}{\numberline {6.4}Salt Solution Test}{35}{section.6.4}%
 \contentsline {section}{\numberline {6.5}Ferricyanide Test}{37}{section.6.5}%
 \contentsline {subsection}{\numberline {6.5.1}Peak Height}{37}{subsection.6.5.1}%
 \contentsline {subsection}{\numberline {6.5.2}Peak Potential}{38}{subsection.6.5.2}%
@@ -83,7 +81,7 @@
 \contentsline {chapter}{\numberline {8}Conclusion and Future Work}{41}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Conclusion}{41}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Future Work}{41}{section.8.2}%
-\contentsline {chapter}{References}{42}{chapter*.41}%
+\contentsline {chapter}{References}{42}{chapter*.39}%
 \contentsline {chapter}{\numberline {A}Project planning schedule}{49}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Graduate Attributes}{50}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Complex Engineering Problem}{50}{appendix.B.1}%
@@ -109,15 +107,18 @@
 \contentsline {section}{\numberline {D.5}RTIA Calibration Constants and Resistors}{62}{appendix.D.5}%
 \contentsline {section}{\numberline {D.6}KiCad Schematic}{62}{appendix.D.6}%
 \contentsline {section}{\numberline {D.7}KiCad PCB}{63}{appendix.D.7}%
-\contentsline {section}{\numberline {D.8}Case Render}{63}{appendix.D.8}%
+\contentsline {section}{\numberline {D.8}Case Render}{64}{appendix.D.8}%
 \contentsline {section}{\numberline {D.9}AD5941 Capacitor Selection}{64}{appendix.D.9}%
 \contentsline {section}{\numberline {D.10}Supply Decoupling: \SI {100}{\nano \farad } and \SI {10}{\micro \farad }}{64}{appendix.D.10}%
-\contentsline {paragraph}{Target impedance.}{64}{paragraph*.50}%
-\contentsline {paragraph}{\SI {10}{\micro \farad }.}{64}{paragraph*.51}%
-\contentsline {paragraph}{\SI {100}{\nano \farad }.}{64}{paragraph*.52}%
+\contentsline {paragraph}{Target impedance.}{64}{paragraph*.48}%
+\contentsline {paragraph}{\SI {10}{\micro \farad }.}{65}{paragraph*.49}%
+\contentsline {paragraph}{\SI {100}{\nano \farad }.}{65}{paragraph*.50}%
 \contentsline {section}{\numberline {D.11}Internal Nodes: \SI {470}{\nano \farad } and \SI {4.7}{\micro \farad }}{65}{appendix.D.11}%
-\contentsline {paragraph}{\SI {470}{\nano \farad }.}{65}{paragraph*.53}%
-\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{65}{paragraph*.54}%
-\contentsline {section}{\numberline {D.12}Bill of Materials}{66}{appendix.D.12}%
-\contentsline {section}{\numberline {D.13}TIA Noise Gain with a Series Cell}{68}{appendix.D.13}%
+\contentsline {paragraph}{\SI {470}{\nano \farad }.}{66}{paragraph*.51}%
+\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{66}{paragraph*.52}%
+\contentsline {section}{\numberline {D.12}Bill of Materials}{67}{appendix.D.12}%
+\contentsline {section}{\numberline {D.13}TIA Noise Gain with a Series Cell}{69}{appendix.D.13}%
+\contentsline {section}{\numberline {D.14}Trace Widths}{70}{appendix.D.14}%
+\contentsline {section}{\numberline {D.15}Suitability of the Specified Analogue Front End}{70}{appendix.D.15}%
+\contentsline {section}{\numberline {D.16}Firmwarem, KiCad and Testing Scripts}{71}{appendix.D.16}%
 \contentsfinish 

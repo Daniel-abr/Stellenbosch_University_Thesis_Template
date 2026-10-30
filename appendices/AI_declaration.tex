@@ -25,29 +25,29 @@ In the project work, AI was used for the following:
   \item \textbf{Code review and improvement.} Restructuring weak or repetitive
     sections of the firmware, checking the code for loopholes and edge cases,
     and adding safety measures such as input limits, time-outs and overload
-    handling (Section~5.5.2).
-  \item \textbf{Data-comparison scripts.} Help setting up Python scripts to
+    handling (Section~\ref{sec:sw_ranging}).
+  \item \textbf{Data-comparison scripts.} Help with setting up Python scripts to
     process and compare the data measured on the OpenStat and the PalmSens4
-    (Chapter~6).
+    (Chapter~\ref{chap:testing}).
   \item \textbf{Planning.} Helping to plan the project schedule
-    (Appendix~A) and to break tasks into manageable steps, which improved
+    (Appendix~\ref{app:plan_schedule}) and to break tasks into manageable steps, which improved
     time efficiency.
 \end{itemize}
 
 In writing the report, AI was used for the following:
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Software chapter.} For Chapter~5 (Software Design), Claude
-    was given rough drafts of flow diagrams writen in \LaTeX{} (TikZ). I then checked the diagrams against the code and the behaviour of the device, and corrected them where they did not match.
-  \item \textbf{Drafting.} Text in Chapter~6 (Testing and Calibration),
-    Chapter~7 (Environmental and Sustainability Analysis), Chapter~8
-    (Conclusion and Future Work) and Appendix~B (Graduate Attributes) was
+  \item \textbf{Software chapter.} For Chapter~\ref{chap:software_design} (Software Design), Claude
+    was given rough drafts of flow diagrams written in \LaTeX{} (TikZ). I then checked the diagrams against the code and the behaviour of the device, and corrected them where they did not match.
+  \item \textbf{Drafting.} Text in Chapter~\ref{chap:testing} (Testing and Calibration),
+    Chapter~\ref{chap:environmental} (Environmental and Sustainability Analysis), Chapter~\ref{chap:conclusion}
+    (Conclusion and Future Work) and Appendix~\ref{app:outcomes} (Graduate Attributes) was
     improved with Claude, which flagged incomplete sentences and
     inconsistencies. The content was reviewed, corrected, edited, and checked.
-  \item \textbf{Conversion to \LaTeX{}.} Chapter~4 (Hardware Design) was
+  \item \textbf{Conversion to \LaTeX{}.} Chapter~\ref{chap:hardware_design} (Hardware Design) was
     written by me as a rough draft in Word and converted into
     \LaTeX{} with Claude, which also flagged incomplete sentences and
     inconsistencies for me to resolve.
-  \item \textbf{Language editing.} In Chapters~1 to~3, AI was used only to improve structure, clarity and flow, mainly with Gemini.
+  \item \textbf{Language editing.} In Chapters~\ref{chap:introduction} to~\ref{chap:modeling}, AI was used only to improve structure, clarity and flow, mainly with Gemini.
   \item \textbf{\LaTeX{} support.} Finding and fixing compilation errors,
     and checking that all figures, tables, equations and sections are
     correctly referenced.
@@ -58,7 +58,7 @@ In writing the report, AI was used for the following:
 All AI outputs were verified before use. Firmware changes were compiled, flashed
 and run on the OpenStat, and their behaviour was checked against the serial
 output. An oscilloscope was used to confirm that the code produced the
-correct DPV excitation waveform (Section~6.1). Not all
+correct DPV excitation waveform (Section~\ref{sec:waveform}). Not all
 AI-suggested code worked, parts of the display, web dashboard and SD card
 code, and of the range-selection and calibration code, failed on the
 hardware and had to be debugged and corrected by me before they
@@ -75,21 +75,21 @@ conclusions in this report are based on measurements made during testing.
 The following was done by me:
 \begin{itemize}[label=\textbullet]
   \item \textbf{Project definition.} Defining the aim, scope and
-    requirements of the project with the supervisor (Chapter~1,
-    Tables~4.1 and~4.2).
+    requirements of the project with the supervisor (Chapter~\ref{chap:introduction},
+    Tables~\ref{tab:req_dpv} and~\ref{tab:requirements_whole_sys}).
   \item \textbf{Literature review.} Finding, reading and selecting the
-    sources reviewed in Chapter~2.
+    sources reviewed in Chapter~\ref{chap:literature}.
   \item \textbf{Hardware design.} Selecting the components, designing the
     schematic and PCB layout in KiCad, ordering the board, and assembling
-    and bringing up the prototype (Chapter~4).
+    and bringing up the prototype (Chapter~\ref{chap:hardware_design}).
   \item \textbf{Firmware.} Writing the firmware, designing the code structure including, current measurement and range
-    selection, and making the design decisions behind them (Chapter~5).
+    selection, and making the design decisions behind them (Chapter~\ref{chap:software_design}).
   \item \textbf{User interface.} Designing the layout of the onboard screens
     and web dashboard, and how the user interacts with the device.
   \item \textbf{Testing and calibration.} Carrying out all
     measurements, including the waveform, resistor calibration, Randles
     circuit, salt and ferricyanide tests, preparing the test solutions and
-    operating the PalmSens4 (Chapter~6).
+    operating the PalmSens4 (Chapter~\ref{chap:testing}).
   \item \textbf{Analysis and conclusions.} Interpreting the results and
-    drawing the conclusions of Chapters~6 to~8.
+    drawing the conclusions of Chapters~\ref{chap:testing} to~\ref{chap:conclusion}.
 \end{itemize}

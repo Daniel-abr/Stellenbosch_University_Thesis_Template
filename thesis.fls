@@ -607,6 +607,9 @@ INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 INPUT c:/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 INPUT c:/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
@@ -689,6 +692,10 @@ INPUT ./frontmatter/declaration.tex
 INPUT frontmatter/declaration.tex
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmri10.tfm
+INPUT ./figures/signature.jpeg
+INPUT ./figures/signature.jpeg
+INPUT ./figures/signature.jpeg
+INPUT ./figures/signature.jpeg
 INPUT ./frontmatter/abstract.tex
 INPUT ./frontmatter/abstract.tex
 INPUT ./frontmatter/abstract.tex
@@ -851,6 +858,9 @@ INPUT ./figures/testing_steps.jpg
 INPUT ./figures/testing_steps.jpg
 INPUT ./figures/testing_steps.jpg
 INPUT ./figures/testing_steps.jpg
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr10.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr7.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr5.tfm
 INPUT ./chapters/environmental_sustainability.tex
 INPUT ./chapters/environmental_sustainability.tex
 INPUT ./chapters/environmental_sustainability.tex
@@ -890,6 +900,11 @@ INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf
+INPUT ./figures/pcb_components.png
+INPUT ./figures/pcb_components.png
+INPUT ./figures/pcb_components.png
+INPUT ./figures/pcb_components.png
+INPUT ./figures/pcb_components.png
 INPUT ./figures/case model.png
 INPUT ./figures/case model.png
 INPUT ./figures/case model.png
@@ -902,13 +917,10 @@ INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr17.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmcsc10.tfm
-INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmbx6.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmcsc10.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmcsc10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmtt12.tfm
-INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmcsc10.tfm
-INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmcsc10.tfm
-INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr7.tfm
-INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr5.tfm
 INPUT thesis.aux
 INPUT ./thesis.out
 INPUT ./thesis.out
