@@ -542,6 +542,8 @@ INPUT ./frontmatter/definitions.tex
 INPUT ./frontmatter/definitions.tex
 INPUT ./frontmatter/definitions.tex
 INPUT frontmatter/definitions.tex
+INPUT c:/texlive/2026/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 INPUT ./thesis.aux
 INPUT ./thesis.aux
 INPUT thesis.aux
@@ -566,6 +568,7 @@ INPUT c:/texlive/2026/texmf-dist/tex/latex/graphics/lscape.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT c:/texlive/2026/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
@@ -797,6 +800,11 @@ INPUT c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmtt10.tfm
+INPUT ./figures/pcbexport.pdf
+INPUT ./figures/pcbexport.pdf
+INPUT ./figures/pcbexport.pdf
+INPUT ./figures/pcbexport.pdf
+INPUT ./figures/pcbexport.pdf
 INPUT ./figures/sweep_136_lab.jpg
 INPUT ./figures/sweep_136_lab.jpg
 INPUT ./figures/sweep_136_lab.jpg
@@ -895,7 +903,6 @@ INPUT ./figures/KicadExport.pdf
 INPUT ./figures/KicadExport.pdf
 INPUT ./figures/KicadExport.pdf
 INPUT ./figures/KicadExport.pdf
-INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf
 INPUT ./figures/pcbexport.pdf

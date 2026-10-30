@@ -6,14 +6,14 @@
 \chapter{Hardware Design}
 \label{chap:hardware_design}
 
-This chapter details the hardware design focused on ensuring that the prototype functions correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions of the ESP32-S3, the display, and reads and writes to the SD card. This was addressed through decoupling (Section~\ref{sec:hw_caps}), a ferrite bead on
+This chapter details the hardware design focused on ensuring that the prototype functions correctly and to an adequate standard in its physical realisation by justifying the hardware selected. A primary concern was minimising the noise coupled into the measurement from other parts of the system, such as the Wi-Fi transmissions, the display, and reads and writes to the SD card. This was addressed through decoupling (Section~\ref{sec:hw_caps}), a ferrite bead on
 the analog supply (Section~\ref{sec:hw_ferrite}), and the separation of the analog and
 digital grounds (Section~\ref{sec:hw_ground}).
 
 \section{AFE Requirements}
 \label{sec:requirements}
  
-The research group at the University of Johannesburg, through the supervisor~\cite{ebrahim_dpv_conditions}, specified the measurement method as well as the parameters that the OpenStat should fulfil. The operating requirements are listed in Table~\ref{tab:req_dpv}. The same parameters are used on the PalmSens4
+The research group at the University of Johannesburg \cite{ebrahim_dpv_conditions} specified the measurement method as well as the parameters that the OpenStat should fulfil. The operating requirements are listed in Table~\ref{tab:req_dpv}. The same parameters are used on the PalmSens4
 reference instrument in Chapter~\ref{chap:testing}.
  
 \begin{table}[H]
@@ -27,7 +27,7 @@ reference instrument in Chapter~\ref{chap:testing}.
     Potential window  & \SIrange{0.8}{1.3}{\volt} &
       Potential covers \SIrange{0.8}{1.325}{\volt}, including the pulse \\
     Step potential    & \SI{5}{\milli\volt} &
-      DAC LSB $\leq$ \SI{1}{\milli\volt}; each level within
+      DAC LSB $\leq$ \SI{1}{\milli\volt}, each level within
       $\pm 0.5$\,LSB  \\
     Pulse amplitude   & \SI{25}{\milli\volt} &
       $25\pm$\SI{1}{\milli\volt} \\
@@ -37,13 +37,13 @@ reference instrument in Chapter~\ref{chap:testing}.
       \SI{0.5}{\second} $\pm$ \SI{1}{\percent} per step, held over the full scan \\
     \midrule
     Current range     & $\pm\SI{750}{\micro\ampere}$ &
-      No saturation at $\pm\SI{750}{\micro\ampere}$; gain error
+      No saturation at $\pm\SI{750}{\micro\ampere}$, gain error
       $\leq$ \SI{1}{\percent} per RTIA range after calibration \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-The AD5941 was specified at the outset of the project and meets these requirements on a single chip, with \SI{0.54}{\milli\volt} DAC steps and eight TIA gain ranges covering $\pm\SI{750}{\micro\ampere}$ \cite{ad5941_ds}. Appendix~\ref{app:afe_choice} compares it with the alternatives.
+The AD5941 was specified at the start of the project and meets these requirements on a single chip, with \SI{0.54}{\milli\volt} DAC steps and eight TIA gain ranges covering $\pm\SI{750}{\micro\ampere}$ \cite{ad5941_ds}. Appendix~\ref{app:afe_choice} compares it with the alternatives.
 
 \section{System Requirements}
 
@@ -73,7 +73,7 @@ R8 & Standalone operation without a computer & Scan parameters set and scans sta
 \multicolumn{3}{l}{\textit{Power}} \\
 R9 & Battery powered & Portable field use \\
 R10 & Rechargeable from USB & No battery replacement needed \\
-R11 & Regulated supply over discharge range & Cell voltage varies around 3.0 and 4.2\,V \\
+R11 & Regulated supply over discharge range & Cell voltage varies from 3.0 to 4.2\,V \\
 R12 & At least 8\,h of operation per charge & 8-hour working day \\
 \bottomrule
 \end{tabularx}
@@ -228,8 +228,16 @@ the analog and digital circuits share the same ground return, this voltage is
 added to the analog reference and the digital switching noise is superimposed
 on the measured signal \cite{adi_mt031}.
 
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \vspace{-\baselineskip}
+    \caption{PCB copper layout, with the digital region at the top and the analog region at the bottom.}
+    \label{fig:hw_ground_partition}
+    \centering
+    \includegraphics[trim=265 0 265 0, clip, height=6.5cm]{figures/pcbexport.pdf}
+\end{wrapfigure}
 To combat this, the PCB was partitioned into an analog region and a digital
-region, which are the lower and upper parts of the board respectively, with
+region, which are the lower and upper parts of the board respectively
+(Figure~\ref{fig:hw_ground_partition}), with
 all digital components and traces confined to the digital region.
 Partitioning is effective because, at high frequencies such as those in
 digital edges, the return current follows the path of least inductance and
@@ -243,7 +251,7 @@ directly underneath it. If the two grounds had been fully separated and joined
 only at a distant point, such as the power input, these return currents would
 be forced around a large loop that acts as an antenna \cite{ott2001partitioning}.
 
-At the sub-nanoampere currents estimated in Section~\ref{sec:dpv_applications}, leakage and interference on the working-electrode path can set the noise floor. The layout has no guard trace around the WE connection, and the electrode lead used in testing was unshielded. A spare analog ground pin beside the electrode interface allows a shielded cable to be terminated at the instrument end; fitting one, and adding a guard trace in a future revision, are recommended (Section~\ref{sec:future_work})
+At the sub-nanoampere currents estimated in Section~\ref{sec:dpv_applications}, leakage and interference on the working-electrode path can set the noise floor. The electrode lead used in testing was unshielded; however, it was kept short to minimise noise pickup. A spare analog ground pin beside the electrode interface allows a shielded cable to be terminated at the interface.
 
 \subsection{Trace Widths}
 \label{sec:hw_trace_widths}
@@ -253,7 +261,7 @@ Trace widths were checked with the IPC-2221 equations \cite{ipc2221} as implemen
 \section{Display and SD Card}
 \label{sec:hw_display}
 
-The DFRobot Fermion 1.8-inch TFT (DFR0928) was selected as the display because it meets requirements R4–R7 from Table~\ref{tab:requirements_whole_sys}, the Fermion was the only compoennt in stock that met all the requirements. Additional information regarding the display is given in Appendix Table~\ref{tab:hw_display_specs}.
+The DFRobot Fermion 1.8-inch TFT (DFR0928) was selected as the display because it meets requirements R4–R7 from Table~\ref{tab:requirements_whole_sys}. The Fermion was the only component in stock that met all the criteria. Additional information regarding the display is given in Appendix Table~\ref{tab:hw_display_specs}.
 
 The display and the SD card share a single SPI bus, because the ESP32-S3 has only two general-purpose SPI controllers \cite{esp32s3_wroom2_ds}. This allows a full SPI bus to be dedicated to the AD5941, so that scans are minimally affected. The cost is that the display and the SD card cannot be used at the same time. This is avoided by buffering the samples in PSRAM and writing the file
 only after the scan has finished.
@@ -261,7 +269,7 @@ only after the scan has finished.
 \section{Power Management}
 \label{sec:hw_power}
 
-The power subsystem was chosen to meet the requirements of full-day battery
+The power subsystem was chosen to meet the requirements of 8-hour working day battery
 life, over-voltage and under-voltage protection, and affordable components.
 The chosen components are the TP4056 charger with a DW01A protection IC, the
 Pololu S9V11E2F5 step-up/step-down regulator producing \SI{5}{\volt}, and a
@@ -273,7 +281,7 @@ main specifications are summarised in Table~\ref{tab:hw_power_specs}.
 
 To verify that the selected \SI{5000}{\milli\ampere\hour} battery fulfils the full-day operational requirement, the system's current was measured during idle, transmission over Wi-Fi and DPV measurements. The supply current was measured by powering the PCB at \SI{5}{\volt} from a Siglent SPD3303C bench supply and reading the output current from the supply. The SPD3303C has a current
 readback resolution of \SI{10}{\milli\ampere} and an accuracy of
-$\pm(\SI{0.5}{\percent}~\text{of reading} + 2~\text{digits})$
+$\pm\SI{0.5}{\percent}$
 \cite{siglent_spd3303c}, that is, about $\pm\SI{21}{\milli\ampere}$ at these
 currents. The board draws $\SI{100}{\milli\ampere} \pm \SI{21}{\milli\ampere}$
 at idle and $\SI{160}{\milli\ampere} \pm \SI{21}{\milli\ampere}$ while
@@ -310,26 +318,20 @@ The TP4056 is a linear constant-current, constant-voltage charger with a
 
 The Pololu S9V11E2F5 covers the full battery voltage range with sufficient
 output current, but it requires the addition of an external low-voltage
-cutoff. An MT3608 boost converter was also considered, but was rejected after three of the modules tested proved faulty. Its \SI{700}{\milli\ampere} start-up current limit is sufficient for
+cutoff. An MT3608 boost converter was also considered, but was rejected after three of the modules tested proved faulty. The Pololu's \SI{700}{\milli\ampere} start-up current limit is sufficient for
 the ESP32-S3 to boot, and its soft-start ramps the output up gradually
 \cite{pololu_s9v11e2f5}. The regulator has a \SI{100}{\kilo\ohm} pull-up
 resistor from its enable pin to $V_\text{IN}$; the enable pin turns the
 regulator off below \SI{0.7}{\volt} and on above \SI{0.8}{\volt}
 \cite{pololu_s9v11e2f5}. Connecting a \SI{33}{\kilo\ohm} resistor from the
-enable pin to ground forms a divider that switches the regulator off at about \SI{2.8}{\volt}
-   and back on at about \SI{3.2}{\volt}, as given in
-   Equation~\eqref{eq:hw_cutoff}.
+enable pin to ground forms a divider that switches the regulator off at about \SI{2.8}{\volt}, as given in Equation~\eqref{eq:hw_cutoff}.
 
 The divider draws about \SI{28}{\micro\ampere} continuously, which is
 sufficiently low for this application.
 \begin{equation}
   V_\text{off} = \SI{0.7}{\volt} \times
     \frac{\SI{100}{\kilo\ohm} + \SI{33}{\kilo\ohm}}{\SI{33}{\kilo\ohm}}
-    \approx \SI{2.8}{\volt},
-  \qquad
-  V_\text{on} = \SI{0.8}{\volt} \times
-    \frac{\SI{133}{\kilo\ohm}}{\SI{33}{\kilo\ohm}}
-    \approx \SI{3.2}{\volt}.
+    \approx \SI{2.8}{\volt}
   \label{eq:hw_cutoff}
 \end{equation}
 
@@ -351,17 +353,16 @@ noise couples through to the regulator output and must be kept out of the chip
 \cite{adi_mt101}. A \SI{100}{\micro\farad} bulk capacitor is used at the
 output of the boost regulator, which is the input to the PCB, to act as a
 local charge reservoir. An additional \SI{100}{\nano\farad} capacitor shunts
-high-frequency noise away from the IC \cite{adi_mt101}.
+high-frequency noise away from the PCB \cite{adi_mt101}.
 
 \section{User Interface}
 \label{sec:hw_ui}
 
 The interface consists of two push buttons and a rotary encoder with an integrated push button. All are wired in an active-low configuration with \SI{10}{\kilo\ohm} hardware pull-up resistors. A capacitor on each line forms an RC filter with its pull-up, so on release the pin only reads high once the capacitor has charged past the ESP32-S3 input-high threshold of $0.75 \times V_{DD}$ \cite{esp32s3_ds}. This takes $t = RC\ln 4 \approx 1.39\,RC$.
 
-The push buttons use \SI{100}{\nano\farad} (\SI{1.4}{\milli\second}) to absorb contact bounce \cite{allpcb_debounce}, and the encoder lines use \SI{10}{\nano\farad} (\SI{0.14}{\milli\second}) so that fast rotation is not smeared; the remaining encoder bounce, which can last up to \SI{2}{\milli\second} \cite{alps_ec11}, is rejected by the quadrature decoder in software.
+The push buttons use \SI{100}{\nano\farad} (\SI{1.4}{\milli\second}) to absorb contact bounce \cite{allpcb_debounce}, and the encoder lines use \SI{10}{\nano\farad} (\SI{0.14}{\milli\second}) so that fast rotation is not smeared; the remaining encoder bounce, which can last up to \SI{2}{\milli\second} \cite{alps_ec11}, is rejected by the quadrature decoder in firmware.
 
-The OpenStat has two user interfaces, shown in Figure~\ref{fig:interface}. On the device, the rotary encoder selects and edits the scan parameters of Table~\ref{tab:sw_params}, the push buttons start and stop a scan, and the display shows the voltammogram as it is measured. The web interface offers the same parameters, a live voltammogram and a list of stored scans that can be downloaded. If the device cannot join a known Wi-Fi network, it starts its own access point, so that a phone or laptop can connect in the field (Section~\ref{sec:sw_toplevel}).
-% CHECK: delete any part of this description that does not match what your interfaces actually do.
+The OpenStat has two user interfaces, shown in Figure~\ref{fig:interface}. On the device, the rotary encoder selects and edits the scan parameters of Table~\ref{tab:sw_params}, the push buttons start and stop a scan, and the display shows the voltammogram as it is measured. The web interface offers the same parameters, a live voltammogram and a list of stored scans that can be downloaded. If the device cannot join a known Wi-Fi network, it starts its own access point, so that a phone or laptop can connect to it in the field (Section~\ref{sec:sw_toplevel}).
 
 \begin{figure}[htbp]
   \centering

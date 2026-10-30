@@ -177,8 +177,8 @@ In continuous sweeps such as CV and LSV, by contrast, charging current is presen
 \mysubsection{Application to Antiviral Drug Residues in Water}{Application to Antiviral Drug Residues in Water}
 \label{sec:dpv_applications}
 
-South Africa's large antiretroviral treatment programme, combined with incomplete removal at wastewater treatment plants, releases these drugs into surface water \cite{schoeman2017efavirenz}. % CHECK: confirm this source says this
-Efavirenz in particular has been measured at concentrations ranging from ng/L to tens of \textmu g/L in surface water near treatment plant discharges \cite{vogt_arv_sa_waters}, 
+South Africa's large antiretroviral treatment programme, combined with incomplete removal at wastewater treatment plants, releases these drugs into surface water \cite{schoeman2017efavirenz}. 
+Efavirenz in particular has been measured at concentrations up to 102 \textmu g/L in surface water near treatment plant discharges \cite{vogt_arv_sa_waters}, 
 yet South Africa has no monitoring programme or regulatory limit for these compounds \cite{schoeman2017efavirenz}. Existing measurements rely on laboratory chromatography--mass spectrometry (LCMS), which is costly and unsuited to field use.
 
 Target analytes in these applications may be electroactive. These can include antiretrovirals such as efavirenz, which undergoes irreversible oxidation and has been quantified by \ac{DPV} on disposable pencil graphite electrodes \cite{dogantopal2009efavirenz}. Oseltamivir, an influenza antiviral, has been quantified by \ac{DPV} at modified paste microelectrodes \cite{pop2012oseltamivir} and shows a voltammetric response at gold electrodes \cite{avramov2011oseltamivir}. These studies used benchtop instruments and, in most cases, modified electrodes or adsorptive pre-concentration to reach low detection limits.
@@ -220,7 +220,7 @@ range and resolution, noise floor and technique support.
 \mysubsection{Analog Front-End Approaches}{Analog Front-End Approaches}
 \label{sec:afe_approaches}
 
-Transitioning from the theoretical 3-op-amp topology to a physical implementation requires selecting an appropriate hardware architecture. To combat bulky bench top potentiostats,  two approaches to AFEs were developed. First, a discrete circuit using individual operational amplifiers. Second, utilising a fully integrated \ac{SoC} AFE, such as the AD5941. Each approach presents distinct engineering trade-offs which are summarised in Table~\ref{tab:afe_approaches}.
+Transitioning from the theoretical 3-op-amp topology to a physical implementation requires selecting an appropriate hardware architecture. To combat bulky benchtop potentiostats, two approaches to AFEs were developed. First, a discrete circuit using individual operational amplifiers. Second, utilising a fully integrated \ac{SoC} AFE, such as the AD5941. Each approach presents distinct engineering trade-offs which are summarised in Table~\ref{tab:afe_approaches}.
 
 \begin{table}[H]
     \footnotesize
@@ -245,7 +245,7 @@ Transitioning from the theoretical 3-op-amp topology to a physical implementatio
 \mysection{Survey of Existing Potentiostat Designs}{Survey of Existing Potentiostat Designs}
 \label{sec:survey_designs}
 
-The democratisation of electrochemical instrumentation has led to a rapid expansion of custom potentiostat designs. This section surveys the architectural evolution of these devices, the comparrison between them are summarised in Table~\ref{tab:design_comparison}.
+The democratisation of electrochemical instrumentation has led to a rapid expansion of custom potentiostat designs. This section surveys the architectural evolution of these devices, and the comparison between them is summarised in Table~\ref{tab:design_comparison}.
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
@@ -295,6 +295,6 @@ CheapStat \cite{rowe2011} showed that basic analytical electrochemistry was achi
 \label{sec:eis_afe_designs}
 \label{sec:selfhosted_webinterface}
 
-Integrated mixed-signal AFEs have largely replaced discrete op-amp circuits in recent designs. Systems such as ABE-Stat \cite{jenkins2019} and HunStat2 \cite{hunstat2_2025} characterise this generation by using \acp{SoC} such as the AD5941, they support techniques up to EIS with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2_2025}. HunStat2 replaced its predecessor HunStat \cite{hunstat2024}, which generated the waveform with the microcontroller's own 10-bit DAC and was limited to DC techniques. However, configuring the AFE requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022} and DM-Stat \cite{dmstat2024} host an embedded web server. Not every ESP32 design does this though. For example, the SaxStat \cite{saxstat2025} uses the ESP32 only as a USB serial bridge to a desktop application.
+Integrated mixed-signal AFEs have largely replaced discrete op-amp circuits in recent designs. Systems such as ABE-Stat \cite{jenkins2019} and HunStat2 \cite{hunstat2_2025} characterise this generation by using \acp{SoC} such as the AD5941; they support techniques up to EIS with sub-milliwatt power consumption, low noise and a small footprint \cite{hunstat2_2025}. HunStat2 replaced its predecessor HunStat \cite{hunstat2024}, which generated the waveform with the microcontroller's own 10-bit DAC and was limited to DC techniques. However, configuring the AFE requires complex register-level firmware, and these devices typically operate as data-loggers with no user interface, relying on raw serial output for analysis \cite{hunstat2_2025}. To remove the dependence on a companion app, ESP32-based designs such as NanoStat \cite{lee2022} and DM-Stat \cite{dmstat2024} host an embedded web server. Not every ESP32 design does this though. For example, the SaxStat \cite{saxstat2025} uses the ESP32 only as a USB serial bridge to a desktop application.
 
 These web-hosted designs are headless and cannot be operated without a second device. Early designs such as CheapStat included a basic display, but none of the surveyed systems combines an integrated AFE, a browser interface and a standalone onboard display. Such a dual-interface instrument would allow quick standalone measurements in the field while retaining web-based data access, and this is the gap addressed by this project.

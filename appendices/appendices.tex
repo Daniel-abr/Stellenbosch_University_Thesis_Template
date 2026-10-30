@@ -282,9 +282,7 @@ supply \cite{ad7714_ds}.
 The worst-case AVDD current step is the sum of all the subsystems of the
 AD5941 switching on at once \cite[p.~14]{ad5941_ds}, which is approximately
 \SI{10}{\milli\ampere}.
-% CHECK: page 14 of Rev. G is the reset / digital I/O table. Confirm the page
-% for the supply-current figures. Also, the ferrite bead section uses 10.1 mA
-% -- use one value throughout.
+
 The \SI{1.82}{\volt} reference has an AC PSRR of \SI{60}{\decibel}
 \cite[p.~11]{ad5941_ds}, which corresponds to supply noise being attenuated by
 a factor of about 1000. A \SI{10}{\milli\volt} supply disturbance therefore
@@ -384,17 +382,6 @@ as the more conservative of the two. The ADC draws a small pulse of charge
 from this reference during every conversion, and a larger capacitor holds more
 charge, so the reference voltage dips less with each pulse.
 
-% =====================================================================
-%  Appendix -- Bill of Materials
-%
-%  Add after \appendix with:   \input{appendix_bom}
-%  Referenced from environmental_analysis.tex as Appendix~\ref{app:bom}.
-%  Packages: booktabs, siunitx (as elsewhere) and xltabular, so add
-%      \usepackage{xltabular}
-%  to the preamble. The table breaks across pages.
-%  Generated from Openstat_BOM.xlsx (25 Oct 2026).
-% =====================================================================
-
 \newpage
 
 \section{Bill of Materials}
@@ -405,11 +392,8 @@ the suppliers' listed prices in rand excluding VAT, for the quantity ordered;
 items sold in packs or with a minimum order are costed at the full pack.
 Shipping and import duties are excluded. Suppliers are abbreviated as
 MR (MicroRobotics), DK (DigiKey), CM (Communica), RS (RS Components) and
-PW (PCBWay). Items marked $^{\dagger}$ are estimates: the resistors and
-capacitors marked Kit came from laboratory component kits and are costed at
-Communica's single-unit price for the same value (the \SI{12}{\pico\farad}
-at the nearest listed value, \SI{15}{\pico\farad}), and the PCB is costed
-from a PCBWay online quote of US\$30.89 for five boards at R16.59/US\$
+JLC (JLCPCB). Items marked $^{\dagger}$ are estimates. The PCB is costed
+from a JLCPCB online quote of US\$30.89 for five boards at R16.59/US\$
 (25~October~2026).
 
 {\footnotesize
@@ -478,7 +462,7 @@ from a PCBWay online quote of US\$30.89 for five boards at R16.59/US\$
   Veroboard, \SI{50}{\milli\metre}~$\times$~\SI{70}{\milli\metre} (pack of 4) & VERO5070 & MR & 1 & 20.00 & 20.00 \\
   \addlinespace
   \multicolumn{6}{@{}l}{\textit{PCB}} \\
-  Two-layer FR-4 PCB, \SI{150}{\milli\metre}~$\times$~\SI{50}{\milli\metre} (5 boards)$^{\dagger}$ & PCBWay & PW & 5 & 102.48 & 512.41 \\
+  Two-layer FR-4 PCB, \SI{150}{\milli\metre}~$\times$~\SI{50}{\milli\metre} (5 boards)$^{\dagger}$ & JLCPCB & JLC & 5 & 102.48 & 512.41 \\
   \midrule
   \multicolumn{5}{@{}l}{Subtotal (excl.\ VAT)} & 1\,936.04 \\
   \multicolumn{5}{@{}l}{VAT (\SI{15}{\percent})} & 290.41 \\
@@ -541,11 +525,9 @@ since $R_\Sigma \ll R_\mathrm{TIA}$, which gives Equation~\eqref{eq:rmin}.
 
 With $C_f$ fitted, $Z_f$ falls above $1/(2\pi R_\mathrm{TIA}C_f)$, so the
 noise gain falls from its plateau at \SI{-20}{\decibel} per decade and adds
-phase lead at the crossover. Because the approximations above lose accuracy
-when $f_c$ lies near $f_p$, the margins in Table~\ref{tab:pm} were computed by
-solving $|A(jf)/NG(jf)| = 1$ numerically with the full expression for
-$NG(s)$, including $C_f$.
+phase lead at the crossover.
 
+\newpage
 
 \section{Trace Widths}
 \label{app:trace_width}
@@ -580,8 +562,8 @@ widths are given in Table~\ref{tab:hw_trace_widths}.
     AD5941  & \SI{10}{\milli\ampere} & \SI{0.0005}{\milli\metre} (0.021~mil)
       & \SI{0.3}{\milli\metre} (11.8~mil) & \SI{1.00}{\ampere} \\
     Display & \SI{33}{\milli\ampere} & \SI{0.0027}{\milli\metre} (0.107~mil)
-      & \SI{0.3}{\milli\metre} (11.8~mil) & \SI{1.65}{\ampere} \\
-    % CHECK: a 0.3 mm trace carries 1.00 A (same as the AD5941 row), not 1.65 A.
+      & \SI{0.3}{\milli\metre} (11.8~mil) & \SI{1.00}{\ampere} \\
+
     ESP32   & \SI{1}{\ampere}        & \SI{0.3}{\milli\metre} (11.8~mil)
       & \SI{0.6}{\milli\metre} (23.6~mil) & \SI{1.65}{\ampere} \\
     \bottomrule
@@ -589,14 +571,14 @@ widths are given in Table~\ref{tab:hw_trace_widths}.
 \end{table}
 
 
-\section{Suitability of the Specified Analogue Front End}
+\section{Suitability of the Specified Analog Front End}
 \label{app:afe_choice}
 
 \begin{table}[H]
   \centering
   \small
   \renewcommand\tabularxcolumn[1]{p{#1}}
-  \caption{The specified AD5941 compared to alternative analogue front ends.}
+  \caption{The specified AD5941 compared to alternative analog front ends.}
   \label{tab:afe_choice}
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
@@ -624,7 +606,7 @@ widths are given in Table~\ref{tab:hw_trace_widths}.
 
 
 
-\section{Firmwarem, KiCad and Testing Scripts}
+\section{Firmware, KiCad and Testing Scripts}
 \label{app:git}
 
 \url{https://github.com/Daniel-abr}

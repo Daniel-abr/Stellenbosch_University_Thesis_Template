@@ -1,7 +1,7 @@
 \chapter{System Modelling and Design}
 \label{chap:modeling}
 
-This chapter models the measurement path of the OpenStat and uses the model to choose between the high-speed TIA (HSTIA) and the low-power TIA (LPTIA) of the AD5941. The conditions under which the chosen amplifier remains stable with an electrode connected is also discussed.
+This chapter models the measurement path of the OpenStat and uses the model to choose between the high-speed TIA (HSTIA) and the low-power TIA (LPTIA) of the AD5941. The conditions under which the chosen amplifier remains stable with an electrode connected are also discussed.
 
 
 \section{Signal Chain}
@@ -16,8 +16,8 @@ $I_\mathrm{end}$ (Section~\ref{sec:sw_sampling}).
 
 \begin{figure}[H]
   \centering
-  \caption{Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE, $Z_W$ is omitted because it only affects the low-frequency
-    response. Figure derrived from \cite{ad5941_ds}}
+  \caption{Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency
+    response. Figure derived from \cite{ad5941_ds}}
   \label{fig:signal_chain}
 \begin{circuitikz}[
     font=\footnotesize,
@@ -138,7 +138,7 @@ disconnects the output capacitors so that the potential can
 step quickly, and measures the WE current on the HSTIA
 \cite[Table~21, p.~38]{ad5941_ds}. The OpenStat follows this configuration.
 
-The LPTIA was not ruled out on speed: with a small feedback capacitor it can
+The LPTIA was not ruled out on speed; with a small feedback capacitor it can
 also follow a \SI{50}{\milli\second} pulse, and its larger gain resistors would give about three times finer current resolution (\SI{512}{\kilo\ohm} against \SI{160}{\kilo\ohm}). The HSTIA was nevertheless preferred for practical reasons. Its
 feedback capacitor $C_f$ is set in firmware \cite[p.~52]{ad5941_ds}, whereas
 the LPTIA uses an external capacitor fixed at assembly, so the compensation
@@ -188,7 +188,7 @@ so a margin of at least \SI{45}{\degree} requires $f_c \geq f_p$, or
 \end{equation}
 The margin is smallest on the largest gain resistor with the smallest series
 resistance. The datasheet does not give the GBW of the HSTIA, so a
-conservative \SI{1}{\mega\hertz} is assumed; a larger value only increases the
+conservative \SI{1}{\mega\hertz} is assumed; a larger value would only increase the
 margins. Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range, computed from the full loop gain. The full derivation is given in Appendix~\ref{app:tia}.
 
 \begin{table}[htbp]
@@ -209,4 +209,4 @@ margins. Table~\ref{tab:pm} gives the margin on the \SI{160}{\kilo\ohm} range, c
   \end{tabular}
 \end{table}
 
-With $C_f = \SI{31}{\pico\farad}$ on every range, the C220AT ($C_{dl} \approx \SIrange{1.3}{5}{\micro\farad}$, estimated from a typical \SIrange{10}{40}{\micro\farad\per\centi\metre\squared} \cite[Sec.~1.2]{bard2001} over its \SI{0.126}{\centi\metre\squared} working electrode) has a margin of at least \SI{44}{\degree} with no solution resistance and \SI{70}{\degree} with $R_u = \SI{100}{\ohm}$, and the dummy cell WE~A of Section~\ref{sec:randles_test} has \SI{53}{\degree}, consistent with its stable readings. Margins below \SI{20}{\degree} arise only near \SI{100}{\nano\farad} on the sensitive ranges, where the TIA rings briefly after each step. With $\zeta \approx \phi_\mathrm{PM}/100$ and $t_s \approx 4.6/(\zeta \cdot 2\pi f_c)$ \cite{c2}, the worst case settles to within \SI{1}{\percent} in about \SIrange{1}{2}{\milli\second}, long before the averaging window opens at least \SI{29}{\milli\second} after each edge at the default timing (Section~\ref{sec:sw_sampling}). Raising $C_f$ to \SI{63}{\pico\farad} would improve these margins with only a firmware change and is recommended as future work (Section~\ref{sec:future_work}).
+With $C_f = \SI{31}{\pico\farad}$ on every range, the C220AT ($C_{dl} \approx \SIrange{1.3}{5}{\micro\farad}$, estimated from a typical \SIrange{10}{40}{\micro\farad\per\centi\metre\squared} \cite[Sec.~1.2]{bard2001} over its \SI{0.126}{\centi\metre\squared} working electrode) has a margin of at least \SI{44}{\degree} with no solution resistance and \SI{70}{\degree} with $R_u = \SI{100}{\ohm}$, and the dummy cell WE~A of Section~\ref{sec:randles_test} has \SI{53}{\degree}, consistent with its stable readings. Margins below \SI{20}{\degree} arise only near \SI{100}{\nano\farad} on the sensitive ranges, where the TIA rings briefly after each step. With $\zeta \approx \phi_\mathrm{PM}/100$ and $t_s \approx 4.6/(\zeta \cdot 2\pi f_c)$ \cite{c2}, the worst case settles to within \SI{1}{\percent} in about \SIrange{1}{2}{\milli\second}, long before the averaging window opens. Raising $C_f$ to \SI{63}{\pico\farad} would improve these margins with only a firmware change and is recommended as future work (Section~\ref{sec:future_work}).

@@ -51,14 +51,14 @@
 \contentsline {subsection}{\numberline {4.6.3}Regulation}{21}{subsection.4.6.3}%
 \contentsline {subsection}{\numberline {4.6.4}Input Decoupling}{21}{subsection.4.6.4}%
 \contentsline {section}{\numberline {4.7}User Interface}{22}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Software Design}{23}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Software Overview}{23}{section.5.1}%
+\contentsline {chapter}{\numberline {5}Firmware Design}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Firmware Overview}{23}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Top-Level Program Flow}{24}{section.5.2}%
 \contentsline {section}{\numberline {5.3}DPV Measurement Sequence}{24}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Generating the Potential}{24}{subsection.5.3.1}%
 \contentsline {subsection}{\numberline {5.3.2}Scan Flow}{26}{subsection.5.3.2}%
 \contentsline {section}{\numberline {5.4}Pulse Sampling and Timing}{26}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Software Timing}{26}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.1}Firmware Timing}{26}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Averaging Window}{27}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.4.3}Placing Windows}{28}{subsection.5.4.3}%
 \contentsline {subsection}{\numberline {5.4.4}Limitations}{29}{subsection.5.4.4}%
@@ -81,44 +81,33 @@
 \contentsline {chapter}{\numberline {8}Conclusion and Future Work}{41}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Conclusion}{41}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Future Work}{41}{section.8.2}%
-\contentsline {chapter}{References}{42}{chapter*.39}%
+\contentsline {chapter}{References}{42}{chapter*.40}%
 \contentsline {chapter}{\numberline {A}Project planning schedule}{49}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Graduate Attributes}{50}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Complex Engineering Problem}{50}{appendix.B.1}%
-\contentsline {section}{\numberline {B.2}Problem Solving (GA~1)}{51}{appendix.B.2}%
-\contentsline {section}{\numberline {B.3}Application of Scientific and Engineering Knowledge (GA~2)}{51}{appendix.B.3}%
-\contentsline {section}{\numberline {B.4}Engineering Design (GA~3)}{52}{appendix.B.4}%
-\contentsline {section}{\numberline {B.5}Investigations, Experiments and Data Analysis (GA~4)}{53}{appendix.B.5}%
-\contentsline {section}{\numberline {B.6}Use of Engineering Tools (GA~5)}{53}{appendix.B.6}%
-\contentsline {section}{\numberline {B.7}Professional and Technical Communication (GA~6)}{54}{appendix.B.7}%
-\contentsline {section}{\numberline {B.8}Individual Work (GA~8)}{54}{appendix.B.8}%
-\contentsline {section}{\numberline {B.9}Independent Learning Ability (GA~9)}{54}{appendix.B.9}%
-\contentsline {section}{\numberline {B.10}Sustainable Development}{55}{appendix.B.10}%
-\contentsline {section}{\numberline {B.11}Critical Thinking}{55}{appendix.B.11}%
-\contentsline {section}{\numberline {B.12}Emerging Technologies}{55}{appendix.B.12}%
-\contentsline {chapter}{\numberline {C}Use of Artificial Intelligence Tools}{56}{appendix.C}%
-\contentsline {section}{\numberline {C.1}AI Work Declaration}{56}{appendix.C.1}%
-\contentsline {section}{\numberline {C.2}Own Work Declaration}{58}{appendix.C.2}%
-\contentsline {chapter}{\numberline {D}Additional Content}{59}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Capacitive Current Rejection in DPV}{59}{appendix.D.1}%
-\contentsline {section}{\numberline {D.2}Display and SD Card Specifications}{60}{appendix.D.2}%
-\contentsline {section}{\numberline {D.3}Power Management Subsystem Specifications}{60}{appendix.D.3}%
-\contentsline {section}{\numberline {D.4}Scan Flow and Timing Diagrams}{61}{appendix.D.4}%
-\contentsline {section}{\numberline {D.5}RTIA Calibration Constants and Resistors}{62}{appendix.D.5}%
-\contentsline {section}{\numberline {D.6}KiCad Schematic}{62}{appendix.D.6}%
-\contentsline {section}{\numberline {D.7}KiCad PCB}{63}{appendix.D.7}%
-\contentsline {section}{\numberline {D.8}Case Render}{64}{appendix.D.8}%
-\contentsline {section}{\numberline {D.9}AD5941 Capacitor Selection}{64}{appendix.D.9}%
-\contentsline {section}{\numberline {D.10}Supply Decoupling: \SI {100}{\nano \farad } and \SI {10}{\micro \farad }}{64}{appendix.D.10}%
-\contentsline {paragraph}{Target impedance.}{64}{paragraph*.48}%
-\contentsline {paragraph}{\SI {10}{\micro \farad }.}{65}{paragraph*.49}%
-\contentsline {paragraph}{\SI {100}{\nano \farad }.}{65}{paragraph*.50}%
-\contentsline {section}{\numberline {D.11}Internal Nodes: \SI {470}{\nano \farad } and \SI {4.7}{\micro \farad }}{65}{appendix.D.11}%
-\contentsline {paragraph}{\SI {470}{\nano \farad }.}{66}{paragraph*.51}%
-\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{66}{paragraph*.52}%
-\contentsline {section}{\numberline {D.12}Bill of Materials}{67}{appendix.D.12}%
-\contentsline {section}{\numberline {D.13}TIA Noise Gain with a Series Cell}{69}{appendix.D.13}%
-\contentsline {section}{\numberline {D.14}Trace Widths}{70}{appendix.D.14}%
-\contentsline {section}{\numberline {D.15}Suitability of the Specified Analogue Front End}{70}{appendix.D.15}%
-\contentsline {section}{\numberline {D.16}Firmwarem, KiCad and Testing Scripts}{71}{appendix.D.16}%
+\contentsline {chapter}{\numberline {C}Use of Artificial Intelligence (AI) Tools}{53}{appendix.C}%
+\contentsline {section}{\numberline {C.1}AI Work Declaration}{53}{appendix.C.1}%
+\contentsline {section}{\numberline {C.2}Own Work Declaration}{55}{appendix.C.2}%
+\contentsline {chapter}{\numberline {D}Additional Content}{57}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Capacitive Current Rejection in DPV}{57}{appendix.D.1}%
+\contentsline {section}{\numberline {D.2}Display and SD Card Specifications}{58}{appendix.D.2}%
+\contentsline {section}{\numberline {D.3}Power Management Subsystem Specifications}{58}{appendix.D.3}%
+\contentsline {section}{\numberline {D.4}Scan Flow and Timing Diagrams}{59}{appendix.D.4}%
+\contentsline {section}{\numberline {D.5}RTIA Calibration Constants and Resistors}{60}{appendix.D.5}%
+\contentsline {section}{\numberline {D.6}KiCad Schematic}{60}{appendix.D.6}%
+\contentsline {section}{\numberline {D.7}KiCad PCB}{61}{appendix.D.7}%
+\contentsline {section}{\numberline {D.8}Case Render}{62}{appendix.D.8}%
+\contentsline {section}{\numberline {D.9}AD5941 Capacitor Selection}{62}{appendix.D.9}%
+\contentsline {section}{\numberline {D.10}Supply Decoupling: \SI {100}{\nano \farad } and \SI {10}{\micro \farad }}{62}{appendix.D.10}%
+\contentsline {paragraph}{Target impedance.}{62}{paragraph*.60}%
+\contentsline {paragraph}{\SI {10}{\micro \farad }.}{63}{paragraph*.61}%
+\contentsline {paragraph}{\SI {100}{\nano \farad }.}{63}{paragraph*.62}%
+\contentsline {section}{\numberline {D.11}Internal Nodes: \SI {470}{\nano \farad } and \SI {4.7}{\micro \farad }}{63}{appendix.D.11}%
+\contentsline {paragraph}{\SI {470}{\nano \farad }.}{64}{paragraph*.63}%
+\contentsline {paragraph}{\SI {4.7}{\micro \farad }.}{64}{paragraph*.64}%
+\contentsline {section}{\numberline {D.12}Bill of Materials}{65}{appendix.D.12}%
+\contentsline {section}{\numberline {D.13}TIA Noise Gain with a Series Cell}{67}{appendix.D.13}%
+\contentsline {section}{\numberline {D.14}Trace Widths}{68}{appendix.D.14}%
+\contentsline {section}{\numberline {D.15}Suitability of the Specified Analog Front End}{68}{appendix.D.15}%
+\contentsline {section}{\numberline {D.16}Firmware, KiCad and Testing Scripts}{69}{appendix.D.16}%
 \contentsfinish 

@@ -52,10 +52,10 @@ M.~D. Dryden and A.~R. Wheeler, ``{DStat}: A versatile, open-source potentiostat
 G.~Hanrahan, D.~G. Patil, and J.~Wang, ``Electrochemical sensors for environmental monitoring: Design, development and applications,'' \emph{Journal of Environmental Monitoring}, vol.~6, no.~8, pp. 657--664, 2004.
 
 \bibitem[{PalmSens BV}(2026{\natexlab{a}})]{PalmSens4}
-{PalmSens BV}, ``Palmsens4 - compact, versatile and powerful (bi)potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/palmsens4/}, 2026, accessed: 2026-09-16.
+{PalmSens BV}, ``{PalmSens4} - compact, versatile and powerful (bi)potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/palmsens4/}, 2026, accessed: 2026-09-16.
 
 \bibitem[{Japan Part Sale}(2025)]{PalmSens4_price}
-{Japan Part Sale}, ``{PalmSens4} compact potentiostat galvanostat $\pm$10\,{V} 1\,{MHz} {EIS},'' \url{https://www.jpnpartsale.com/shop/palmsens4-compact-galvanostat-10v-1mhzeis/}, 2025, listed at US\$3340.00. Accessed: 2026-10-30.
+{Japan Part Sale}, ``{PalmSens4} compact potentiostat galvanostat $\pm$10\,{V} 1\,{MHz} {EIS},'' \url{https://www.jpnpartsale.com/shop/palmsens4-compact-galvanostat-10v-1mhzeis/}, 2025, listed at US\$3340.00, approximately R55\,400 at R16.59/US\$ (25~October~2026). Accessed: 2026-10-30.
 
 \bibitem[Temgoua et~al.(2023)Temgoua, Jiokeng, Tajeu, Deffo, Vomo, Dontsi, Njanja, and Tonlé]{Temgoua2023}
 R.~C.~T. Temgoua, S.~L.~Z. Jiokeng, K.~Y. Tajeu, G.~Deffo, L.~A. Vomo, F.~T. Dontsi, E.~Njanja, and I.~K. Tonlé, ``Perspective chapter: Sample preparation techniques for electrochemical analysis of pesticides and heavy metals in environmental and food samples,'' in \emph{Soil Contamination - Recent Advances and Future Perspectives}, A.~Mustafa and M.~Naveed, Eds.\hskip 1em plus 0.5em minus 0.4em\relax IntechOpen, sep 2023, \url{https://www.intechopen.com/chapters/87844}.
@@ -82,13 +82,13 @@ A.~J. Bard and L.~R. Faulkner, \emph{Electrochemical Methods: Fundamentals and A
 F.~Lisdat and D.~Sch{\"a}fer, ``The use of electrochemical impedance spectroscopy for biosensing,'' \emph{Analytical and Bioanalytical Chemistry}, vol. 391, no.~5, pp. 1555--1567, 2008.
 
 \bibitem[{Pine Research}(2024)]{pineresearch_dpv}
-{Pine Research}, ``Differential pulse voltammetry (dpv),'' 2024, \url{https://pineresearch.com/support-article/differential-pulse-voltammetry-dpv/}.
+{Pine Research}, ``Differential pulse voltammetry ({DPV}),'' 2024, \url{https://pineresearch.com/support-article/differential-pulse-voltammetry-dpv/}.
 
 \bibitem[{PalmSens}(2026{\natexlab{a}})]{palmsens_capacitive_current}
 {PalmSens}. (2026) Capacitive current. PalmSens BV. \url{https://www.palmsens.com/knowledgebase-article/capacitive-current/}.
 
 \bibitem[{PalmSens}(2026{\natexlab{b}})]{palmsens2026dpv}
-------, ``Differential pulse voltammetry (dpv),'' 2026, \url{https://www.palmsens.com/knowledgebase-article/differential-pulse-voltammetry-dpv/}. Accessed: \today.
+------, ``Differential pulse voltammetry ({DPV}),'' 2026, \url{https://www.palmsens.com/knowledgebase-article/differential-pulse-voltammetry-dpv/}. Accessed: \today.
 
 \bibitem[Vogt(2025)]{vogt_arv_sa_waters}
 B.~M. Vogt, ``Presence, dynamics, and risk assessment of antiretrovirals in {South African} waters,'' {PhD} thesis, North-West University, 2025, \url{https://repository.nwu.ac.za/items/cd81d881-0430-411a-bc29-501861f6dbb6}.
@@ -106,7 +106,7 @@ M.~L. Avramov-Ivi{\'c}, S.~D. Petrovi{\'c}, D.~{\v{Z}}. Mijin, and K.~M. Drljevi
 J.~G. Graeme, \emph{Photodiode Amplifiers: Op Amp Solutions}.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: McGraw-Hill Education, 1996.
 
 \bibitem[{Analog Devices}(2009{\natexlab{a}})]{adi_mt059}
-{Analog Devices}, ``Mt-059: Compensating for the effects of input capacitance on vfb and cfb op amps used in current-to-voltage converters,'' Analog Devices, Inc., Tutorial, 2009.
+{Analog Devices}, ``{MT-059}: Compensating for the effects of input capacitance on {VFB} and {CFB} op amps used in current-to-voltage converters,'' Analog Devices, Inc., Tutorial, 2009.
 
 \bibitem[Vamos and Kertesz(2024)]{hunstat2024}
 I.~Vamos and V.~Kertesz, ``{HunStat} -- a simple and low-cost potentiostat for analytical and educational purposes,'' \emph{Analytical Methods}, vol.~16, no.~25, pp. 4198--4204, 2024.
@@ -118,13 +118,13 @@ I.~Vamos, R.~Morrison, S.~Michaletzky, and V.~Kertesz, ``{HunStat2} -- a simple 
 S.~C.-H. Lee and P.~J. Burke, ``{NanoStat}: An open source, fully wireless potentiostat,'' \emph{Electrochimica Acta}, vol. 422, p. 140481, May 2022.
 
 \bibitem[{PalmSens BV}(2026{\natexlab{b}})]{MultiEmStat4}
-{PalmSens BV}, ``Multiemstat4 - multi-channel potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/multi-emstat4/}, 2026, accessed: 2026-09-16.
+{PalmSens BV}, ``{MultiEmStat4} - multi-channel potentiostat / galvanostat / impedance analyzer,'' \url{https://www.palmsens.com/product/multi-emstat4/}, 2026, accessed: 2026-09-16.
 
 \bibitem[{Metrohm Autolab B.V.}(2026)]{MetrohmAutolab}
-{Metrohm Autolab B.V.}, ``Metrohm autolab: Leading electrochemical instruments for research,'' \url{https://www.metrohm-autolab.com/}, 2026, accessed: 2026-09-16.
+{Metrohm Autolab B.V.}, ``{Metrohm Autolab}: Leading electrochemical instruments for research,'' \url{https://www.metrohm-autolab.com/}, 2026, accessed: 2026-09-16.
 
 \bibitem[{PalmSens BV}(2023)]{palmsens2023}
-{PalmSens BV}, ``Emstat4s potentiostat/galvanostat technical specifications,'' PalmSens BV, Houten, The Netherlands, Tech. Rep., 2023, \url{https://www.palmsens.com}.
+{PalmSens BV}, ``{EmStat4S} potentiostat/galvanostat technical specifications,'' PalmSens BV, Houten, The Netherlands, Tech. Rep., 2023, \url{https://www.palmsens.com}.
 
 \bibitem[Jenkins et~al.(2019)Jenkins, Lee, Jun, Reyes-De-Corcuera, and McLamore]{jenkins2019}
 D.~M. Jenkins, B.~E. Lee, S.~Jun, J.~Reyes-De-Corcuera, and E.~S. McLamore, ``{ABE-Stat}, a fully open-source and versatile wireless potentiostat project including electrochemical impedance spectroscopy,'' \emph{Journal of The Electrochemical Society}, vol. 166, no.~9, pp. B3056--B3065, 2019.
@@ -169,7 +169,7 @@ W.~Kester, J.~Bryant, and M.~Byrne, ``{MT-031}: Grounding data converters and so
 H.~W. Ott, \emph{Electromagnetic Compatibility Engineering}.\hskip 1em plus 0.5em minus 0.4em\relax Hoboken, NJ, USA: Wiley, 2009.
 
 \bibitem[Pithadia and More(2013)]{pithadia2013grounding}
-S.~Pithadia and S.~More, ``Grounding in mixed-signal systems demystified, {Part} 1,'' \emph{Analog Applications Journal}, 2013, texas Instruments, 1Q 2013, SLYT499.
+S.~Pithadia and S.~More, ``Grounding in mixed-signal systems demystified, {Part} 1,'' \emph{Analog Applications Journal}, 2013, {Texas Instruments}, 1Q 2013, SLYT499.
 
 \bibitem[Ott(2001)]{ott2001partitioning}
 H.~W. Ott, ``Partitioning and layout of a mixed-signal {PCB},'' \emph{Printed Circuit Design}, Jun. 2001.
@@ -199,7 +199,7 @@ H.~W. Ott, ``Partitioning and layout of a mixed-signal {PCB},'' \emph{Printed Ci
 {Alps Alpine}, \emph{{EC11} Series: 11\,mm Size Metal Shaft Type Incremental Encoder}, Alps Alpine Co., Ltd., data sheet.
 
 \bibitem[{Metrohm DropSens}(2026)]{metrohm_c220at}
-{Metrohm DropSens}, ``Screen-printed gold electrode (aux.: Au; ref.: Ag) / ink at / work in solution, {DRP-C220AT},'' \url{https://www.metrohm.com/en/products/d/rp-c/drp-c220at-u75.html}, 2026, accessed: 2026-10-13.
+{Metrohm DropSens}, ``Screen-printed gold electrode (aux.: Au; ref.: Ag) / ink {AT} / work in solution, {DRP-C220AT},'' \url{https://www.metrohm.com/en/products/d/rp-c/drp-c220at-u75.html}, 2026, accessed: 2026-10-13.
 
 \bibitem[{Siglent Technologies}(2025)]{siglent_sds1000xe}
 {Siglent Technologies}, ``{SDS1000X-E} series super phosphor oscilloscope data sheet,'' \url{https://int.siglent.com/u_file/download/25_04_27/SDS1000X-E_DataSheet_EN04H.pdf}, 2025, rev. EN04H. DC gain accuracy $\leq\pm$3.0\,\% (5\,mV/div to 10\,V/div); timebase accuracy $\pm$25\,ppm. Accessed: 2026-10-14.
@@ -223,12 +223,12 @@ L.~Robson, I.~E.~J. Barnhoorn, and G.~M. Wagenaar, ``The potential effects of ef
 
 \bibitem[{Department of Forestry, Fisheries and the Environment}(2020)]{env_epr2020}
 \BIBentryALTinterwordspacing
-{Department of Forestry, Fisheries and the Environment}, ``Extended producer responsibility scheme for the electrical and electronic equipment sector, 2020 ({GN} 1185 of 2020), under the national environmental management: Waste act 59 of 2008,'' 2020, in force 5 May 2021. [Online]. Available: \url{https://lawlibrary.org.za/akn/za/act/gn/2020/1185/eng@2021-05-05}
+{Department of Forestry, Fisheries and the Environment}, ``Extended producer responsibility scheme for the electrical and electronic equipment sector, 2020 ({GN} 1185 of 2020), under the {National Environmental Management: Waste Act} 59 of 2008,'' 2020, in force 5 May 2021. [Online]. Available: \url{https://lawlibrary.org.za/akn/za/act/gn/2020/1185/eng@2021-05-05}
 \BIBentrySTDinterwordspacing
 
 \bibitem[{Department of Forestry, Fisheries and the Environment}(2026)]{env_dffe_gef2024}
 \BIBentryALTinterwordspacing
-------, ``South africa's 2024 grid emission factors report,'' Government Gazette No.~55353, Government Notice No.~7891, 11 September 2026, Sep. 2026, nGGEF = 0.960 tCO2e/MWh. [Online]. Available: \url{https://www.gov.za/sites/default/files/gcis_document/202609/55353gon7891.pdf}
+------, ``{South Africa's} 2024 grid emission factors report,'' Government Gazette No.~55353, Government Notice No.~7891, 11 September 2026, Sep. 2026, {NGGEF} = 0.960 tCO2e/MWh. [Online]. Available: \url{https://www.gov.za/sites/default/files/gcis_document/202609/55353gon7891.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem[Laborda et~al.(2014)Laborda, Gonz{\'a}lez, and Molina]{Laborda2014}

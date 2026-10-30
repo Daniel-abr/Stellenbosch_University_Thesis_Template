@@ -8,30 +8,31 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Randles equivalent circuit modelling the electrochemical cell interface.}}{6}{figure.caption.12}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Waveform profile for DPV. Grey blocks represent the current sampling windows. Adapted from \cite {palmsens2026dpv}.}}{7}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE, $Z_W$ is omitted because it only affects the low-frequency response. Diagram derrived from \cite {ad5941_ds}}}{12}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Measurement signal chain of the OpenStat. The Randles Cell has $R_s$ split at the RE into the part compensated by the control loop, $R_s - R_u$, and the uncompensated resistance $R_u$ between the RE and WE; $Z_W$ is omitted because it only affects the low-frequency response. Figure derived from \cite {ad5941_ds}}}{12}{figure.caption.16}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces OpenStat user interfaces. (a) Physical interface, shown connected to the Randles test circuits. (b) Web interface displaying a live voltammogram.}}{22}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces PCB copper layout, with the digital region at the top and the analog region at the bottom.}}{19}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces OpenStat user interfaces. (a) Physical interface, shown connected to the Randles test circuits. (b) Web interface displaying a live voltammogram.}}{22}{figure.caption.22}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Software structure. Arrows show the direction of calls or data.}}{23}{figure.caption.22}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Top-level program flow, start-up sequence (left) and the cooperative main loop (right).}}{25}{figure.caption.23}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces One DPV step with the default timing. Shaded bands show the two averaging windows.}}{28}{figure.caption.25}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Automatic selection of the TIA range before a scan.}}{30}{figure.caption.26}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Firmware structure. Arrows show the direction of calls or data.}}{23}{figure.caption.23}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Top-level program flow, start-up sequence (left) and the cooperative main loop (right).}}{25}{figure.caption.24}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces One DPV step with the default timing. Shaded bands show the two averaging windows.}}{28}{figure.caption.26}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Automatic selection of the TIA range before a scan.}}{30}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Excitation waveform measured with the oscilloscope. (a) The complete staircase. (b) One cycle with the measured quantities. (c) Height of every step against 9 and 10 LSB of the AD5941 12-bit DAC.}}{32}{figure.caption.28}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces DPV scans of the dummy cell WE~C (Left) and Cell~3 (Right) from \SIrange {0.8}{1.3}{\volt }.}}{35}{figure.caption.32}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Salt solution measured by each potentiostat.}}{36}{figure.caption.33}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Ferricyanide DPV scans on the same drop, OpenStat{} run against PalmSens4 run.}}{37}{figure.caption.35}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces The three ferricyanide pairs. (a) Peak height of the OpenStat{} against the PalmSens4. (b) OpenStat{} testing setup, either solution applied to the SPE by mechanical pipette.}}{38}{figure.caption.36}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Gantt chart for the project planning schedule.}}{49}{figure.caption.40}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Excitation waveform measured with the oscilloscope. (a) The complete staircase. (b) One cycle with the measured quantities. (c) Height of every step against 9 and 10 LSB of the AD5941 12-bit DAC.}}{32}{figure.caption.29}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces DPV scans of the dummy cell WE~C (Left) and Cell~3 (Right) from \SIrange {0.8}{1.3}{\volt }.}}{35}{figure.caption.33}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Salt solution measured by each potentiostat.}}{36}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Ferricyanide DPV scans on the same drop, OpenStat{} run against PalmSens4 run.}}{37}{figure.caption.36}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces The three ferricyanide pairs. (a) Peak height of the OpenStat{} against the PalmSens4. (b) OpenStat{} testing setup, either solution applied to the SPE by mechanical pipette.}}{38}{figure.caption.37}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Flow of one DPV scan.}}{61}{figure.caption.43}%
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Step routine. $t_\text {b} = T - t_\text {p}$ is the base dwell.}}{61}{figure.caption.43}%
-\contentsline {figure}{\numberline {D.3}{\ignorespaces The KiCad schematic for the potentiostat.}}{62}{figure.caption.45}%
-\contentsline {figure}{\numberline {D.4}{\ignorespaces The KiCad PCB for the potentiostat. (a) Copper layout. (b) 3D render showing the placed components.}}{63}{figure.caption.46}%
-\contentsline {figure}{\numberline {D.5}{\ignorespaces The case render for the potentiostat.}}{64}{figure.caption.47}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Gantt chart for the project planning schedule.}}{49}{figure.caption.41}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Flow of one DPV scan.}}{59}{figure.caption.55}%
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Step routine. $t_\text {b} = T - t_\text {p}$ is the base dwell.}}{59}{figure.caption.55}%
+\contentsline {figure}{\numberline {D.3}{\ignorespaces The KiCad schematic for the potentiostat.}}{60}{figure.caption.57}%
+\contentsline {figure}{\numberline {D.4}{\ignorespaces The KiCad PCB for the potentiostat. (a) Copper layout. (b) 3D render showing the placed components.}}{61}{figure.caption.58}%
+\contentsline {figure}{\numberline {D.5}{\ignorespaces The case render for the potentiostat.}}{62}{figure.caption.59}%
 \contentsfinish 
